@@ -1,6 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Ethiopic:wght@200;300;400;500;600&family=Roboto+Condensed:wght@300;400;700&display=swap');
 @tailwind base;
 
 /* Write your own custom base styles here */
+html {
+	@apply scroll-smooth;
+}
+
+.font-noto {
+	font-family: 'Noto Serif Ethiopic', serif;
+}
 
 /* Start purging... */
 @tailwind components;
@@ -15,90 +23,326 @@
 /* Your own custom utilities */
 
 .has-text-align-left {
-  @apply text-left;
+	@apply text-left;
 }
 
 .has-text-align-center {
-  @apply text-center;
+	@apply text-center;
 }
 
 .has-text-align-right {
-  @apply text-right;
+	@apply text-right;
 }
 
 .has-large-font-size {
-  @apply text-4xl;
+	@apply text-4xl;
 }
 
 .alignfull {
-  @apply w-screen relative;
+	@apply relative w-screen;
 
-  left: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
-  max-width: 100vw;
-  right: 50%;
+	left: 50%;
+	margin-left: -50vw;
+	margin-right: -50vw;
+	max-width: 100vw;
+	right: 50%;
 }
 
 .wp-block-image img {
-  @apply max-w-full mt-2;
+	@apply max-w-full mt-2;
 }
 .wp-block-image.aligncenter {
-  @apply text-center;
+	@apply text-center;
 }
 .wp-block-image.alignfull img,
 .wp-block-image.alignwide img {
-  @apply w-full;
+	@apply w-full;
 }
 .wp-block-image .alignleft,
 .wp-block-image .alignright,
 .wp-block-image .aligncenter,
 .wp-block-image.is-resized {
-  @apply table ml-0 mr-0;
+	@apply table ml-0 mr-0;
 }
 .wp-block-image .alignleft > figcaption,
 .wp-block-image .alignright > figcaption,
 .wp-block-image .aligncenter > figcaption,
 .wp-block-image.is-resized > figcaption {
-  @apply table-caption;
+	@apply table-caption;
 
-  caption-side: bottom;
+	caption-side: bottom;
 }
 
 .wp-block-image .alignleft {
-  @apply float-left mr-4;
+	@apply float-left mr-4;
 }
 .wp-block-image .alignright {
-  @apply float-right ml-4;
+	@apply float-right ml-4;
 }
 .wp-block-image .aligncenter {
-  @apply m-auto;
+	@apply m-auto;
 }
 
 .wp-block-button a,
 .wp-block-file a.wp-block-file__button {
-  @apply bg-blue-500 text-white no-underline py-2 px-4;
+	@apply px-4 py-2 text-white no-underline bg-blue-500;
 }
 
 .wp-block-button a:hover,
 .wp-block-file a.wp-block-file__button:hover {
-  @apply bg-blue-400 cursor-pointer;
+	@apply bg-blue-400 cursor-pointer;
 }
 
 .wp-block-file a:first-of-type {
-  @apply mr-4;
+	@apply mr-4;
 }
 
 .wp-block-cover {
-  @apply flex flex-wrap justify-center items-center bg-cover bg-center overflow-hidden;
+	@apply flex flex-wrap items-center justify-center overflow-hidden bg-center bg-cover;
 
-  min-height: 430px;
+	min-height: 430px;
 }
 
 .wp-block-verse {
-  @apply font-sans;
+	@apply font-sans;
 }
 
 .wp-block-media-text {
-  @apply grid grid-cols-2 gap-4;
+	@apply grid grid-cols-2 gap-4;
+}
+
+/* tab section */
+.tab {
+	position: relative;
+	width: 100%;
+	max-height: 50px;
+	text-align: center;
+	background: #fff;
+	padding: 15px 15px;
+	display: inline-block;
+	color: #0b416c;
+	border-right: 1px solid #d7d7d7;
+}
+.tab::before {
+	content: '';
+	position: absolute;
+	width: 100%;
+	height: 0px;
+	left: 0;
+	top: 0px;
+	background-color: #052844;
+	transition: 0.3s;
+}
+
+.tabSelected {
+	background-color: #052844;
+	color: #fff;
+	padding-bottom: 25px;
+}
+
+.tabSelected::before {
+	height: 16px;
+	/* top: -15px; */
+	@apply md:-top-4;
+}
+
+.breadcrumb__list {
+	display: flex;
+	padding: 16px;
+}
+.breadcrumb__link {
+	padding-left: 4px;
+}
+
+/* Dynamic page */
+.parish-profile-image {
+	@apply mb-10 overflow-hidden rounded-lg lg:w-1/2 lg:mb-0;
+}
+
+.parish-profile-content {
+	@apply flex flex-col flex-wrap -mb-10 lg:w-1/2 lg:text-left lg:p-6;
+}
+.Space-y-6 {
+	@apply space-y-6;
+}
+.xl-Space-x-4 {
+	@apply xl:space-x-4;
+}
+
+.Rotate-180 {
+	@apply mr-2 rotate-180;
+}
+/* YouTube play Icon hide */
+
+.ytp-cued-thumbnail-overlay button svg {
+	@apply hidden;
+}
+.ytp-large-play-button {
+	@apply hidden;
+}
+
+.ytp-cued-thumbnail-overlay button {
+	@apply hidden;
+}
+.ytp-large-play-button .ytp-button .ytp-large-play-button-red-bg button svg {
+	@apply bg-slate-400;
+}
+
+.html5-video-player svg {
+	@apply hidden;
+}
+
+.ytp-large-play-button-red-bg .ytp-large-play-button-bg {
+	@apply hidden;
+}
+
+/* search box */
+
+#searchbox {
+	flex-grow: 0;
+	margin-bottom: 8px;
+}
+
+#searchbox,
+#stats {
+	flex-grow: 0;
+}
+
+.ais-SearchBox {
+	position: relative;
+	height: auto;
+	width: 100%;
+}
+
+.ais-SearchBox-submit {
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin: 12px;
+	cursor: pointer;
+
+	display: block;
+	padding-top: 3px;
+	padding-left: 18px;
+}
+
+.ais-SearchBox-submit svg {
+	width: 15px;
+	height: 15px;
+	display: block;
+}
+
+.ais-SearchBox-submit svg {
+	fill: #858fd7;
+}
+
+.ais-SearchBox-input {
+	width: 100%;
+	padding: 14px 16px 14px 40px;
+	font-weight: normal;
+	border: none;
+	font-family: inherit;
+	line-height: 0;
+	font-size: inherit;
+	-webkit-appearance: none;
+	appearance: none;
+}
+
+.ais-Highlight-highlighted,
+.ais-Snippet-highlighted {
+	font-style: normal;
+	font-weight: bold;
+	background-color: gold;
+}
+
+.ais-SearchBox-form {
+	@apply w-full px-4 mb-2;
+}
+.ais-SearchBox-input {
+	@apply border rounded-md bg-slate-100;
+}
+/* .ais-SearchBox-submit .ais-SearchBox-submitIcon {
+  @apply mr-4;
+} */
+.ais-SearchBox-reset {
+	@apply hidden;
+}
+.ais-Hits .ais-Hits-list {
+	@apply mb-6 space-y-6;
+}
+
+/* Pagination */
+
+#pagination {
+	order: 1;
+}
+
+.ais-Pagination-list {
+	display: flex;
+	margin: 0 0 16px;
+	padding: 0;
+	background: none;
+	list-style: none;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	border: none;
+	box-shadow: none;
+	flex-wrap: wrap;
+}
+
+.ais-Pagination-link {
+	display: block;
+}
+
+.ais-Pagination-item,
+.ais-Pagination-item--disabled {
+	flex: 0 0 40px;
+	width: auto;
+	height: auto;
+	margin: 4px;
+	background-color: #5468ff;
+	list-style-image: none;
+	list-style-position: outside;
+	list-style-type: none;
+	text-align: center;
+	border-radius: 4px;
+	transition: all 0.1s linear;
+}
+
+.ais-Pagination-item--disabled {
+	display: none;
+}
+
+.ais-Pagination-item:hover,
+.ais-Pagination-item--selected {
+	background-color: #3a46a1;
+}
+
+.ais-Pagination-item .ais-Pagination-link,
+.ais-Pagination-item--disabled .ais-Pagination-link {
+	text-decoration: none;
+	color: #fff;
+	line-height: 32px;
+}
+
+.ais-PoweredBy {
+	@apply flex;
+}
+.ais-PoweredBy .ais-PoweredBy-logo {
+	@apply h-5;
+}
+
+/* Audio player */
+
+.rhap_container {
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	line-height: 1;
+	font-family: inherit;
+	width: 100%;
+	padding: 10px 15px;
+	/* background-color: #fff; */
+	/* box-shadow: 0 0 3px 0 rgb(0 0 0 / 20%); */
 }
