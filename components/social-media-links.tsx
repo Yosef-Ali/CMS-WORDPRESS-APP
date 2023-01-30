@@ -6,67 +6,39 @@ import {
 	YouTubeIcon,
 } from './icons';
 
-export default function SocialMediaLinks() {
+type ColorProps = { color?: string };
+
+function IconWrapper({ color, link, title, children }) {
+	return (
+		<li>
+			<a
+				href={link}
+				rel='noopener noreferrer'
+				target='_blank'
+				className={`transition text-${color} hover:text-${color}/75`}
+			>
+				<span className='sr-only'>{title}</span>
+				{children}
+			</a>
+		</li>
+	);
+}
+
+export default function SocialMediaLinks({ color = 'primary' }: ColorProps) {
 	return (
 		<ul className='flex justify-center gap-6 mt-8 md:gap-8 sm:justify-start'>
-			<li>
-				<a
-					href='/'
-					rel='noopener noreferrer'
-					target='_blank'
-					className='transition text-primary hover:text-primary/75'
-				>
-					<span className='sr-only'>Facebook</span>
-					<FacebookIcon />
-				</a>
-			</li>
-
-			<li>
-				<a
-					href='/'
-					rel='noopener noreferrer'
-					target='_blank'
-					className='transition text-primary hover:text-primary/75'
-				>
-					<span className='sr-only'>Instagram</span>
-					<InstagramIcon />
-				</a>
-			</li>
-
-			<li>
-				<a
-					href='/'
-					rel='noopener noreferrer'
-					target='_blank'
-					className='transition text-primary hover:text-primary/75'
-				>
-					<span className='sr-only'>Twitter</span>
-					<TwitterIcon />
-				</a>
-			</li>
-
-			<li>
-				<a
-					href='/'
-					rel='noopener noreferrer'
-					target='_blank'
-					className='transition text-primary hover:text-primary/75'
-				>
-					<span className='sr-only'>YouTube</span>
-					<YouTubeIcon />
-				</a>
-			</li>
-			<li>
-				<a
-					href='/'
-					rel='noopener noreferrer'
-					target='_blank'
-					className='transition text-primary hover:text-primary/75'
-				>
-					<span className='sr-only'>Telegram</span>
-					<TelegramIcon />
-				</a>
-			</li>
+			<IconWrapper color={color} link={'/'} title='Facebook'>
+				<FacebookIcon />
+			</IconWrapper>
+			<IconWrapper color={color} link={'/'} title='Instagram'>
+				<InstagramIcon />
+			</IconWrapper>
+			<IconWrapper color={color} link={'/'} title='Twitter'>
+				<TwitterIcon />
+			</IconWrapper>
+			<IconWrapper color={color} link={'/'} title='YouTube'>
+				<YouTubeIcon />
+			</IconWrapper>
 		</ul>
 	);
 }

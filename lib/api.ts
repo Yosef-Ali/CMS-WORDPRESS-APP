@@ -43,6 +43,7 @@ export async function getAllPostsForHome(preview) {
             title
             excerpt
             slug
+            databaseId
             date
             featuredImage {
               node {
@@ -62,6 +63,136 @@ export async function getAllPostsForHome(preview) {
           }
         }
       }
+      events(first: 3, where: {orderby: {field: DATE, order: DESC}}) {
+        edges {
+          node {
+            databaseId
+            title
+            content
+            events {
+                startingDate
+                endingDate
+            }
+          }
+        }
+      }
+      featuredStories(first: 3, where: {orderby: {field: DATE, order: DESC}}) {
+        edges {
+          node {
+            databaseId
+            title
+            content
+          }
+        }
+      }
+      allWhoWeAre(first: 4, where: {orderby: {field: DATE, order: ASC}}) {
+        edges {
+          node {
+            title
+            databaseId
+            featuredImage {
+              node {
+                sourceUrl
+              }
+            }
+            content
+          }
+        }
+      }
+      podcasts( where: {orderby: {field: DATE, order: DESC}, categoryName: "Podcast"},) {
+        edges {
+          node {
+            databaseId
+            title
+            content
+            featuredImage {
+              node {
+                sourceUrl
+              }
+            }
+            audioUrl {
+              audiourl {
+                mediaItemUrl
+              }
+            }
+          }
+        }
+      }
+      daleyReading: posts(
+        where: {categoryName: "Daley Reading", orderby: {field: DATE, order: DESC}, onlySticky: true}
+          first: 1
+        ) {
+          edges {
+            node {
+              databaseId
+              title
+            }
+          }
+      }
+      catholicTVs(
+          where: {categoryName: "Catholic Tv News", orderby: {field: DATE, order: DESC},}
+          first: 100
+        ) {
+          edges {
+            node {
+              databaseId
+              title
+              content
+              date
+              catholictvnews {
+                youtubLink
+              }
+              featuredImage {
+                node {
+                  sourceUrl
+                }
+              }
+            }
+          }
+      }
+      ourSpotlight:posts(where: {onlySticky: true, orderby: {field: DATE, order: DESC}, categoryName: "ourSpotlight"}) {
+        edges {
+          node {
+            title
+            databaseId
+            content
+            featuredImage {
+              node {
+                sourceUrl
+              }
+            }
+          }
+        }
+      }
+      blurbPosts:posts(
+        where: {onlySticky: true, orderby: {field: DATE, order: DESC}, categoryName: "blurb"}
+        first: 3
+      ) {
+        edges {
+          node {
+            title
+            content
+            databaseId
+          }
+        }
+      }
+      popeMessage(first: 1, where: {orderby: {field: DATE, order: DESC}}) {
+        edges {
+          node {
+            databaseId
+            title
+            content
+            featuredImage {
+              node {
+                sourceUrl
+              }
+            }
+            popeMessages {
+              link
+            }
+          }
+        }
+      }
     }
   `,
     {
@@ -71,8 +202,7 @@ export async function getAllPostsForHome(preview) {
       },
     }
   )
-
-  return data?.posts
+  return data
 }
 
 export async function getPostAndMorePosts(slug, preview, previewData) {
