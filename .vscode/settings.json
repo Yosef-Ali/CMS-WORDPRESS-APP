@@ -1,0 +1,45 @@
+{
+  "breadcrumbs.enabled": false,
+
+  "editor.tabSize": 2,
+  "editor.wordWrap": "on",
+  "editor.lineNumbers": "on",
+  "editor.codeLens": false,
+  "editor.folding": true,
+  "editor.glyphMargin": false,
+  "editor.formatOnSave": true,
+
+  "editor.minimap.enabled": false,
+  "editor.cursorBlinking": "blink",
+  "editor.renderWhitespace": "none",
+  "editor.suggestSelection": "first",
+  "editor.guides.indentation": false,
+  "editor.renderControlCharacters": false,
+  "editor.cursorSmoothCaretAnimation": "on",
+  "editor.bracketPairColorization.enabled": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.wordSeparators": "/\\()\"':,.;<>~!@#$%^&*|+=[]{}`?-",
+  "editor.renderLineHighlight": "all",
+
+  "editor.fontSize": 20.5,
+  "editor.fontWeight": "400",
+  "editor.fontLigatures": true,
+  "terminal.integrated.fontSize": 16.5,
+  "terminal.integrated.fontWeight": "300",
+  "terminal.integrated.fontWeightBold": "300",
+  "workbench.fontAliasing": "antialiased",
+  //"editor.fontFamily": "Iosevka Custom",
+  //"terminal.integrated.fontFamily": "Iosevka Custom Extended",
+
+  "explorer.compactFolders": false,
+
+  "files.trimTrailingWhitespace": true,
+  "files.exclude": {
+    "**/node_modules": true,
+    "**/package-lock.json": true,
+    // Hide js files after running tsc.
+    "**/*.js": { "when": "$(basename).ts" }
+  },
+  "editor.guides.bracketPairs": "active",
+  "zenMode.hideLineNumbers": false
+}

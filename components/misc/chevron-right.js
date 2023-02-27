@@ -1,4 +1,4 @@
-import * as React from "react"
+import * as React from "react";
 
 export default function ChevronRight(props) {
   return (
@@ -13,5 +13,5 @@ export default function ChevronRight(props) {
     >
       <path d="M5 12h14M12 5l7 7-7 7"></path>
     </svg>
-  )
+  );
 }

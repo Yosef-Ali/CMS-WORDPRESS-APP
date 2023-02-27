@@ -1,20 +1,20 @@
-import React from "react"
+import React from "react";
 
 export default function Mass(props) {
-  const { parishs: parish } = props
-  console.log("propsM", props)
+  const { parishs: parish } = props;
+  console.log("propsM", props);
   return (
-    <div className="flex flex-col mb-10 lg:items-start">
-      <div className="inline-flex items-center justify-center w-12 h-12 mb-5 rounded-full text-black/70 bg-black/10">
+    <div className="mb-10 flex flex-col lg:items-start">
+      <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-full bg-black/10 text-black/70">
         <MassIcon />
       </div>
       <div className="flex-grow">
-        <h2 className="mb-3 text-lg font-medium text-gray-900 title-font">
+        <h2 className="title-font mb-3 text-lg font-medium text-gray-900">
           <span className="mr-4">Mass:</span>
           {parish.mass}
         </h2>
         <div className="flex">
-          <div className="inline-flex items-center justify-center mb-4 rounded-full w-7 h-7 text-black/70 bg-black/10">
+          <div className="mb-4 inline-flex h-7 w-7 items-center justify-center rounded-full bg-black/10 text-black/70">
             <TimeIcon />
           </div>
 
@@ -25,7 +25,7 @@ export default function Mass(props) {
         </div>
 
         <div className="flex">
-          <div className="inline-flex items-center justify-center mb-5 rounded-full w-7 h-7 text-black/70 bg-black/10">
+          <div className="mb-5 inline-flex h-7 w-7 items-center justify-center rounded-full bg-black/10 text-black/70">
             <TimeIcon />
           </div>
           <span className="ml-2 text-base leading-relaxed">
@@ -35,7 +35,7 @@ export default function Mass(props) {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 function MassIcon() {
@@ -48,7 +48,7 @@ function MassIcon() {
         fill="currentColor"
       />
     </svg>
-  )
+  );
 }
 
 function TimeIcon() {
@@ -59,7 +59,7 @@ function TimeIcon() {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className="w-5 h-5"
+      className="h-5 w-5"
     >
       <path
         strokeLinecap="round"
@@ -67,5 +67,5 @@ function TimeIcon() {
         d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"
       />
     </svg>
-  )
+  );
 }

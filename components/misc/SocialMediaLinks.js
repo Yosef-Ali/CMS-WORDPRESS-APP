@@ -1,14 +1,14 @@
-import React from "react"
+import React from "react";
 
 export default function SocialMediaLinks() {
   return (
-    <ul className="flex justify-center gap-6 mt-8 md:gap-8 sm:justify-start">
+    <ul className="mt-8 flex justify-center gap-6 sm:justify-start md:gap-8">
       <li>
         <a
           href="/"
           rel="noopener noreferrer"
           target="_blank"
-          className="transition text-secondary hover:text-secondary/75"
+          className="text-secondary transition hover:text-secondary/75"
         >
           <span className="sr-only">Facebook</span>
           <FacebookIcon />
@@ -20,7 +20,7 @@ export default function SocialMediaLinks() {
           href="/"
           rel="noopener noreferrer"
           target="_blank"
-          className="transition text-secondary hover:text-secondary/75"
+          className="text-secondary transition hover:text-secondary/75"
         >
           <span className="sr-only">Instagram</span>
           <InstagramIcon />
@@ -32,7 +32,7 @@ export default function SocialMediaLinks() {
           href="/"
           rel="noopener noreferrer"
           target="_blank"
-          className="transition text-secondary hover:text-secondary/75"
+          className="text-secondary transition hover:text-secondary/75"
         >
           <span className="sr-only">Twitter</span>
           <TwitterIcon />
@@ -44,7 +44,7 @@ export default function SocialMediaLinks() {
           href="/"
           rel="noopener noreferrer"
           target="_blank"
-          className="transition text-secondary hover:text-secondary/75"
+          className="text-secondary transition hover:text-secondary/75"
         >
           <span className="sr-only">YouTube</span>
           <YouTubeIcon />
@@ -55,20 +55,20 @@ export default function SocialMediaLinks() {
           href="/"
           rel="noopener noreferrer"
           target="_blank"
-          className="transition text-secondary hover:text-secondary/75"
+          className="text-secondary transition hover:text-secondary/75"
         >
           <span className="sr-only">Telegram</span>
           <TelegramIcon />
         </a>
       </li>
     </ul>
-  )
+  );
 }
 
 function FacebookIcon() {
   return (
     <svg
-      className="w-8 h-8"
+      className="h-8 w-8"
       fill="currentColor"
       viewBox="0 0 24 24"
       aria-hidden="true"
@@ -79,13 +79,13 @@ function FacebookIcon() {
         clipRule="evenodd"
       />
     </svg>
-  )
+  );
 }
 
 function InstagramIcon() {
   return (
     <svg
-      className="w-8 h-8"
+      className="h-8 w-8"
       fill="currentColor"
       viewBox="0 0 24 24"
       aria-hidden="true"
@@ -96,27 +96,27 @@ function InstagramIcon() {
         clipRule="evenodd"
       />
     </svg>
-  )
+  );
 }
 
 function TwitterIcon() {
   return (
     <svg
-      className="w-8 h-8"
+      className="h-8 w-8"
       fill="currentColor"
       viewBox="0 0 24 24"
       aria-hidden="true"
     >
       <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
     </svg>
-  )
+  );
 }
 
 function YouTubeIcon() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className="w-8 h-8"
+      className="h-8 w-8"
       fill="currentColor"
       viewBox="0 0 256 256"
     >
@@ -138,7 +138,7 @@ function YouTubeIcon() {
         strokeWidth="18"
       ></path>
     </svg>
-  )
+  );
 }
 
 function TelegramIcon() {
@@ -146,10 +146,10 @@ function TelegramIcon() {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="currentColor"
-      className="w-7 h-7"
+      className="h-7 w-7"
       viewBox="0 0 16 16"
     >
       <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.287 5.906c-.778.324-2.334.994-4.666 2.01-.378.15-.577.298-.595.442-.03.243.275.339.69.47l.175.055c.408.133.958.288 1.243.294.26.006.549-.1.868-.32 2.179-1.471 3.304-2.214 3.374-2.23.05-.012.12-.026.166.016.047.041.042.12.037.141-.03.129-1.227 1.241-1.846 1.817-.193.18-.33.307-.358.336a8.154 8.154 0 0 1-.188.186c-.38.366-.664.64.015 1.088.327.216.589.393.85.571.284.194.568.387.936.629.093.06.183.125.27.187.331.236.63.448.997.414.214-.02.435-.22.547-.82.265-1.417.786-4.486.906-5.751a1.426 1.426 0 0 0-.013-.315.337.337 0 0 0-.114-.217.526.526 0 0 0-.31-.093c-.3.005-.763.166-2.984 1.09z" />
     </svg>
-  )
+  );
 }

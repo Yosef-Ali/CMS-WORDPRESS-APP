@@ -1,5 +1,6 @@
 import { AppProps } from 'next/app';
 import '../styles/index.css';
+import '../styles/audio.css';
 
 import { Inter, Roboto_Mono, Noto_Sans_Ethiopic } from '@next/font/google';
 

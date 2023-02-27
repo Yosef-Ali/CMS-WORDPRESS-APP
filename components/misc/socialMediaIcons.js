@@ -1,4 +1,4 @@
-import React from "react"
+import React from "react";
 
 import {
   FacebookIcon,
@@ -6,17 +6,17 @@ import {
   TwitterIcon,
   YouTubeIcon,
   TelegramIcon,
-} from "../misc/Icons"
+} from "../misc/Icons";
 
 function SocialMediaIcons() {
   return (
-    <ul className="flex justify-center gap-6 mt-8 md:gap-8 sm:justify-start">
+    <ul className="mt-8 flex justify-center gap-6 sm:justify-start md:gap-8">
       <li>
         <a
           href="/"
           rel="noopener noreferrer"
           target="_blank"
-          className="transition text-secondary hover:text-secondary/75"
+          className="text-secondary transition hover:text-secondary/75"
         >
           <span className="sr-only">Facebook</span>
           <FacebookIcon />
@@ -28,7 +28,7 @@ function SocialMediaIcons() {
           href="/"
           rel="noopener noreferrer"
           target="_blank"
-          className="transition text-secondary hover:text-secondary/75"
+          className="text-secondary transition hover:text-secondary/75"
         >
           <span className="sr-only">Instagram</span>
           <InstagramIcon />
@@ -40,7 +40,7 @@ function SocialMediaIcons() {
           href="/"
           rel="noopener noreferrer"
           target="_blank"
-          className="transition text-secondary hover:text-secondary/75"
+          className="text-secondary transition hover:text-secondary/75"
         >
           <span className="sr-only">Twitter</span>
           <TwitterIcon />
@@ -52,7 +52,7 @@ function SocialMediaIcons() {
           href="/"
           rel="noopener noreferrer"
           target="_blank"
-          className="transition text-secondary hover:text-secondary/75"
+          className="text-secondary transition hover:text-secondary/75"
         >
           <span className="sr-only">YouTube</span>
           <YouTubeIcon />
@@ -63,14 +63,14 @@ function SocialMediaIcons() {
           href="/"
           rel="noopener noreferrer"
           target="_blank"
-          className="transition text-secondary hover:text-secondary/75"
+          className="text-secondary transition hover:text-secondary/75"
         >
           <span className="sr-only">Telegram</span>
           <TelegramIcon />
         </a>
       </li>
     </ul>
-  )
+  );
 }
 
-export default SocialMediaIcons
+export default SocialMediaIcons;

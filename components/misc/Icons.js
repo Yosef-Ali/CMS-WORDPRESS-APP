@@ -1,4 +1,4 @@
-import React from "react"
+import React from "react";
 
 export function ChevronRight(props) {
   return (
@@ -13,7 +13,7 @@ export function ChevronRight(props) {
     >
       <path d="M5 12h14M12 5l7 7-7 7"></path>
     </svg>
-  )
+  );
 }
 
 export function CalenderIcon(props) {
@@ -32,13 +32,13 @@ export function CalenderIcon(props) {
         d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-9-6h.008v.008H12v-.008zM12 15h.008v.008H12V15zm0 2.25h.008v.008H12v-.008zM9.75 15h.008v.008H9.75V15zm0 2.25h.008v.008H9.75v-.008zM7.5 15h.008v.008H7.5V15zm0 2.25h.008v.008H7.5v-.008zm6.75-4.5h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V15zm0 2.25h.008v.008h-.008v-.008zm2.25-4.5h.008v.008H16.5v-.008zm0 2.25h.008v.008H16.5V15z"
       />
     </svg>
-  )
+  );
 }
 
 export function FacebookIcon() {
   return (
     <svg
-      className="w-8 h-8"
+      className="h-8 w-8"
       fill="currentColor"
       viewBox="0 0 24 24"
       aria-hidden="true"
@@ -49,13 +49,13 @@ export function FacebookIcon() {
         clipRule="evenodd"
       />
     </svg>
-  )
+  );
 }
 
 export function InstagramIcon() {
   return (
     <svg
-      className="w-8 h-8"
+      className="h-8 w-8"
       fill="currentColor"
       viewBox="0 0 24 24"
       aria-hidden="true"
@@ -66,27 +66,27 @@ export function InstagramIcon() {
         clipRule="evenodd"
       />
     </svg>
-  )
+  );
 }
 
 export function TwitterIcon() {
   return (
     <svg
-      className="w-8 h-8"
+      className="h-8 w-8"
       fill="currentColor"
       viewBox="0 0 24 24"
       aria-hidden="true"
     >
       <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
     </svg>
-  )
+  );
 }
 
 export function YouTubeIcon() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className="w-8 h-8"
+      className="h-8 w-8"
       fill="currentColor"
       viewBox="0 0 256 256"
     >
@@ -108,7 +108,7 @@ export function YouTubeIcon() {
         strokeWidth="18"
       ></path>
     </svg>
-  )
+  );
 }
 
 export function TelegramIcon(props) {
@@ -116,12 +116,12 @@ export function TelegramIcon(props) {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="currentColor"
-      className="w-7 h-7"
+      className="h-7 w-7"
       viewBox="0 0 16 16"
     >
       <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.287 5.906c-.778.324-2.334.994-4.666 2.01-.378.15-.577.298-.595.442-.03.243.275.339.69.47l.175.055c.408.133.958.288 1.243.294.26.006.549-.1.868-.32 2.179-1.471 3.304-2.214 3.374-2.23.05-.012.12-.026.166.016.047.041.042.12.037.141-.03.129-1.227 1.241-1.846 1.817-.193.18-.33.307-.358.336a8.154 8.154 0 0 1-.188.186c-.38.366-.664.64.015 1.088.327.216.589.393.85.571.284.194.568.387.936.629.093.06.183.125.27.187.331.236.63.448.997.414.214-.02.435-.22.547-.82.265-1.417.786-4.486.906-5.751a1.426 1.426 0 0 0-.013-.315.337.337 0 0 0-.114-.217.526.526 0 0 0-.31-.093c-.3.005-.763.166-2.984 1.09z" />
     </svg>
-  )
+  );
 }
 
 export function CommentIcon(props) {
@@ -138,14 +138,14 @@ export function CommentIcon(props) {
         clipRule="evenodd"
       />
     </svg>
-  )
+  );
 }
 
 export function SearchIcon() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className="w-6 h-6"
+      className="h-6 w-6"
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
@@ -157,7 +157,7 @@ export function SearchIcon() {
         d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
       />
     </svg>
-  )
+  );
 }
 
 export function SearchCloseIcon() {
@@ -168,7 +168,7 @@ export function SearchCloseIcon() {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className="w-6 h-6"
+      className="h-6 w-6"
     >
       <path
         strokeLinecap="round"
@@ -176,7 +176,7 @@ export function SearchCloseIcon() {
         d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
       />
     </svg>
-  )
+  );
 }
 
 export function ReadingIcon(props) {
@@ -184,7 +184,7 @@ export function ReadingIcon(props) {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       {...props}
-      className="w-8 h-8"
+      className="h-8 w-8"
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
@@ -196,7 +196,7 @@ export function ReadingIcon(props) {
         d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
       />
     </svg>
-  )
+  );
 }
 
 export function ListeningIcon(props) {
@@ -215,7 +215,7 @@ export function ListeningIcon(props) {
         d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"
       />
     </svg>
-  )
+  );
 }
 
 export function Next(props) {
@@ -235,7 +235,7 @@ export function Next(props) {
         d="M3 8.688c0-.864.933-1.405 1.683-.977l7.108 4.062a1.125 1.125 0 010 1.953l-7.108 4.062A1.125 1.125 0 013 16.81V8.688zM12.75 8.688c0-.864.933-1.405 1.683-.977l7.108 4.062a1.125 1.125 0 010 1.953l-7.108 4.062a1.125 1.125 0 01-1.683-.977V8.688z"
       />
     </svg>
-  )
+  );
 }
 
 export function Prev(props) {
@@ -255,7 +255,7 @@ export function Prev(props) {
         d="M21 16.811c0 .864-.933 1.405-1.683.977l-7.108-4.062a1.125 1.125 0 010-1.953l7.108-4.062A1.125 1.125 0 0121 8.688v8.123zM11.25 16.811c0 .864-.933 1.405-1.683.977l-7.108-4.062a1.125 1.125 0 010-1.953L9.567 7.71a1.125 1.125 0 011.683.977v8.123z"
       />
     </svg>
-  )
+  );
 }
 
 export function Play(props) {
@@ -275,7 +275,7 @@ export function Play(props) {
         d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z"
       />
     </svg>
-  )
+  );
 }
 
 export function Pause(props) {
@@ -295,5 +295,5 @@ export function Pause(props) {
         d="M15.75 5.25v13.5m-7.5-13.5v13.5"
       />
     </svg>
-  )
+  );
 }

@@ -1,5 +1,5 @@
-import React from "react"
-import { StaticImage } from "gatsby-plugin-image"
+import React from "react";
+import { StaticImage } from "gatsby-plugin-image";
 
 const logo = ({ color }) => {
   return (
@@ -8,18 +8,18 @@ const logo = ({ color }) => {
       <div className="">
         <p
           className={
-            " mb-0 text-md  text-left font-noto lg:text-base " +
+            " text-md font-noto  mb-0 text-left lg:text-base " +
             (color === "white" ? " text-gray-100" : " text-primary")
           }
         >
           አዲስ አበባ ካቶሊክ ሀገረ ስብከት
         </p>
-        <p className="mb-0 font-sans text-md lg:text-base ">
+        <p className="text-md mb-0 font-sans lg:text-base ">
           The Archdioceses of Addis Ababa
         </p>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default logo
+export default logo;

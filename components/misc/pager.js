@@ -1,9 +1,9 @@
-import { Link } from "gatsby"
-import React from "react"
-import { ChevronRight } from "./Icons"
+import { Link } from "gatsby";
+import React from "react";
+import { ChevronRight } from "./Icons";
 
 export default function Pager(props) {
-  const { previousPagePath, humanPageNumber, nextPagePath } = props
+  const { previousPagePath, humanPageNumber, nextPagePath } = props;
   return (
     <div className="flex items-center justify-between">
       <div className="text-center ">
@@ -11,16 +11,16 @@ export default function Pager(props) {
           to={previousPagePath}
           className={`${
             !previousPagePath
-              ? "bg-secondary/20 cursor-not-allowed"
-              : "hover:bg-secondary/90 hover:shadow-lg bg-secondary"
-          } inline-flex items-center px-6 py-3 text-white transition rounded`}
+              ? "cursor-not-allowed bg-secondary/20"
+              : "bg-secondary hover:bg-secondary/90 hover:shadow-lg"
+          } inline-flex items-center rounded px-6 py-3 text-white transition`}
         >
-          <ChevronRight className="w-4 h-4 Rotate-180" />
+          <ChevronRight className="Rotate-180 h-4 w-4" />
           Previous
         </Link>
       </div>
 
-      <div className="px-6 py-3 transition rounded text-secondary bg-secondary/20">
+      <div className="rounded bg-secondary/20 px-6 py-3 text-secondary transition">
         {humanPageNumber}
       </div>
       <div className="text-center ">
@@ -28,14 +28,14 @@ export default function Pager(props) {
           to={nextPagePath}
           className={`${
             !nextPagePath
-              ? "bg-secondary/20 cursor-not-allowed"
-              : "hover:bg-secondary/90 hover:shadow-lg bg-secondary"
-          } inline-flex items-center px-6 py-3 text-white transition rounded`}
+              ? "cursor-not-allowed bg-secondary/20"
+              : "bg-secondary hover:bg-secondary/90 hover:shadow-lg"
+          } inline-flex items-center rounded px-6 py-3 text-white transition`}
         >
           Next
-          <ChevronRight className="w-4 h-4 ml-2 " />
+          <ChevronRight className="ml-2 h-4 w-4 " />
         </Link>
       </div>
     </div>
-  )
+  );
 }

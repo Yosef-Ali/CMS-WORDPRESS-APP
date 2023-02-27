@@ -1,42 +1,42 @@
-import React, { useState } from "react"
-import { Link } from "gatsby"
-import AudioPlayer from "react-h5-audio-player"
-import "react-h5-audio-player/lib/styles.css"
-import "../../styles/audio.css"
-import { ChevronRight, ListeningIcon, ReadingIcon } from "./Icons"
+import React, { useState } from "react";
+import { Link } from "gatsby";
+import AudioPlayer from "react-h5-audio-player";
+import "react-h5-audio-player/lib/styles.css";
+import "../../styles/audio.css";
+import { ChevronRight, ListeningIcon, ReadingIcon } from "./Icons";
 
 export default function MediaLink(props) {
-  const [currentTrack, setTrackIndex] = useState(0)
+  const [currentTrack, setTrackIndex] = useState(0);
   //props has two data audio and readings
   // if props is audio
-  const playlist = props.audio
+  const playlist = props.audio;
 
   const handleClickNext = () => {
-    setTrackIndex(currentTrack =>
+    setTrackIndex((currentTrack) =>
       currentTrack < playlist?.length - 1 ? currentTrack + 1 : 0
-    )
-  }
+    );
+  };
 
   const handleClickPrevious = () => {
-    setTrackIndex(currentTrack =>
+    setTrackIndex((currentTrack) =>
       currentTrack < 1 ? playlist?.length - 1 : currentTrack - 1
-    )
-  }
+    );
+  };
 
   const handleEnd = () => {
-    console.log("end")
-    setTrackIndex(currentTrack =>
+    console.log("end");
+    setTrackIndex((currentTrack) =>
       currentTrack < playlist?.length - 1 ? currentTrack + 1 : 0
-    )
-  }
+    );
+  };
   return (
-    <div className="flex flex-col min-h-[85px] w-full p-3 transition delay-300 border shadow-sm md:flex-row md:items-center hover:shadow-lg ">
-      <div className="items-center justify-center hidden w-2/12 border-r-2 md:flex">
-        <div className="inline-flex items-center justify-center flex-shrink-0 w-12 h-12 text-indigo-500 bg-indigo-100 rounded-full ">
+    <div className="flex min-h-[85px] w-full flex-col border p-3 shadow-sm transition delay-300 hover:shadow-lg md:flex-row md:items-center ">
+      <div className="hidden w-2/12 items-center justify-center border-r-2 md:flex">
+        <div className="inline-flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-indigo-100 text-indigo-500 ">
           {playlist?.length > 0 ? (
-            <ListeningIcon className="w-8 h-8" aria-hidden="true" />
+            <ListeningIcon className="h-8 w-8" aria-hidden="true" />
           ) : (
-            <ReadingIcon className="w-8 h-8" aria-hidden="true" />
+            <ReadingIcon className="h-8 w-8" aria-hidden="true" />
           )}
         </div>
       </div>
@@ -55,18 +55,18 @@ export default function MediaLink(props) {
             customAdditionalControls={[]}
             autoPlayAfterSrcChange={true}
           />
-          <h2 className="pl-4 -mt-3 text-xs text-center text-gray-900 font-noto line-clamp-1">
+          <h2 className="font-noto -mt-3 pl-4 text-center text-xs text-gray-900 line-clamp-1">
             {playlist[currentTrack].title}
           </h2>
         </div>
       ) : (
         //title for readings
-        <h2 className="flex-1 pl-4 text-center text-gray-900 text-md font-noto line-clamp-1 w-fit">
+        <h2 className="text-md font-noto w-fit flex-1 pl-4 text-center text-gray-900 line-clamp-1">
           {props.title}
         </h2>
       )}
 
-      <div className="flex md:h-12 md:w-3/12 lg:w-2/12 md:border-l-2 ">
+      <div className="flex md:h-12 md:w-3/12 md:border-l-2 lg:w-2/12 ">
         <Link
           // Conditional link for audio and readings
           to={
@@ -78,9 +78,9 @@ export default function MediaLink(props) {
         >
           {playlist?.length > 0 ? "Load More" : "Read More"}
 
-          <ChevronRight className="w-4 h-4 ml-2" />
+          <ChevronRight className="ml-2 h-4 w-4" />
         </Link>
       </div>
     </div>
-  )
+  );
 }

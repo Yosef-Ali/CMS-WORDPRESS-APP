@@ -1,9 +1,9 @@
 // import Container from './container'
 // import { EXAMPLE_PATH } from '../lib/constants'
 
-import FooterMenu from './footer-menu';
-import SocialMediaLinks from './social-media-links';
-import Logo from './logo';
+import FooterMenu from "./footer-menu";
+import SocialMediaLinks from "./social-media-links";
+import Logo from "./logo";
 
 // export default function Footer() {
 //   return (
@@ -34,43 +34,43 @@ import Logo from './logo';
 // }
 
 export default function Footer() {
-	return (
-		<section className='bg-secondary body-font '>
-			<div className='max-w-screen-xl px-4 pt-16 pb-6 mx-auto sm:px-6 lg:pt-24'>
-				<div className='grid grid-cols-1 gap-6 lg:grid-cols-3'>
-					<div>
-						<div className='flex flex-col items-center flex-1 md:items-start md:gap-12'>
-							<a className='block text-primary' href='/'>
-								<span className='sr-only'>Home</span>
-								<Logo color='white' />
-							</a>
-						</div>
+  return (
+    <section className="body-font bg-secondary ">
+      <div className="mx-auto max-w-screen-xl px-4 pt-16 pb-6 sm:px-6 lg:pt-24">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+          <div>
+            <div className="flex flex-1 flex-col items-center md:items-start md:gap-12">
+              <a className="block text-primary" href="/">
+                <span className="sr-only">Home</span>
+                <Logo color="white" />
+              </a>
+            </div>
 
-						<p className='max-w-md mx-auto mt-6 leading-relaxed text-center text-gray-400 font-noto sm:max-w-xs sm:mx-0 sm:text-left'>
-							በዚህ ድረ ገጽ የካቶሊካዊት ቤተ ክርስቲያን ሕይወት፣ እምነትና ትምህርትን በእውነትና በመንፈስ እየተማሩ፣ እየኖሩና
-							እየመሰከሩ ከእኛ ጋር ይጓዙ
-						</p>
+            <p className="font-noto mx-auto mt-6 max-w-md text-center leading-relaxed text-gray-400 sm:mx-0 sm:max-w-xs sm:text-left">
+              በዚህ ድረ ገጽ የካቶሊካዊት ቤተ ክርስቲያን ሕይወት፣ እምነትና ትምህርትን በእውነትና በመንፈስ እየተማሩ፣
+              እየኖሩና እየመሰከሩ ከእኛ ጋር ይጓዙ
+            </p>
 
-						<SocialMediaLinks />
-					</div>
+            <SocialMediaLinks />
+          </div>
 
-					<FooterMenu />
-				</div>
+          <FooterMenu />
+        </div>
 
-				<div className='pt-6 mt-12 border-t border-gray-800'>
-					<div className='text-center sm:flex sm:justify-between sm:text-left'>
-						<p className='text-sm text-gray-400'>
-							<a href='mailto:yosethio@yahoo.com' className='block sm:inline'>
-								Developed By Yosef.
-							</a>
-						</p>
+        <div className="mt-12 border-t border-gray-800 pt-6">
+          <div className="text-center sm:flex sm:justify-between sm:text-left">
+            <p className="text-sm text-gray-400">
+              <a href="mailto:yosethio@yahoo.com" className="block sm:inline">
+                Developed By Yosef.
+              </a>
+            </p>
 
-						<p className='mt-4 text-sm text-gray-500 sm:order-first sm:mt-0'>
-							&copy; 2022 The Archdioceses of Addis Ababa, Ethiopia
-						</p>
-					</div>
-				</div>
-			</div>
-		</section>
-	);
+            <p className="mt-4 text-sm text-gray-500 sm:order-first sm:mt-0">
+              &copy; 2022 The Archdioceses of Addis Ababa, Ethiopia
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 }

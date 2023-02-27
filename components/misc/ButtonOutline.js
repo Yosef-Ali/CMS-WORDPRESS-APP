@@ -1,12 +1,12 @@
-import React from "react"
+import React from "react";
 
 const ButtonOutline = ({ children }) => {
   return (
-    <button className="px-5 py-2 font-medium tracking-wide text-orange-500 capitalize transition-all border border-orange-500 outline-none sm:px-8 bg-white-500 hover:bg-orange-500 hover:text-white ">
+    <button className="bg-white-500 border border-orange-500 px-5 py-2 font-medium capitalize tracking-wide text-orange-500 outline-none transition-all hover:bg-orange-500 hover:text-white sm:px-8 ">
       {" "}
       {children}
     </button>
-  )
-}
+  );
+};
 
-export default ButtonOutline
+export default ButtonOutline;
