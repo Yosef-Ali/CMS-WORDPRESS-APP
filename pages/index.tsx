@@ -1,49 +1,15 @@
-import Head from "next/head";
 import { GetStaticProps } from "next";
-import Container from "../components/container";
-import MoreStories from "../components/more-stories";
-import HeroPost from "../components/hero-post";
-import Intro from "../components/intro";
-import Layout from "../components/layout";
+
 import { getAllPostsForHome } from "../lib/api";
-import { CMS_NAME } from "../lib/constants";
+import Layout from "../components/layout";
+
 import EventCalendar from "../components/event-calendars";
 import CTA from "../components/cta";
 import FeaturedStories from "../components/featured-story";
 import WhoWeAre from "../components/who-we-are";
-import HomePagePosts from "../components/home-page-postes";
+import HomePagePosts from "../components/home-page-posts";
 import SectionBlurb from "../components/section-blurb";
 import SectionHero from "../components/section-hero";
-import SearchBox from "../components/Search/search-input-box-overlay";
-import { useEffect, useState } from "react";
-
-// export default function Index({ allPosts: { edges }, preview }) {
-// 	const heroPost = edges[0]?.node;
-// 	const morePosts = edges.slice(1);
-// 	// console.log('morePosts', events.edges[0]?.node);
-// 	return (
-// 		<Layout preview={preview}>
-// 			<Head>
-// 				<title>Next.js Blog Example with {CMS_NAME}</title>
-// 			</Head>
-// 			<Container>
-// 				<Intro />
-// 				{heroPost && (
-// 					<HeroPost
-// 						title={heroPost.title}
-// 						coverImage={heroPost.featuredImage}
-// 						date={heroPost.date}
-// 						author={heroPost.author}
-// 						slug={heroPost.slug}
-// 						excerpt={heroPost.excerpt}
-// 					/>
-// 				)}
-// 				{morePosts.length > 0 && <MoreStories posts={morePosts} />}
-// 				{/* <EventCalendar posts={morePosts} /> */}
-// 			</Container>
-// 		</Layout>
-// 	);
-// }
 
 export default function Index({
   events,
@@ -55,7 +21,6 @@ export default function Index({
   ourSpotlight,
   blurbPosts,
   popeMessage,
-  preview,
 }) {
   const eventsPosts = events?.edges;
   const featuredStoriesPosts = featuredStories?.edges;
@@ -68,7 +33,7 @@ export default function Index({
   const popeMessagePost = popeMessage?.edges;
 
   return (
-    <Layout preview={preview}>
+    <Layout>
       <SectionHero posts={popeMessagePost} />
       <SectionBlurb posts={blurb} />
       <HomePagePosts
@@ -87,8 +52,8 @@ export default function Index({
   );
 }
 
-export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
-  const data = await getAllPostsForHome(preview);
+export const getStaticProps: GetStaticProps = async () => {
+  const data = await getAllPostsForHome();
   //console.log('first', data);
   return {
     props: {
@@ -102,7 +67,6 @@ export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
       ourSpotlight: data.ourSpotlight,
       blurbPosts: data.blurbPosts,
       popeMessage: data.popeMessage,
-      preview,
     },
     revalidate: 10,
   };

@@ -1,10 +1,10 @@
-import { useRouter } from "next/router";
-import ErrorPage from "next/error";
 import { GetStaticPaths, GetStaticProps } from "next";
+import { useRouter } from "next/router";
+import { getAllParishesWithSlug, getSingleParishPost } from "../../lib/api";
+import ErrorPage from "next/error";
 import Header from "../../components/header";
 import Layout from "../../components/layout";
 import PostTitle from "../../components/post-title";
-import { getAllParishesWithSlug, getSingleParishPost } from "../../lib/api";
 import CTA from "../../components/cta";
 import Banner from "../../components/banner";
 import {
@@ -24,7 +24,7 @@ function ProfileImage(props) {
         height={1000}
         src={ImageUrl}
         alt="parish image"
-        className="object-cover object-center w-full h-full"
+        className="h-full w-full object-cover object-center"
       />
     </div>
   );
@@ -45,7 +45,7 @@ function ProfileContent(props) {
 
 function ParishProfile(props) {
   return (
-    <div className="flex flex-wrap px-5 py-24 mx-auto">
+    <div className="mx-auto flex flex-wrap px-5 py-24">
       <ProfileImage {...props} />
       <ProfileContent {...props} />
     </div>
@@ -53,11 +53,10 @@ function ParishProfile(props) {
 }
 
 function Section({ title, children }) {
-  console.log("Sectiontitle", title);
   return (
-    <section className="mx-auto my-20 text-gray-600 body-font max-w-7xl">
-      <div className="p-4 md:p-8 bg-blue-100/80 border-black/10 border-b-16 ">
-        <h2 className="pb-4 text-3xl font-bold text-gray-900 border-b-2 sm:text-4xl border-black/10 ">
+    <section className="body-font mx-auto my-20 max-w-7xl text-gray-600">
+      <div className="border-b-16 border-black/10 bg-blue-100/80 p-4 md:p-8 ">
+        <h2 className="border-b-2 border-black/10 pb-4 text-3xl font-bold text-gray-900 sm:text-4xl ">
           {title}
         </h2>
         {children}
@@ -66,7 +65,7 @@ function Section({ title, children }) {
   );
 }
 
-export default function Parish({ parish, events, preview }) {
+export default function Parish({ parish, events }) {
   const router = useRouter();
 
   const eventsPosts = events?.edges;
@@ -76,7 +75,7 @@ export default function Parish({ parish, events, preview }) {
   }
 
   return (
-    <Layout preview={preview}>
+    <Layout>
       <Header />
       {router.isFallback ? (
         <PostTitle>Loading…</PostTitle>

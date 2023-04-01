@@ -20,21 +20,21 @@ function ParishList({ post }) {
 
   return (
     <div onClick={() => router.push(`/parishes/${slug}`)}>
-      <div className="w-full transition lg:max-w-full lg:flex hover:shadow-lg lg:mx-auto">
-        <div className="flex-none h-48 overflow-hidden text-center bg-cover rounded-t lg:h-auto lg:w-48 xl:w-52 lg:rounded-t-none lg:rounded-l">
+      <div className="w-full transition hover:shadow-lg lg:mx-auto lg:flex lg:max-w-full">
+        <div className="h-48 flex-none overflow-hidden rounded-t bg-cover text-center lg:h-auto lg:w-48 lg:rounded-t-none lg:rounded-l xl:w-52">
           <Image
             width={2000}
             height={1000}
             src={ImageUrl}
             alt="parish image"
-            className="object-cover object-center w-full h-full aspect-square"
+            className="aspect-square h-full w-full object-cover object-center"
           />
         </div>
-        <div className="flex flex-col justify-between p-4 leading-normal border-b border-l border-r rounded-b lg:w-full border-black/10 lg:border-l-0 lg:border-t lg:border-black/10 lg:rounded-b-none lg:rounded-r">
+        <div className="flex flex-col justify-between rounded-b border-b border-l border-r border-black/10 p-4 leading-normal lg:w-full lg:rounded-b-none lg:rounded-r lg:border-l-0 lg:border-t lg:border-black/10">
           <div className="mb-12 text-xl font-bold text-gray-900">{title}</div>
           <div className="flex items-center">
             <Image
-              className="w-10 h-10 mr-4 rounded-full"
+              className="mr-4 h-10 w-10 rounded-full"
               src={PriestIcon}
               alt="Avatar of Priest"
             />
@@ -68,7 +68,7 @@ function ParishList({ post }) {
   );
 }
 
-export default function Parishes({ parishes, events, preview }) {
+export default function Parishes({ parishes, events }) {
   const ParishesPost = parishes?.edges;
   const sortedParishesPost = [...ParishesPost].sort(
     (a, b) => a.node.parishs.order - b.node.parishs.order
@@ -78,16 +78,16 @@ export default function Parishes({ parishes, events, preview }) {
 
   const eventsPosts = events?.edges;
   return (
-    <Layout preview={preview}>
+    <Layout>
       <div className="hidden lg:block">
         <Banner title="Parish" />
       </div>
-      <section className="mx-auto my-20 text-gray-600 body-font max-w-7xl">
-        <div className="p-4 md:p-8 bg-blue-100/80 border-black/10 border-b-16 ">
-          <h2 className="pb-4 text-3xl font-bold text-gray-900 border-b-2 sm:text-4xl border-black/10 ">
+      <section className="body-font mx-auto my-20 max-w-7xl text-gray-600">
+        <div className="border-b-16 border-black/10 bg-blue-100/80 p-4 md:p-8 ">
+          <h2 className="border-b-2 border-black/10 pb-4 text-3xl font-bold text-gray-900 sm:text-4xl ">
             Parishes
           </h2>
-          <div className="grid grid-cols-1 gap-8 py-10 mt-4 ml-auto md:grid-cols-2 xl:max-w-5xl">
+          <div className="mt-4 ml-auto grid grid-cols-1 gap-8 py-10 md:grid-cols-2 xl:max-w-5xl">
             {sortedParishesPost.map((post, index) => {
               return <ParishList key={index} post={post} />;
             })}
@@ -100,14 +100,13 @@ export default function Parishes({ parishes, events, preview }) {
   );
 }
 
-export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
-  const data = await getAllPostsForParishes(preview);
+export const getStaticProps: GetStaticProps = async () => {
+  const data = await getAllPostsForParishes();
 
   return {
     props: {
       parishes: data.parishes,
       events: data.events,
-      preview,
     },
     revalidate: 10,
   };

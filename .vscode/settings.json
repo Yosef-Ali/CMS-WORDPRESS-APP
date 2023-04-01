@@ -41,5 +41,6 @@
     "**/*.js": { "when": "$(basename).ts" }
   },
   "editor.guides.bracketPairs": "active",
-  "zenMode.hideLineNumbers": false
+  "zenMode.hideLineNumbers": false,
+  "cSpell.words": ["algoliasearch", "headlessui", "instantsearch"]
 }

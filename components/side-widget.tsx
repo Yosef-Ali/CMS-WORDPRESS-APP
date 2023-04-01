@@ -23,6 +23,7 @@ export default function SideWidget({
   readMoreLink,
   moreButtonUrl,
 }) {
+  //console.log("postsInwidget", posts);
   const filteredPosts = posts.filter(({ node }) => {
     const imageType = node.featuredImage?.node.sourceUrl.slice(-3);
     return imageType === "jpg" || imageType === "png" || imageType === "peg";

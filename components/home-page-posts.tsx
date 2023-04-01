@@ -15,7 +15,7 @@ export default function HomePagePosts({
 }) {
   return (
     <div className="mx-auto max-w-screen-xl">
-      <div className="container mx-auto px-4 py-8 lg:py-24 ">
+      <div className="container mx-auto px-4 py-8 lg:py-16 ">
         <div className="flex flex-col-reverse gap-8 md:gap-0 lg:flex-row">
           <div className="relative lg:w-2/3 ">
             {/* News aria */}

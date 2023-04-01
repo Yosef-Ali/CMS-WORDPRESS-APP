@@ -17,7 +17,7 @@ function ProfileImage({ featuredImage }) {
         height={1000}
         src={ImageURL}
         alt="Archbishop image"
-        className="object-cover object-center w-full "
+        className="w-full object-cover object-center "
       />
     </div>
   );
@@ -34,11 +34,11 @@ function ProfileContent({ content, archbishop }) {
     promotedArchbishop,
   } = archbishop;
   return (
-    <div className="flex flex-col flex-1 lg:ml-8">
+    <div className="flex flex-1 flex-col lg:ml-8">
       <div className="flex-grow ">
         <div dangerouslySetInnerHTML={{ __html: name }} />
         <div className="flex">
-          <div className="inline-flex items-center justify-center mb-4 rounded-full w-7 h-7 text-black/70 bg-black/10">
+          <div className="mb-4 inline-flex h-7 w-7 items-center justify-center rounded-full bg-black/10 text-black/70">
             <TimeIcon />
           </div>
 
@@ -49,7 +49,7 @@ function ProfileContent({ content, archbishop }) {
         </div>
 
         <div className="flex">
-          <div className="inline-flex items-center justify-center mb-5 rounded-full w-7 h-7 text-black/70 bg-black/10">
+          <div className="mb-5 inline-flex h-7 w-7 items-center justify-center rounded-full bg-black/10 text-black/70">
             <TimeIcon />
           </div>
           <span className="ml-2 text-base leading-relaxed">
@@ -58,7 +58,7 @@ function ProfileContent({ content, archbishop }) {
           </span>
         </div>
         <div className="flex">
-          <div className="inline-flex items-center justify-center mb-5 rounded-full w-7 h-7 text-black/70 bg-black/10">
+          <div className="mb-5 inline-flex h-7 w-7 items-center justify-center rounded-full bg-black/10 text-black/70">
             <TimeIcon />
           </div>
           <span className="ml-2 text-base leading-relaxed">
@@ -67,7 +67,7 @@ function ProfileContent({ content, archbishop }) {
           </span>
         </div>
         <div className="flex">
-          <div className="inline-flex items-center justify-center mb-5 rounded-full w-7 h-7 text-black/70 bg-black/10">
+          <div className="mb-5 inline-flex h-7 w-7 items-center justify-center rounded-full bg-black/10 text-black/70">
             <TimeIcon />
           </div>
           <span className="ml-2 text-base leading-relaxed">
@@ -76,7 +76,7 @@ function ProfileContent({ content, archbishop }) {
           </span>
         </div>
         <div className="flex">
-          <div className="inline-flex items-center justify-center mb-5 rounded-full w-7 h-7 text-black/70 bg-black/10">
+          <div className="mb-5 inline-flex h-7 w-7 items-center justify-center rounded-full bg-black/10 text-black/70">
             <TimeIcon />
           </div>
           <span className="ml-2 text-base leading-relaxed">
@@ -85,7 +85,7 @@ function ProfileContent({ content, archbishop }) {
           </span>
         </div>
         <div className="flex">
-          <div className="inline-flex items-center justify-center mb-5 rounded-full w-7 h-7 text-black/70 bg-black/10">
+          <div className="mb-5 inline-flex h-7 w-7 items-center justify-center rounded-full bg-black/10 text-black/70">
             <TimeIcon />
           </div>
           <span className="ml-2 text-base leading-relaxed">
@@ -101,26 +101,26 @@ function ProfileContent({ content, archbishop }) {
 }
 function ArchbishopProfile(props) {
   return (
-    <div className="flex flex-wrap py-24 mx-auto">
+    <div className="mx-auto flex flex-wrap py-24">
       <ProfileImage {...props} />
       <ProfileContent {...props} />
     </div>
   );
 }
 
-export default function Arcbishops({ archbishops, events, preview }) {
+export default function Arcbishops({ archbishops, events }) {
   const eventsPosts = events?.edges;
   const archbishopPost = archbishops.edges[0].node;
   const { title } = archbishopPost;
   console.log("archbishopPost", archbishopPost);
   return (
-    <Layout preview={preview}>
+    <Layout>
       <div className="hidden lg:block">
         <Banner title="Archbishop" />
       </div>
-      <section className="mx-auto my-20 text-gray-600 body-font max-w-7xl">
-        <div className="p-4 md:p-8 bg-blue-100/80 border-black/10 border-b-16 ">
-          <h2 className="pb-4 text-3xl font-bold text-gray-900 border-b-2 sm:text-4xl border-black/10 ">
+      <section className="body-font mx-auto my-20 max-w-7xl text-gray-600">
+        <div className="border-b-16 border-black/10 bg-blue-100/80 p-4 md:p-8 ">
+          <h2 className="border-b-2 border-black/10 pb-4 text-3xl font-bold text-gray-900 sm:text-4xl ">
             {title}
           </h2>
           <ArchbishopProfile {...archbishopPost} />
@@ -133,14 +133,13 @@ export default function Arcbishops({ archbishops, events, preview }) {
   );
 }
 
-export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
-  const data = await getAllPostsForArchbishops(preview);
+export const getStaticProps: GetStaticProps = async () => {
+  const data = await getAllPostsForArchbishops();
   console.log("first", data);
   return {
     props: {
       archbishops: data.pages,
       events: data.events,
-      preview,
     },
     revalidate: 10,
   };

@@ -1,44 +1,69 @@
+import { useState } from "react";
 import { GetStaticProps } from "next";
-import React from "react";
-import ArticlesPostList from "../../components/articles-post";
+import dynamic from "next/dynamic";
 import Banner from "../../components/banner";
 import CTA from "../../components/cta";
 import Layout from "../../components/layout";
 import { getAllEventCalendars } from "../../lib/api";
+import FeatureStories from "../../components/featured-story";
 
-export default function Index({ events, preview }) {
-  const eventsPosts = events?.edges;
-  console.log("first", eventsPosts);
+const ArticlesPostList = dynamic(
+  () => import("../../components/articles-post"),
+  {
+    ssr: false,
+  }
+);
+const batchSize = 6;
+const after = null;
+export default function Index({
+  events,
+  batchSize,
+  catholicTVs,
+  featuredStories,
+  audios,
+}) {
+  const [posts, setPosts] = useState(events);
+  //const eventsPosts = events?.edges;
+  const catholicTVsPost = catholicTVs?.edges;
+  const featuredStoriesPosts = featuredStories?.edges;
+  const audioTracks = audios?.edges;
+
+  //console.log("catholicTVsPost", catholicTVsPost);
   return (
-    <Layout preview={preview}>
+    <Layout>
       <Banner title="Event Calendars" />
-      <section className="mx-auto mt-16 max-w-screen-xl">
+      <section className="mx-auto  max-w-screen-xl">
         <ArticlesPostList
-          data={eventsPosts}
-          path="/event/eventCalendar/"
+          posts={posts}
+          setPosts={setPosts}
+          path="/events"
           header="Event Calendars"
-          widgetPost={""}
-          widgetTitle="Latest News"
+          widgetPost={catholicTVsPost}
+          widgetTitle="Recent News"
           readMoreLink="/news/newsArticle/"
           moreUrl="/news/articlesNews"
-          tracks={""}
-          pageContext={"pageContext"}
-          instant_search="wp_posts_event"
+          audioTracks={audioTracks}
+          //pageContext={"pageContext"}
         />
       </section>
       <CTA />
-      {/* <FeaturedStories /> */}
+      {/* {featuredStoriesPosts.length > 0 && (
+        <FeatureStories posts={featuredStoriesPosts} />
+      )} */}
     </Layout>
   );
 }
 
-export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
-  const data = await getAllEventCalendars(preview);
-  console.log("data", data);
+export const getStaticProps: GetStaticProps = async () => {
+  const data = await getAllEventCalendars({ after });
+
+  //console.log("data-evens", data);
   return {
     props: {
-      events: data,
-      preview,
+      events: data.events,
+      catholicTVs: data.catholicTVs,
+      // featuredStories: data.featuredStories,
+      audios: data.podcasts,
     },
     revalidate: 10,
   };

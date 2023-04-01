@@ -27,7 +27,7 @@ export const menuLinks: MenuLink[] = [
       },
       {
         name: "Curia",
-        link: "/curia",
+        link: "/the_curia_list",
       },
       {
         name: "Parishes",
@@ -35,7 +35,7 @@ export const menuLinks: MenuLink[] = [
       },
       {
         name: "Congregations",
-        link: "/congregations",
+        link: "/congregation",
       },
     ],
   },

@@ -14,6 +14,10 @@ export default function Header() {
   const [toggle, setToggle] = useState(null);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
+  // This function adds a scroll event listener to the window and
+  // updates the scrollActive and bgActive states based on the scroll
+  // position and the current page
+
   useEffect(() => {
     const currentPage = window.location.pathname;
     window.addEventListener("scroll", () => {
@@ -36,7 +40,6 @@ export default function Header() {
         setIsSearchOpen(!isSearchOpen);
       }
     }
-    console.log("isSearchOpen:", isSearchOpen);
 
     window.addEventListener("keydown", onKeydown);
     return () => {
@@ -70,12 +73,8 @@ export default function Header() {
         handleSubmenu={handleSubmenu}
       />
 
-      {/* search input overlay */}
+      {/* search input overlay & AlgoliaSearch */}
 
-      {/* <SearchInputBoxOverlay
-        isSearchOpen={isSearchOpen}
-        setIsSearchOpen={setIsSearchOpen}
-      /> */}
       {isSearchOpen && (
         <AlgoliaSearch
           isSearchOpen={isSearchOpen}

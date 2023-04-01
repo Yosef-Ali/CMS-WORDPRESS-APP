@@ -40,7 +40,7 @@ export default function NavBar({
         {/* {Secondary Navigation} */}
         <div className="hidden items-center space-x-3 md:flex">
           <Link
-            href="signin"
+            href="signIn"
             className="rounded bg-primary px-6 py-2 uppercase"
           >
             Sign in

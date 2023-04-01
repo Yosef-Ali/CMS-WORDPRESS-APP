@@ -12,26 +12,26 @@ function Profiles(props) {
   const { occupation, email, phone } = profile;
   return (
     <div className="flex p-4 lg:w-1/2 xl:w-1/3 ">
-      <div className="inline-flex items-center justify-center flex-shrink-0 w-12 h-12 mb-4 rounded-full bg-black/10 text-black/80">
+      <div className="mb-4 inline-flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-black/10 text-black/80">
         <PersonIcon />
       </div>
       <div className="flex-grow pl-6">
-        <h2 className="mb-2 text-lg font-medium text-gray-900 title-font">
+        <h2 className="title-font mb-2 text-lg font-medium text-gray-900">
           {title}
         </h2>
-        <p className="text-base leading-relaxed uppercase">{occupation}</p>
+        <p className="text-base uppercase leading-relaxed">{occupation}</p>
         {email && (
           <div className="flex">
-            <div className="inline-flex items-center justify-center w-7 h-7 mb-2 rounded-full text-black/70 bg-black/10">
-              <EmailIcon className="w-5 h-5 shrink-0 group-hover:text-white/75  bg-black/10" />
+            <div className="mb-2 inline-flex h-7 w-7 items-center justify-center rounded-full bg-black/10 text-black/70">
+              <EmailIcon className="h-5 w-5 shrink-0 bg-black/10  group-hover:text-white/75" />
             </div>
             <span className="ml-2 text-base leading-relaxed">{email}</span>
           </div>
         )}
         {phone && (
           <div className="flex ">
-            <div className="inline-flex items-center justify-center w-7 h-7 mb-5 rounded-full text-black/70 bg-black/10">
-              <PhoneIcon className="w-5 h-5" />
+            <div className="mb-5 inline-flex h-7 w-7 items-center justify-center rounded-full bg-black/10 text-black/70">
+              <PhoneIcon className="h-5 w-5" />
             </div>
             <span className="ml-2 text-base leading-relaxed">{phone}</span>
           </div>
@@ -50,13 +50,13 @@ function TheCurias(props) {
   );
   return (
     <div className="flex flex-wrap py-8 md:flex-nowrap ">
-      <div className="flex flex-col flex-shrink-0 mb-6 md:w-64 md:mb-0">
-        <span className="text-xl font-semibold capitalize title-font ">
+      <div className="mb-6 flex flex-shrink-0 flex-col md:mb-0 md:w-64">
+        <span className="title-font text-xl font-semibold capitalize ">
           {name}
         </span>
-        <span className="mt-1 text-sm text-gray-500 w-60">{description}</span>
+        <span className="mt-1 w-60 text-sm text-gray-500">{description}</span>
       </div>
-      <div className="flex flex-wrap w-full -m-4">
+      <div className="-m-4 flex w-full flex-wrap">
         {sortedtheCuriasPost.map((curia, index) => (
           <Profiles {...curia} key={index} />
         ))}
@@ -82,13 +82,13 @@ export default function Curia({
   const eventsPosts = events?.edges;
 
   return (
-    <Layout preview={preview}>
+    <Layout>
       <div className="hidden lg:block">
         <Banner title="The Curia" />
       </div>
-      <section className="mx-auto my-20 text-gray-600 body-font max-w-7xl">
-        <div className="p-8 divide-y-2 bg-blue-100/80 divide-black/10 border-black/10 border-b-16 ">
-          <h2 className="pb-4 text-3xl font-bold text-gray-900 sm:text-4xl border-black/10 ">
+      <section className="body-font mx-auto my-20 max-w-7xl text-gray-600">
+        <div className="divide-y-2 divide-black/10 border-b-16 border-black/10 bg-blue-100/80 p-8 ">
+          <h2 className="border-black/10 pb-4 text-3xl font-bold text-gray-900 sm:text-4xl ">
             The Curia
           </h2>
           <TheCurias {...TheCuriaOfficials} />
@@ -104,8 +104,8 @@ export default function Curia({
   );
 }
 
-export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
-  const data = await getAllPostsForCuria(preview);
+export const getStaticProps: GetStaticProps = async () => {
+  const data = await getAllPostsForCuria();
   return {
     props: {
       theCuriaOfficials: data.theCuriaOfficials,
@@ -114,7 +114,6 @@ export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
       pastoralCouncils: data.pastoralCouncils,
       ecclesiasticalTribunals: data.ecclesiasticalTribunals,
       events: data.events,
-      preview,
     },
     revalidate: 10,
   };

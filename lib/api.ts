@@ -46,7 +46,7 @@ export async function getAllParishesWithSlug() {
   return data?.parishes;
 }
 
-export async function getAllPostsForArchbishops(preview) {
+export async function getAllPostsForArchbishops() {
   const data = await fetchAPI(
     `query  {
         pages(where: {title: "Archbishop"}) {
@@ -86,18 +86,12 @@ export async function getAllPostsForArchbishops(preview) {
       }
     }
 
-    `,
-    {
-      variables: {
-        onlyEnabled: !preview,
-        preview,
-      },
-    }
+    `
   );
   return data;
 }
 
-export async function getAllPostsForArchdiocese(preview) {
+export async function getAllPostsForArchdiocese() {
   const data = await fetchAPI(
     `query  {
       pages(where: {title: "Archdiocese"}) {
@@ -137,18 +131,12 @@ export async function getAllPostsForArchdiocese(preview) {
       }
     }
 
-    `,
-    {
-      variables: {
-        onlyEnabled: !preview,
-        preview,
-      },
-    }
+    `
   );
   return data;
 }
 
-export async function getAllPostsForCuria(preview) {
+export async function getAllPostsForCuria() {
   const data = await fetchAPI(
     `
     query {
@@ -275,65 +263,12 @@ export async function getAllPostsForCuria(preview) {
         }
       }
     }
-    `,
-    {
-      variables: {
-        onlyEnabled: !preview,
-        preview,
-      },
-    }
+    `
   );
   return data;
 }
 
-`fragment CuriaFragment on TheCuria {
-  title
-  profile {
-    email
-    occupation
-    order
-    phone
-  }
-  }
-
-  fragment CollegeFragment on CollegeOfConsultatories {
-    name
-    databaseId
-    thecurias {
-      edges {
-        node {
-        ...CuriaFragment
-        }
-      }
-    }
-  }
-
-  query NewQuery {
-  thecuriaofficials {
-    edges {
-      node {
-        name
-        description
-        thecurias {
-          edges {
-            node {
-            ...CuriaFragment
-            }
-          }
-        }
-      }
-    }
-  }
-  collegeofconsultatories {
-    edges {
-      node {
-      ...CollegeFragment
-      }
-    }
-  }
-  }`;
-
-export async function getAllPostsForInstitutions(preview) {
+export async function getAllPostsForInstitutions() {
   const data = await fetchAPI(
     `query  {
       pages(where: {name: "Institutions"}) {
@@ -370,21 +305,15 @@ export async function getAllPostsForInstitutions(preview) {
         }
       }
     }
-    `,
-    {
-      variables: {
-        onlyEnabled: !preview,
-        preview,
-      },
-    }
+    `
   );
   return data;
 }
 
-export async function getAllPostsForCongregations(preview) {
+export async function getAllPostsForCongregations() {
   const data = await fetchAPI(
     `query  {
-      allCongregations(first: 2000) {
+      congregations(first: 2000) {
         edges {
           node {
             title
@@ -396,7 +325,7 @@ export async function getAllPostsForCongregations(preview) {
           }
         }
       }
-      pages(where: {name: "Congregations"}) {
+      pages(where: {name: "congregations"}) {
         edges {
           node {
             title
@@ -418,17 +347,11 @@ export async function getAllPostsForCongregations(preview) {
         }
       }
     }
-    `,
-    {
-      variables: {
-        onlyEnabled: !preview,
-        preview,
-      },
-    }
+    `
   );
   return data;
 }
-export async function getAllPostsForParishes(preview) {
+export async function getAllPostsForParishes() {
   const data = await fetchAPI(
     `query  {
         parishes(first: 20) {
@@ -472,18 +395,12 @@ export async function getAllPostsForParishes(preview) {
         }
       }
     }
-    `,
-    {
-      variables: {
-        onlyEnabled: !preview,
-        preview,
-      },
-    }
+    `
   );
   return data;
 }
 
-export async function getAllPostsForHome(preview) {
+export async function getAllPostsForHome() {
   const data = await fetchAPI(
     `
     query AllPosts {
@@ -645,13 +562,7 @@ export async function getAllPostsForHome(preview) {
       }
 
     }
-  `,
-    {
-      variables: {
-        onlyEnabled: !preview,
-        preview,
-      },
-    }
+  `
   );
   return data;
 }
@@ -712,32 +623,133 @@ export async function getSingleParishPost(slug) {
   return data;
 }
 
-export async function getAllEventCalendars(preview) {
+export async function getAllEventCalendars({ after = null }) {
   const data = await fetchAPI(
-    `query  {
-      events(first: 30, where: {orderby: {field: DATE, order: DESC}}) {
+    `query getEvents($first: Int!, $after: String)  {
+      events(first: $first, after: $after, where: {orderby: {field: DATE, order: DESC}}) {
+    pageInfo {
+        hasNextPage
+        endCursor
+      }
+    edges {
+          node {
+            databaseId
+            title
+            content
+            date
+            featuredImage {
+              node {
+                sourceUrl
+              }
+            }
+          }
+        }
+      }
+      catholicTVs(
+        where: {categoryName: "Catholic Tv News", orderby: {field: DATE, order: DESC},}
+        first: 100
+      ) {
         edges {
           node {
             databaseId
             title
             content
-            events {
-                startingDate
-                endingDate
+            date
+            catholictvnews {
+              youtubLink
+            }
+            featuredImage {
+              node {
+                sourceUrl
+              }
+            }
+          }
+        }
+    }
+    podcasts( where: {orderby: {field: DATE, order: DESC}, categoryName: "Music"},) {
+      edges {
+        node {
+          databaseId
+          title
+          content
+          featuredImage {
+            node {
+              sourceUrl
+            }
+          }
+          audioUrl {
+            audiourl {
+              mediaItemUrl
             }
           }
         }
       }
     }
-    `,
+}`,
+
+    { variables: { first: 3, after } }
+  );
+
+  return data; // Added return statement.
+}
+
+export async function getSingleEventPost(id) {
+  const data = await fetchAPI(
+    `
+    query getEventPostById($id: ID!, $idType: EventIdType = DATABASE_ID) {
+      event(id: $id, idType: $idType) {
+        databaseId
+        title
+        date
+        content
+        featuredImage {
+          node {
+            sourceUrl
+          }
+        }
+      }
+      featuredStories(first: 30, where: {orderby: {field: DATE, order: DESC}}) {
+        edges {
+          node {
+            title
+            content
+            databaseId
+            date
+            featuredImage {
+              node {
+                sourceUrl
+              }
+            }
+          }
+        }
+      }
+    }
+  `,
     {
       variables: {
-        onlyEnabled: !preview,
-        preview,
+        id: id,
+        idType: "DATABASE_ID",
       },
     }
   );
-  return data.events;
+  return data;
+}
+
+export async function getAllEventWithIds() {
+  const data = await fetchAPI(
+    `
+    query getAllEventIds {
+      events(first: 10000) {
+        edges {
+          node {
+            databaseId
+          }
+        }
+      }
+    }
+  `
+  );
+  return data?.events;
 }
 
 export async function getPostAndMorePosts(slug, preview, previewData) {

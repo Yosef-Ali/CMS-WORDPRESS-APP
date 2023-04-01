@@ -16,7 +16,7 @@ function ProfileImage({ featuredImage }) {
         height={1000}
         src={ImageUrl}
         alt="Archdiocese image"
-        className="object-cover object-center w-full rounded-lg"
+        className="w-full rounded-lg object-cover object-center"
       />
     </div>
   );
@@ -24,7 +24,7 @@ function ProfileImage({ featuredImage }) {
 
 function ProfileContent({ content }) {
   return (
-    <div className="flex flex-col flex-1 lg:ml-8">
+    <div className="flex flex-1 flex-col lg:ml-8">
       <div className="flex-grow">
         <div dangerouslySetInnerHTML={{ __html: content }} />
       </div>
@@ -33,7 +33,7 @@ function ProfileContent({ content }) {
 }
 function ArchdioceseProfile(props) {
   return (
-    <div className="flex flex-wrap py-24 mx-auto">
+    <div className="mx-auto flex flex-wrap py-24">
       <ProfileImage {...props} />
       <ProfileContent {...props} />
     </div>
@@ -41,8 +41,8 @@ function ArchdioceseProfile(props) {
 }
 
 const Hero = () => (
-  <div className="hidden w-full bg-blue-200 h-96 lg:flex">
-    <div className="flex flex-col items-center justify-center max-w-2xl mx-auto text-center">
+  <div className="hidden h-96 w-full bg-blue-200 lg:flex">
+    <div className="mx-auto flex max-w-2xl flex-col items-center justify-center text-center">
       <h2 className="mb-3 text-4xl font-extrabold leading-snug text-primary">
         You are called to spread the parfume of the Gospel for the people of
         Ethiopia.
@@ -54,22 +54,17 @@ const Hero = () => (
   </div>
 );
 
-export default function Archdiocese({
-  archdiocese,
-  featuredStories,
-  events,
-  preview,
-}) {
+export default function Archdiocese({ archdiocese, featuredStories, events }) {
   const eventsPosts = events?.edges;
   const featuredStoriesPosts = featuredStories?.edges;
   const archdiocesePost = archdiocese.edges[0].node;
   const { title } = archdiocesePost;
   return (
-    <Layout preview={preview}>
+    <Layout>
       <Hero />
-      <section className="mx-auto my-20 text-gray-600 body-font max-w-7xl">
-        <div className="p-4 md:p-8 bg-blue-100/80 border-black/10 border-b-16 ">
-          <h2 className="pb-4 text-3xl font-bold text-gray-900 border-b-2 sm:text-4xl border-black/10 ">
+      <section className="body-font mx-auto my-20 max-w-7xl text-gray-600">
+        <div className="border-b-16 border-black/10 bg-blue-100/80 p-4 md:p-8 ">
+          <h2 className="border-b-2 border-black/10 pb-4 text-3xl font-bold text-gray-900 sm:text-4xl ">
             {title}
           </h2>
           <ArchdioceseProfile {...archdiocesePost} />
@@ -85,15 +80,14 @@ export default function Archdiocese({
   );
 }
 
-export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
-  const data = await getAllPostsForArchdiocese(preview);
+export const getStaticProps: GetStaticProps = async () => {
+  const data = await getAllPostsForArchdiocese();
   console.log("first", data);
   return {
     props: {
       archdiocese: data.pages,
       featuredStories: data.featuredStories,
       events: data.events,
-      preview,
     },
     revalidate: 10,
   };

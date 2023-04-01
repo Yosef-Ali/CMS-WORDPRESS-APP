@@ -1,51 +1,51 @@
 .rhap_container {
-	box-sizing: border-box;
-	display: flex;
-	flex-direction: column;
-	line-height: 1;
-	font-family: inherit;
-	width: 100%;
-	padding: 10px 0;
-	background-color: transparent;
-	/* background-color: #f00; */
-	outline: none;
-	box-shadow: none;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+  font-family: inherit;
+  width: 100%;
+  padding: 10px 0;
+  background-color: transparent;
+  /* background-color: #f00; */
+  outline: none;
+  box-shadow: none;
 }
 
 .rhap_controls-section {
-	display: flex;
-	flex: 0;
-	outline: none;
-	justify-content: space-between;
-	align-items: center;
+  display: flex;
+  flex: 0;
+  outline: none;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .rhap_main-controls {
-	flex: 0 1 auto;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  flex: 0 1 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .rhap_main-controls-button {
-	margin: 0 3px;
-	color: #9ca3af;
-	font-size: 35px;
-	width: 35px;
-	height: 35px;
+  margin: 0 3px;
+  color: #9ca3af;
+  font-size: 35px;
+  width: 35px;
+  height: 35px;
 }
 
 .rhap_progress-indicator {
-	box-sizing: border-box;
-	/* position: absolute; */
-	z-index: 3;
-	width: 20px;
-	height: 20px;
-	margin-left: -10px;
-	top: -8px;
-	background: #9ca3af;
-	border-radius: 50px;
-	box-shadow: rgb(134 134 134 / 50%) 0 0 5px;
+  box-sizing: border-box;
+  /* position: absolute; */
+  z-index: 3;
+  width: 20px;
+  height: 20px;
+  margin-left: -10px;
+  top: -8px;
+  background: #9ca3af;
+  border-radius: 50px;
+  box-shadow: rgb(134 134 134 / 50%) 0 0 5px;
 }
 
 /* .rhap_main-controls-button {
@@ -55,18 +55,18 @@
 } */
 
 .rhap_stacked .rhap_controls-section {
-	margin-top: 10px;
+  margin-top: 10px;
 }
 
 .rhap_progress-indicator {
-	box-sizing: border-box;
-	position: absolute;
-	z-index: 3;
-	width: 6px;
-	height: 20px;
-	margin-left: -10px;
-	top: -8px;
-	background: #838aed;
-	border-radius: 50px;
-	box-shadow: rgb(134 134 134 / 50%) 0 0 5px;
+  box-sizing: border-box;
+  position: absolute;
+  z-index: 3;
+  width: 6px;
+  height: 20px;
+  margin-left: -10px;
+  top: -8px;
+  background: #838aed;
+  border-radius: 50px;
+  box-shadow: rgb(134 134 134 / 50%) 0 0 5px;
 }
