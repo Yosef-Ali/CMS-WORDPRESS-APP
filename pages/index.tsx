@@ -15,9 +15,10 @@ export default function Index({
   events,
   featuredStories,
   allWhoWeAre,
-  daleyReading,
+  dailyReadings,
   podcasts,
-  catholicTVs,
+  news,
+  ourSpotlightVideo,
   ourSpotlight,
   blurbPosts,
   popeMessage,
@@ -25,9 +26,10 @@ export default function Index({
   const eventsPosts = events?.edges;
   const featuredStoriesPosts = featuredStories?.edges;
   const allWhoWeArePosts = allWhoWeAre?.edges;
-  const daleyReadingPost = daleyReading?.edges;
+  const dailyReadingsPost = dailyReadings?.edges;
   const podcastsPost = podcasts?.edges;
-  const catholicTVsPost = catholicTVs?.edges;
+  const newsPost = news?.edges;
+  const ourSpotlightVideoPost = ourSpotlightVideo?.edges;
   const ourSpotlightPost = ourSpotlight?.edges;
   const blurb = blurbPosts?.edges;
   const popeMessagePost = popeMessage?.edges;
@@ -37,9 +39,10 @@ export default function Index({
       <SectionHero posts={popeMessagePost} />
       <SectionBlurb posts={blurb} />
       <HomePagePosts
-        daleyReading={daleyReadingPost}
+        dailyReading={dailyReadingsPost}
         podcasts={podcastsPost}
-        catholicTVs={catholicTVsPost}
+        news={newsPost}
+        ourSpotlightVideo={ourSpotlightVideoPost}
         ourSpotlight={ourSpotlightPost}
       />
       {allWhoWeArePosts.length > 0 && <WhoWeAre posts={allWhoWeArePosts} />}
@@ -54,16 +57,17 @@ export default function Index({
 
 export const getStaticProps: GetStaticProps = async () => {
   const data = await getAllPostsForHome();
-  //console.log('first', data);
+  console.log("first", data);
   return {
     props: {
       posts: data.posts,
       events: data.events,
       featuredStories: data.featuredStories,
       allWhoWeAre: data.allWhoWeAre,
-      daleyReading: data.daleyReading,
+      dailyReadings: data.dailyReadings,
       podcasts: data.podcasts,
-      catholicTVs: data.catholicTVs,
+      news: data.news,
+      ourSpotlightVideo: data.ourSpotlightVideo,
       ourSpotlight: data.ourSpotlight,
       blurbPosts: data.blurbPosts,
       popeMessage: data.popeMessage,

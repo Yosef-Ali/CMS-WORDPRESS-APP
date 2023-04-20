@@ -1,16 +1,17 @@
 import SideWidget from "./side-widget";
 import SocialMediaLinks from "./social-media-links";
 
-import MediaPlayer from "./media-palyer";
-import DaleyReadingCard from "./daley-reading-card";
+import MediaPlayer from "./media-player";
+import DailyReadingCard from "./daily-reading-card";
 
 import TvNewsSingleCard from "./tv-news-single-card";
 import NewsArticleCard from "./news-article-single-card";
 
 export default function HomePagePosts({
-  daleyReading,
+  dailyReading,
   podcasts,
-  catholicTVs,
+  news,
+  ourSpotlightVideo,
   ourSpotlight,
 }) {
   return (
@@ -21,11 +22,11 @@ export default function HomePagePosts({
             {/* News aria */}
             <div className="flex flex-col gap-8 md:flex-row md:gap-0">
               <NewsArticleCard posts={ourSpotlight} />
-              <TvNewsSingleCard video={catholicTVs} />
+              <TvNewsSingleCard video={ourSpotlightVideo} />
             </div>
             {/* List aria */}
             <div className="my-12 flex flex-col space-y-4 md:p-4 lg:absolute lg:inset-x-0 lg:inset-y-[500px] lg:bottom-0">
-              <DaleyReadingCard posts={daleyReading} />
+              <DailyReadingCard posts={dailyReading} />
               <MediaPlayer audio={podcasts} />
             </div>
           </div>
@@ -33,10 +34,10 @@ export default function HomePagePosts({
           {/* Latest News Section */}
           <div className="flex flex-col items-center lg:w-1/3 ">
             <SideWidget
-              posts={catholicTVs}
+              posts={news}
               title="Latest News"
-              readMoreLink="/news/newsArticle/"
-              moreButtonUrl="/news/articlesNews/"
+              readMoreLink="/news"
+              moreButtonUrl="/news"
             />
             <SocialMediaLinks color="secondary" />
           </div>

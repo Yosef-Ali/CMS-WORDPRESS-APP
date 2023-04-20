@@ -1,9 +1,9 @@
+// Import components
 import MoreButton from "./more-button";
 import MoreButtonText from "./more-button-text";
 
-function PostsList(post, readMoreLink) {
-  const { title, databaseId } = post.node;
-  //const ReadMoreLink = `${props.readMoreLink}${props.databaseId}`;
+// Define a function to render a single post
+function Post({ title, databaseId, readMoreLink }) {
   return (
     <div className="pt-6">
       <div className="text-md title-font font-noto font-medium text-gray-900 line-clamp-3">
@@ -11,24 +11,35 @@ function PostsList(post, readMoreLink) {
       </div>
       <MoreButtonText
         title="Read More"
-        moreURL={`./${readMoreLink}/${databaseId}`}
+        moreURL={`${readMoreLink}/${databaseId}`}
       />
     </div>
   );
 }
 
+// Define a function to render a list of posts
+function PostsList({ posts, readMoreLink }) {
+  return (
+    <div className="space-y-6 divide-y divide-black/10">
+      {posts.map((post) => (
+        <Post
+          {...post.node}
+          readMoreLink={readMoreLink}
+          key={post.node.databaseId}
+        />
+      ))}
+    </div>
+  );
+}
+
+// Define the main component
 export default function SideWidget({
   posts,
   title,
   readMoreLink,
   moreButtonUrl,
 }) {
-  //console.log("postsInwidget", posts);
-  const filteredPosts = posts.filter(({ node }) => {
-    const imageType = node.featuredImage?.node.sourceUrl.slice(-3);
-    return imageType === "jpg" || imageType === "png" || imageType === "peg";
-  });
-
+  // Render the component
   return (
     <div className="mb-8 w-full md:px-2 lg:p-4">
       <div className="h-full border-b-16 border-black/10 bg-blue-100/80 p-8 text-center shadow-sm">
@@ -37,19 +48,10 @@ export default function SideWidget({
             {title}
           </h1>
         </div>
-        <div className="space-y-6 divide-y divide-black/10">
-          {filteredPosts?.slice(0, 3).map((post) => {
-            return (
-              <PostsList
-                {...post}
-                {...readMoreLink}
-                key={post.node.databaseId}
-              />
-            );
-          })}
-          <div className="pt-4">
-            <MoreButton title="View More" moreURL={`${moreButtonUrl}`} />
-          </div>
+        {/* Render the list of posts with the first three filtered posts */}
+        <PostsList posts={posts.slice(0, 3)} readMoreLink={readMoreLink} />
+        <div className="pt-4">
+          <MoreButton title="View More" moreURL={`${moreButtonUrl}`} />
         </div>
       </div>
     </div>

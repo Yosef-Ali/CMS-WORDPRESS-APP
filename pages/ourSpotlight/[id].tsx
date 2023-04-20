@@ -6,7 +6,10 @@ import Layout from "../../components/layout";
 import Banner from "../../components/banner";
 import CTA from "../../components/cta";
 import FeatureStories from "../../components/featured-story";
-import { getAllEventWithIds, getSingleEventPost } from "../../lib/api";
+import {
+  getAllOurSpotlightWithIds,
+  getSingleOurSpotlightPost,
+} from "../../lib/api";
 
 function FeaturedImage(props) {
   const imageUrl = props.featuredImage?.node.sourceUrl;
@@ -72,21 +75,25 @@ function Section({ title, children }) {
 
 const Hero = () => <div className="h-96 w-full bg-blue-200"></div>;
 
-export default function Event({ event, featuredStories, preview }) {
+export default function OurSpotlight({
+  ourSpotlight,
+  featuredStories,
+  preview,
+}) {
   const router = useRouter();
-  const title = event.title;
+  const title = ourSpotlight.title;
   const featuredStoriesPosts = featuredStories?.edges;
 
-  if (!router.isFallback && !event?.databaseId) {
+  if (!router.isFallback && !ourSpotlight?.databaseId) {
     return <ErrorPage statusCode={404} />;
   }
 
   return (
     <Layout>
-      <Banner title="Event Calendars" />
-      <Section title={title}>{<Main {...event} />}</Section>
+      <Banner title="Our Spotlight" />
+      <Section title={title}>{<Main {...ourSpotlight} />}</Section>
       <CTA />
-      {featuredStoriesPosts.length > 0 && (
+      {featuredStoriesPosts?.length > 0 && (
         <FeatureStories posts={featuredStoriesPosts} />
       )}
     </Layout>
@@ -98,12 +105,14 @@ export const getStaticProps: GetStaticProps = async ({
   preview = false,
   previewData,
 }) => {
-  const data = await getSingleEventPost(params?.id);
+  const data = await getSingleOurSpotlightPost(params?.id);
+
+  console.log("data:", data);
 
   return {
     props: {
       preview,
-      event: data.event,
+      ourSpotlight: data.post,
       featuredStories: data.featuredStories,
     },
     revalidate: 10,
@@ -111,9 +120,13 @@ export const getStaticProps: GetStaticProps = async ({
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const events = await getAllEventWithIds();
+  const ourSpotlight = await getAllOurSpotlightWithIds();
+  console.log("OurSpotlight:", ourSpotlight);
   return {
-    paths: events.edges.map(({ node }) => `/events/${node.databaseId}`) || [],
+    paths:
+      ourSpotlight.edges.map(
+        ({ node }) => `/ourSpotlight/${node.databaseId}`
+      ) || [],
     fallback: true,
   };
 };

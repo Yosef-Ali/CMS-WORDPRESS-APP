@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import Banner from "../../components/banner";
 import CTA from "../../components/cta";
 import Layout from "../../components/layout";
-import { getAllEventCalendars } from "../../lib/api";
+import { getAllDailyReadings } from "../../lib/api";
 import FeatureStories from "../../components/featured-story";
 import ArticlesPostListSkeleton from "../../components/skeleton/articles-post-skeleton";
 
@@ -16,15 +16,21 @@ const ArticlesPostList = dynamic(
 );
 
 const after = null;
-export default function Index({ events, news, featuredStories, audios }) {
-  const [posts, setPosts] = useState(events);
+export default function Index({
+  dailyReadings,
+  news,
+  featuredStories,
+  audios,
+}) {
+  const [posts, setPosts] = useState(dailyReadings);
   const [loading, setLoading] = useState(true);
   //const eventsPosts = events?.edges;
   const newsPost = news?.edges;
   const featuredStoriesPosts = featuredStories?.edges;
   const audioTracks = audios?.edges;
+  console.log("newsPost", newsPost);
 
-  // Use an effect hook to set the loading status to false after the posts are fetched
+  //to set the loading state to false when posts are present.
   useEffect(() => {
     if (posts) {
       setLoading(false);
@@ -34,7 +40,7 @@ export default function Index({ events, news, featuredStories, audios }) {
   //console.log("catholicTVsPost", catholicTVsPost);
   return (
     <Layout>
-      <Banner title="Event Calendars" />
+      <Banner title="Daily Readings" />
       <section className="mx-auto  max-w-screen-xl">
         {loading ? (
           <ArticlesPostListSkeleton />
@@ -42,9 +48,9 @@ export default function Index({ events, news, featuredStories, audios }) {
           <ArticlesPostList
             posts={posts}
             setPosts={setPosts}
-            postType="eventCalendars"
-            path="/events"
-            header="Event Calendars"
+            postType="dailyReadings"
+            path="/dailyReadings"
+            header="Daily Readings"
             widgetPost={newsPost}
             widgetTitle="Recent News"
             readMoreLink="/news"
@@ -62,13 +68,13 @@ export default function Index({ events, news, featuredStories, audios }) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const data = await getAllEventCalendars({ after });
+  const data = await getAllDailyReadings({ after });
 
-  console.log("data-evens", data);
+  console.log("getAllDailyReadings", data);
   return {
     props: {
-      events: data.events,
-      news: data.posts,
+      dailyReadings: data.posts,
+      news: data.news,
       featuredStories: data.featuredStories,
       audios: data.podcasts,
     },

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { useRouter } from "next/router";
 import ErrorPage from "next/error";
@@ -6,7 +7,13 @@ import Layout from "../../components/layout";
 import Banner from "../../components/banner";
 import CTA from "../../components/cta";
 import FeatureStories from "../../components/featured-story";
-import { getAllEventWithIds, getSingleEventPost } from "../../lib/api";
+import {
+  getAllNewsWithIds,
+  getAllPostsWithIds,
+  getSingleNewsPost,
+  getSinglePost,
+} from "../../lib/api";
+import { GetYoutubeEmbed } from "../../components/misc/get-youtube-embed";
 
 function FeaturedImage(props) {
   const imageUrl = props.featuredImage?.node.sourceUrl;
@@ -20,6 +27,38 @@ function FeaturedImage(props) {
         className="aspect-video w-full object-cover "
       />
     </div>
+  );
+}
+
+function YouTubePlayer(props) {
+  const VideoUrl = props.videoSource.acfvideosource;
+  const isVideo = VideoUrl?.slice(0, 17) === "https://youtu.be/";
+  const YouTubeUrl = isVideo && GetYoutubeEmbed(VideoUrl);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const handleOnLoad = () => {
+    setIsLoading(false);
+    console.log("handleOnLoad:", "...loaded");
+  };
+
+  return (
+    <>
+      <>
+        {isLoading && (
+          <div className="aspect-[16/9] w-full animate-pulse bg-gray-200"></div>
+        )}
+        <iframe
+          className="aspect-[16/9] w-full"
+          src={YouTubeUrl}
+          title="YouTube video player"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture full"
+          allowFullScreen
+          onLoad={handleOnLoad}
+          style={{ display: isLoading ? "none" : "block" }}
+          sandbox="allow-same-origin allow-scripts"
+        ></iframe>
+      </>
+    </>
   );
 }
 
@@ -47,9 +86,14 @@ function Content(props) {
 }
 
 function Main(props) {
+  const YouTubeUrl = props.videoSource?.acfvideosource;
   return (
     <div>
-      <FeaturedImage {...props} />
+      {!YouTubeUrl ? (
+        <FeaturedImage {...props} />
+      ) : (
+        <YouTubePlayer {...props} />
+      )}
       <Content {...props} />
     </div>
   );
@@ -72,21 +116,23 @@ function Section({ title, children }) {
 
 const Hero = () => <div className="h-96 w-full bg-blue-200"></div>;
 
-export default function Event({ event, featuredStories, preview }) {
+export default function News({ news, featuredStories, preview }) {
+  //const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
-  const title = event.title;
+  const title = news?.title;
+
   const featuredStoriesPosts = featuredStories?.edges;
 
-  if (!router.isFallback && !event?.databaseId) {
+  if (!router.isFallback && !news?.databaseId) {
     return <ErrorPage statusCode={404} />;
   }
 
   return (
     <Layout>
-      <Banner title="Event Calendars" />
-      <Section title={title}>{<Main {...event} />}</Section>
+      <Banner title="Catholic TV News" />
+      <Section title={title}>{<Main {...news} />}</Section>
       <CTA />
-      {featuredStoriesPosts.length > 0 && (
+      {featuredStoriesPosts?.length > 0 && (
         <FeatureStories posts={featuredStoriesPosts} />
       )}
     </Layout>
@@ -98,12 +144,14 @@ export const getStaticProps: GetStaticProps = async ({
   preview = false,
   previewData,
 }) => {
-  const data = await getSingleEventPost(params?.id);
+  const data = await getSinglePost(params?.id);
+
+  console.log("data:", data);
 
   return {
     props: {
       preview,
-      event: data.event,
+      news: data.post,
       featuredStories: data.featuredStories,
     },
     revalidate: 10,
@@ -111,9 +159,9 @@ export const getStaticProps: GetStaticProps = async ({
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const events = await getAllEventWithIds();
+  const posts = await getAllPostsWithIds();
   return {
-    paths: events.edges.map(({ node }) => `/events/${node.databaseId}`) || [],
+    paths: posts.edges.map(({ node }) => `/news/${node.databaseId}`) || [],
     fallback: true,
   };
 };

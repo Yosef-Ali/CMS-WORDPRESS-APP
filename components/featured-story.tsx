@@ -17,7 +17,7 @@ export default function FeatureStories({ posts }) {
                       <h2 className="title-font font-noto mb-3 text-xl font-medium text-gray-900 line-clamp-2 sm:text-2xl">
                         {title}
                       </h2>
-                      <div className="prose font-noto mb-3 line-clamp-5 ">
+                      <div className="font-noto prose mb-3 line-clamp-5 ">
                         <div dangerouslySetInnerHTML={{ __html: content }} />
                       </div>
                     </div>
@@ -26,7 +26,7 @@ export default function FeatureStories({ posts }) {
               );
             })}
           </div>
-          <MoreButton title={"Load More"} moreURL={"/featureStories"} />
+          <MoreButton title={"Load More"} moreURL={"/featuredStories"} />
         </div>
       </div>
     </section>

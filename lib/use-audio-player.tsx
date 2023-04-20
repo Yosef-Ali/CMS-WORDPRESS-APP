@@ -139,17 +139,18 @@ export default function useAudioPlayer({
     }
 
     // Add event listeners for when the track ends or errors
-
-    audioElementRef.current.addEventListener("ended", toNextTrack);
-
-    audioElementRef.current.addEventListener("error", pauseTrack);
+    if (audioElementRef.current) {
+      audioElementRef.current.addEventListener("ended", toNextTrack);
+      audioElementRef.current.addEventListener("error", pauseTrack);
+    }
 
     // Remove event listeners on cleanup
 
     return () => {
-      audioElementRef.current.removeEventListener("ended", toNextTrack);
-
-      audioElementRef.current.removeEventListener("error", pauseTrack);
+      if (audioElementRef.current) {
+        audioElementRef.current.removeEventListener("ended", toNextTrack);
+        audioElementRef.current.removeEventListener("error", pauseTrack);
+      }
 
       clearTimeInterval();
     };

@@ -104,7 +104,7 @@ function CustomHits(props) {
     <>
       {exhaustiveNbHits &&
         results.hits.length > 0 &&
-        hits.map((hit, i) => {
+        hits.map((hit: any, i: number) => {
           //console.log("hitMap", hit);
           const Category = hit.taxonomies.category || hit.post_type_label;
           return (

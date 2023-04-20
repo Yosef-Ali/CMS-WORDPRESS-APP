@@ -4,8 +4,9 @@ import dynamic from "next/dynamic";
 import Banner from "../../components/banner";
 import CTA from "../../components/cta";
 import Layout from "../../components/layout";
-import { getAllEventCalendars } from "../../lib/api";
+import { getAllFeaturedStories } from "../../lib/api";
 import FeatureStories from "../../components/featured-story";
+import EventCalendar from "../../components/event-calendars";
 import ArticlesPostListSkeleton from "../../components/skeleton/articles-post-skeleton";
 
 const ArticlesPostList = dynamic(
@@ -17,14 +18,12 @@ const ArticlesPostList = dynamic(
 
 const after = null;
 export default function Index({ events, news, featuredStories, audios }) {
-  const [posts, setPosts] = useState(events);
+  const [posts, setPosts] = useState(featuredStories);
   const [loading, setLoading] = useState(true);
-  //const eventsPosts = events?.edges;
   const newsPost = news?.edges;
-  const featuredStoriesPosts = featuredStories?.edges;
+  const eventsPosts = events?.edges;
   const audioTracks = audios?.edges;
 
-  // Use an effect hook to set the loading status to false after the posts are fetched
   useEffect(() => {
     if (posts) {
       setLoading(false);
@@ -34,17 +33,17 @@ export default function Index({ events, news, featuredStories, audios }) {
   //console.log("catholicTVsPost", catholicTVsPost);
   return (
     <Layout>
-      <Banner title="Event Calendars" />
+      <Banner title="Featured Stories" />
       <section className="mx-auto  max-w-screen-xl">
         {loading ? (
           <ArticlesPostListSkeleton />
         ) : (
           <ArticlesPostList
             posts={posts}
+            postType={featuredStories}
             setPosts={setPosts}
-            postType="eventCalendars"
-            path="/events"
-            header="Event Calendars"
+            path="/featuredStories"
+            header="Featured Stories"
             widgetPost={newsPost}
             widgetTitle="Recent News"
             readMoreLink="/news"
@@ -54,22 +53,20 @@ export default function Index({ events, news, featuredStories, audios }) {
         )}
       </section>
       <CTA />
-      {featuredStoriesPosts.length > 0 && (
-        <FeatureStories posts={featuredStoriesPosts} />
-      )}
+      {eventsPosts.length > 0 && <EventCalendar posts={eventsPosts} />}
     </Layout>
   );
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const data = await getAllEventCalendars({ after });
+  const data = await getAllFeaturedStories({ after });
 
-  console.log("data-evens", data);
+  //console.log("data-evens", data);
   return {
     props: {
-      events: data.events,
-      news: data.posts,
       featuredStories: data.featuredStories,
+      news: data.posts,
+      events: data.events,
       audios: data.podcasts,
     },
     revalidate: 10,

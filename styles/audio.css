@@ -12,20 +12,20 @@
   box-shadow: none;
 }
 
-.rhap_controls-section {
+/* .rhap_controls-section {
   display: flex;
   flex: 0;
   outline: none;
   justify-content: space-between;
   align-items: center;
-}
+} */
 
-.rhap_main-controls {
+/* .rhap_main-controls {
   flex: 0 1 auto;
   display: flex;
   justify-content: center;
   align-items: center;
-}
+} */
 
 .rhap_main-controls-button {
   margin: 0 3px;

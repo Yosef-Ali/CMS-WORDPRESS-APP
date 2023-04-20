@@ -1,7 +1,7 @@
 .rhap_container {
   box-sizing: border-box;
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   line-height: 1;
   font-family: inherit;
   width: 100%;

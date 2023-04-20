@@ -10,19 +10,19 @@ export default function CTA({}: Props) {
           <h2 className="text-4xl text-white ">Dive into God's Word</h2>
           <div className="space-x-4 space-y-8 lg:flex-row">
             <button
-              onClick={() => router.push("/catholicTeachings")}
+              onClick={() => router.push("/dailyReadings")}
               className="bg-white-500 border border-orange-500 px-5 py-2 font-medium capitalize tracking-wide text-orange-500 outline-none transition-all hover:bg-orange-500 hover:text-white sm:px-8 "
             >
               Readings
             </button>
             <button
-              onClick={() => router.push("/podcast")}
+              onClick={() => router.push("/podcasts")}
               className="bg-white-500 border border-orange-500 px-5 py-2 font-medium capitalize tracking-wide text-orange-500 outline-none transition-all hover:bg-orange-500 hover:text-white sm:px-8 "
             >
-              Podcast
+              Podcasts
             </button>
             <button
-              onClick={() => router.push("/news/tvnews")}
+              onClick={() => router.push("/watchingOurVideos")}
               className="bg-white-500 border border-orange-500 px-5 py-2 font-medium capitalize tracking-wide text-orange-500 outline-none transition-all hover:bg-orange-500 hover:text-white sm:px-8 "
             >
               Watching Our Video

@@ -485,8 +485,8 @@ export async function getAllPostsForHome() {
           }
         }
       }
-      daleyReading: posts(
-        where: {categoryName: "Daley Reading", orderby: {field: DATE, order: DESC}, onlySticky: true}
+      dailyReadings: posts(
+        where: {categoryName: "Daily Readings", orderby: {field: DATE, order: DESC}, onlySticky: true}
           first: 1
         ) {
           edges {
@@ -496,7 +496,7 @@ export async function getAllPostsForHome() {
             }
           }
       }
-      catholicTVs(
+      news:posts(
           where: {categoryName: "Catholic Tv News", orderby: {field: DATE, order: DESC},}
           first: 100
         ) {
@@ -506,8 +506,8 @@ export async function getAllPostsForHome() {
               title
               content
               date
-              catholictvnews {
-                youtubLink
+              videoSource{
+                acfvideosource
               }
               featuredImage {
                 node {
@@ -516,6 +516,18 @@ export async function getAllPostsForHome() {
               }
             }
           }
+      }
+      ourSpotlightVideo:posts(where: {onlySticky: true, orderby: {field: DATE, order: DESC}, categoryName: "Catholic Tv News", hasVideoSource: true}) {
+        edges {
+          node {
+            title
+            databaseId
+            content
+            videoSource{
+              acfvideosource
+            }
+          }
+        }
       }
       ourSpotlight:posts(where: {onlySticky: true, orderby: {field: DATE, order: DESC}, categoryName: "ourSpotlight"}) {
         edges {
@@ -645,7 +657,7 @@ export async function getAllEventCalendars({ after = null }) {
           }
         }
       }
-      catholicTVs(
+      posts(
         where: {categoryName: "Catholic Tv News", orderby: {field: DATE, order: DESC},}
         first: 100
       ) {
@@ -655,8 +667,8 @@ export async function getAllEventCalendars({ after = null }) {
             title
             content
             date
-            catholictvnews {
-              youtubLink
+            videoSource {
+              acfvideosource
             }
             featuredImage {
               node {
@@ -681,6 +693,177 @@ export async function getAllEventCalendars({ after = null }) {
             audiourl {
               mediaItemUrl
             }
+          }
+        }
+      }
+    }
+    featuredStories(first: 3, where: {orderby: {field: DATE, order: DESC}}) {
+      edges {
+        node {
+          databaseId
+          title
+          content
+        }
+      }
+    }
+}`,
+
+    { variables: { first: 3, after } }
+  );
+
+  return data; // Added return statement.
+}
+
+export async function getAllDailyReadings({ after = null }) {
+  const data = await fetchAPI(
+    `query getDailyReadings($first: Int!, $after: String)  {
+      posts(first: $first, after: $after, where: {categoryName: "Daily Readings", orderby: {field: DATE, order: DESC}}) {
+    pageInfo {
+        hasNextPage
+        endCursor
+      }
+    edges {
+          node {
+            databaseId
+            title
+            content
+            date
+            featuredImage {
+              node {
+                sourceUrl
+              }
+            }
+          }
+        }
+      }
+     news:posts(
+        where: {categoryName: "Catholic Tv News", orderby: {field: DATE, order: DESC},}
+        first: 100
+      ) {
+        edges {
+          node {
+            databaseId
+            title
+            content
+            date
+            videoSource {
+              acfvideosource
+            }
+            featuredImage {
+              node {
+                sourceUrl
+              }
+            }
+          }
+        }
+    }
+    podcasts( where: {orderby: {field: DATE, order: DESC}, categoryName: "Music"},) {
+      edges {
+        node {
+          databaseId
+          title
+          content
+          featuredImage {
+            node {
+              sourceUrl
+            }
+          }
+          audioUrl {
+            audiourl {
+              mediaItemUrl
+            }
+          }
+        }
+      }
+    }
+    featuredStories(first: 3, where: {orderby: {field: DATE, order: DESC}}) {
+      edges {
+        node {
+          databaseId
+          title
+          content
+        }
+      }
+    }
+}`,
+
+    { variables: { first: 3, after } }
+  );
+
+  return data; // Added return statement.
+}
+
+export async function getAllFeaturedStories({ after = null }) {
+  const data = await fetchAPI(
+    `query getFeaturedStories($first: Int!, $after: String)  {
+      featuredStories(first: $first, after: $after, where: {orderby: {field: DATE, order: DESC}}) {
+    pageInfo {
+        hasNextPage
+        endCursor
+      }
+    edges {
+          node {
+            databaseId
+            title
+            content
+            date
+            featuredImage {
+              node {
+                sourceUrl
+              }
+            }
+          }
+        }
+      }
+      posts(
+        where: {categoryName: "Catholic Tv News", orderby: {field: DATE, order: DESC},}
+        first: 100
+      ) {
+        edges {
+          node {
+            databaseId
+            title
+            content
+            date
+            videoSource {
+              acfvideosource
+            }
+            featuredImage {
+              node {
+                sourceUrl
+              }
+            }
+          }
+        }
+    }
+    podcasts( where: {orderby: {field: DATE, order: DESC}, categoryName: "Music"},) {
+      edges {
+        node {
+          databaseId
+          title
+          content
+          featuredImage {
+            node {
+              sourceUrl
+            }
+          }
+          audioUrl {
+            audiourl {
+              mediaItemUrl
+            }
+          }
+        }
+      }
+    }
+    events(first: 3, where: {orderby: {field: DATE, order: DESC}}) {
+      edges {
+        node {
+          databaseId
+          title
+          content
+          events {
+              startingDate
+              endingDate
           }
         }
       }
@@ -735,6 +918,353 @@ export async function getSingleEventPost(id) {
   return data;
 }
 
+export async function getAllTeachings({ after = null }) {
+  const data = await fetchAPI(
+    `query getTeachings($first: Int!, $after: String) {
+      posts(
+        first: $first, after: $after,
+        where: {categoryName: "Catholic Teachings", orderby: {field: DATE, order: DESC}}
+      ) {
+        pageInfo {
+          endCursor
+          hasNextPage
+        }
+        edges {
+          node {
+            databaseId
+            title
+            content
+            date
+            videoSource {
+              acfvideosource
+            }
+            featuredImage{
+              node{
+                sourceUrl
+              }
+            }
+          }
+        }
+      }
+      itIsTheLORD:posts(
+        where: {categoryName: "It is the LORD", orderby: {field: DATE, order: DESC}}
+      ) {
+        edges {
+          node {
+            databaseId
+            date
+            title
+            content
+            featuredImage {
+              node {
+                sourceUrl(size: MEDIUM)
+              }
+            }
+            videoSource {
+              acfvideosource
+            }
+          }
+        }
+      }
+      events(first: 3, where: {orderby: {field: DATE, order: DESC}}) {
+        edges {
+          node {
+            databaseId
+            title
+            content
+            events {
+                startingDate
+                endingDate
+            }
+          }
+        }
+      }
+      podcasts( where: {orderby: {field: DATE, order: DESC}, categoryName: "Music"},) {
+        edges {
+          node {
+            databaseId
+            title
+            content
+            featuredImage {
+              node {
+                sourceUrl
+              }
+            }
+            audioUrl {
+              audiourl {
+                mediaItemUrl
+              }
+            }
+          }
+        }
+      }
+    }
+`,
+
+    { variables: { first: 6, after } }
+  );
+
+  return data; // Added return statement.
+}
+
+export async function getAllNews({ after = null }) {
+  const data = await fetchAPI(
+    `query getNews($first: Int!, $after: String) {
+      posts(
+        first: $first, after: $after,
+        where: {categoryName: "Catholic Tv News", orderby: {field: DATE, order: DESC}}
+      ) {
+        pageInfo {
+          endCursor
+          hasNextPage
+        }
+        edges {
+          node {
+            databaseId
+            title
+            content
+            date
+            videoSource {
+              acfvideosource
+            }
+            featuredImage {
+              node {
+                sourceUrl
+              }
+            }
+          }
+        }
+      }
+      featuredStories(first: 30, where: {orderby: {field: DATE, order: DESC}}) {
+        edges {
+          node {
+            title
+            content
+            databaseId
+            date
+            featuredImage {
+              node {
+                sourceUrl
+              }
+            }
+          }
+        }
+      }
+      events(first: 3, where: {orderby: {field: DATE, order: DESC}}) {
+        edges {
+          node {
+            databaseId
+            title
+            content
+            events {
+                startingDate
+                endingDate
+            }
+          }
+        }
+      }
+      podcasts( where: {orderby: {field: DATE, order: DESC}, categoryName: "Music"},) {
+        edges {
+          node {
+            databaseId
+            title
+            content
+            featuredImage {
+              node {
+                sourceUrl
+              }
+            }
+            audioUrl {
+              audiourl {
+                mediaItemUrl
+              }
+            }
+          }
+        }
+      }
+    }
+`,
+
+    { variables: { first: 6, after } }
+  );
+
+  return data; // Added return statement.
+}
+export async function getAllVideoTeachings({ after = null }) {
+  const data = await fetchAPI(
+    `query getVideoTeachings($first: Int!, $after: String) {
+      posts(
+        first: $first, after: $after,
+        where: {categoryName: "Catholic Teachings", orderby: {field: DATE, order: DESC},hasVideoSource: true}
+      ) {
+        pageInfo {
+          endCursor
+          hasNextPage
+        }
+        edges {
+          node {
+            databaseId
+            title
+            content
+            date
+            videoSource {
+              acfvideosource
+            }
+          }
+        }
+      }
+      itIsTheLORD:posts(
+        where: {categoryName: "It is the LORD", orderby: {field: DATE, order: DESC}}
+      ) {
+        edges {
+          node {
+            databaseId
+            date
+            title
+            content
+            featuredImage {
+              node {
+                sourceUrl(size: MEDIUM)
+              }
+            }
+            videoSource {
+              acfvideosource
+            }
+          }
+        }
+      }
+      events(first: 3, where: {orderby: {field: DATE, order: DESC}}) {
+        edges {
+          node {
+            databaseId
+            title
+            content
+            events {
+                startingDate
+                endingDate
+            }
+          }
+        }
+      }
+      podcasts( where: {orderby: {field: DATE, order: DESC}, categoryName: "Music"},) {
+        edges {
+          node {
+            databaseId
+            title
+            content
+            featuredImage {
+              node {
+                sourceUrl
+              }
+            }
+            audioUrl {
+              audiourl {
+                mediaItemUrl
+              }
+            }
+          }
+        }
+      }
+    }
+`,
+
+    { variables: { first: 6, after } }
+  );
+
+  return data; // Added return statement.
+}
+
+export async function getAllItIsTheLORD({ after = null }) {
+  const data = await fetchAPI(
+    `query getItIsTheLORD($first: Int!, $after: String) {
+      posts(
+        first: $first, after: $after,
+        where: {categoryName: "It is the LORD", orderby: {field: DATE, order: DESC}}
+      ) {
+        pageInfo {
+          endCursor
+          hasNextPage
+        }
+        edges {
+          node {
+            databaseId
+            title
+            content
+            date
+            videoSource {
+              acfvideosource
+            }
+            featuredImage {
+              node{
+                sourceUrl
+              }
+            }
+          }
+        }
+      }
+      catholicTeachings:posts(
+        first: 4
+        where: {categoryName: "Catholic Teachings", orderby: {field: DATE, order: DESC}}
+      ) {
+        edges {
+          node {
+            databaseId
+            date
+            title
+            content
+            featuredImage {
+              node {
+                sourceUrl
+              }
+            }
+            videoSource{
+              acfvideosource
+            }
+          }
+        }
+      }
+
+      events(first: 3, where: {orderby: {field: DATE, order: DESC}}) {
+        edges {
+          node {
+            databaseId
+            title
+            content
+            events {
+                startingDate
+                endingDate
+            }
+          }
+        }
+      }
+      podcasts( where: {orderby: {field: DATE, order: DESC}, categoryName: "Music"},) {
+        edges {
+          node {
+            databaseId
+            title
+            content
+            featuredImage {
+              node {
+                sourceUrl
+              }
+            }
+            audioUrl {
+              audiourl {
+                mediaItemUrl
+              }
+            }
+          }
+        }
+      }
+    }
+`,
+
+    { variables: { first: 6, after } }
+  );
+
+  return data; // Added return statement.
+}
+
 export async function getAllEventWithIds() {
   const data = await fetchAPI(
     `
@@ -750,6 +1280,428 @@ export async function getAllEventWithIds() {
   `
   );
   return data?.events;
+}
+
+export async function getSinglePost(id) {
+  const data = await fetchAPI(
+    `
+    query getNewsPostById($id: ID!, $idType: PostIdType = DATABASE_ID) {
+      post(id: $id, idType: $idType) {
+        databaseId
+        title
+        date
+        content
+        videoSource {
+          acfvideosource
+          }
+        featuredImage {
+          node {
+            sourceUrl
+          }
+        }
+      }
+      featuredStories(first: 30, where: {orderby: {field: DATE, order: DESC}}) {
+        edges {
+          node {
+            title
+            content
+            databaseId
+            date
+            featuredImage {
+              node {
+                sourceUrl
+              }
+            }
+          }
+        }
+      }
+    }
+  `,
+    {
+      variables: {
+        id: id,
+        idType: "DATABASE_ID",
+      },
+    }
+  );
+  return data;
+}
+
+export async function getAllPostsWithIds() {
+  const data = await fetchAPI(
+    ` query getAllNewsIds {
+      posts(first: 10000, where: {categoryName: "Catholic Tv News"}) {
+        edges {
+          node {
+            databaseId
+          }
+        }
+      }
+    }
+  `
+  );
+  return data?.posts;
+}
+
+export async function getSingleOurSpotlightPost(id) {
+  const data = await fetchAPI(
+    `
+    query getOurSpotlightPostById($id: ID!, $idType: PostIdType = DATABASE_ID) {
+      post(id: $id, idType: $idType) {
+        databaseId
+        title
+        date
+        content
+        featuredImage {
+          node {
+            sourceUrl
+          }
+        }
+      }
+      featuredStories(first: 30, where: {orderby: {field: DATE, order: DESC}}) {
+        edges {
+          node {
+            title
+            content
+            databaseId
+            date
+            featuredImage {
+              node {
+                sourceUrl
+              }
+            }
+          }
+        }
+      }
+      ourSpotlight: posts(first: 30,
+        where: {categoryName: "ourSpotlight", orderby: {field: DATE, order: DESC}}
+        ) {
+          edges {
+            node {
+              title
+              content
+              databaseId
+              featuredImage {
+                node {
+                  sourceUrl
+                }
+              }
+            }
+          }
+        }
+    }
+  `,
+    {
+      variables: {
+        id: id,
+        idType: "DATABASE_ID",
+      },
+    }
+  );
+  return data;
+}
+
+export async function getAllOurSpotlightWithIds() {
+  const data = await fetchAPI(
+    ` query getAllOurSpotlightIds {
+      posts(first: 10000, where: {categoryName: "ourSpotlight"}) {
+        edges {
+          node {
+            databaseId
+          }
+        }
+      }
+    }
+  `
+  );
+  return data?.posts;
+}
+
+export async function getSingleDailyReadingPost(id) {
+  const data = await fetchAPI(
+    `
+    query getDailyReadingsPostById($id: ID!, $idType: PostIdType = DATABASE_ID) {
+      post(id: $id, idType: $idType) {
+        databaseId
+        title
+        date
+        content
+        featuredImage {
+          node {
+            sourceUrl
+          }
+        }
+      }
+      featuredStories(first: 30, where: {orderby: {field: DATE, order: DESC}}) {
+        edges {
+          node {
+            title
+            content
+            databaseId
+            date
+            featuredImage {
+              node {
+                sourceUrl
+              }
+            }
+          }
+        }
+      }
+      dailyReadings: posts(first: 30,
+        where: {categoryName: "Daily Readings", orderby: {field: DATE, order: DESC}}
+        ) {
+          edges {
+            node {
+              title
+              content
+              databaseId
+              featuredImage {
+                node {
+                  sourceUrl
+                }
+              }
+            }
+          }
+        }
+      podcasts( where: {orderby: {field: DATE, order: DESC}, categoryName: "Music"},) {
+        edges {
+          node {
+            databaseId
+            title
+            content
+            featuredImage {
+              node {
+                sourceUrl
+              }
+            }
+            audioUrl {
+              audiourl {
+                mediaItemUrl
+              }
+            }
+          }
+        }
+      }
+    }
+  `,
+    {
+      variables: {
+        id: id,
+        idType: "DATABASE_ID",
+      },
+    }
+  );
+  return data;
+}
+
+export async function getAllDailyReadingsWithIds() {
+  const data = await fetchAPI(
+    `query getAllDailyReadingsIds {
+      posts(
+        where: {categoryName: "Daily Readings", orderby: {field: DATE, order: DESC}}first: 1000) {
+        edges {
+          node {
+            databaseId
+          }
+        }
+      }
+    }
+  `
+  );
+  return data?.posts;
+}
+export async function getAllCatholicTeachingsWithIds() {
+  const data = await fetchAPI(
+    `query getAllCatholicTeachingsIds {
+      posts(
+        where: {categoryName: "Catholic Teachings", orderby: {field: DATE, order: DESC}}first: 1000) {
+        edges {
+          node {
+            databaseId
+          }
+        }
+      }
+    }
+  `
+  );
+  return data?.posts;
+}
+export async function getSingleCatholicTeachingsPost(id) {
+  const data = await fetchAPI(
+    ` query getPostById($id: ID!, $idType: PostIdType = DATABASE_ID) {
+      post(id: $id, idType: $idType) {
+        databaseId
+        title
+        date
+        content
+        videoSource {
+          acfvideosource
+          }
+        featuredImage {
+          node {
+            sourceUrl
+          }
+        }
+      }
+      featuredStories(first: 3, where: {orderby: {field: DATE, order: DESC}}) {
+        edges {
+          node {
+            databaseId
+            title
+            content
+          }
+        }
+      }
+    }
+  `,
+    {
+      variables: {
+        id: id,
+        idType: "DATABASE_ID",
+      },
+    }
+  );
+  return data;
+}
+export async function getSingleFeaturedStory(id) {
+  const data = await fetchAPI(
+    `
+    query getFeaturedStoryById($id: ID!, $idType:  FeaturedStoryIdType = DATABASE_ID) {
+      featuredStory(id: $id, idType: $idType) {
+        databaseId
+        title
+        date
+        content
+        featuredImage {
+          node {
+            sourceUrl
+          }
+        }
+      }
+      events(first: 3, where: {orderby: {field: DATE, order: DESC}}) {
+        edges {
+          node {
+            databaseId
+            title
+            content
+            events {
+                startingDate
+                endingDate
+            }
+          }
+        }
+      }
+    }
+  `,
+    {
+      variables: {
+        id: id,
+        idType: "DATABASE_ID",
+      },
+    }
+  );
+  return data;
+}
+
+export async function getAllFeaturedStoriesWithIds() {
+  const data = await fetchAPI(
+    `
+    query getAllFeaturedStoriesIds {
+      featuredStories(first: 10000) {
+        edges {
+          node {
+            databaseId
+          }
+        }
+      }
+    }
+  `
+  );
+  return data?.featuredStories;
+}
+
+export async function getAllPodcasts({ after = null }) {
+  const data = await fetchAPI(
+    `query getPodcasts($first: Int!, $after: String)  {
+      podcasts(first: $first, after: $after, where: {categoryName: "Podcast", orderby: {field: DATE, order: DESC},}) {
+        pageInfo {
+            hasNextPage
+            endCursor
+          }
+        edges {
+              node {
+                databaseId
+                title
+                content
+                date
+                featuredImage {
+                  node {
+                    sourceUrl
+                  }
+                }
+                audioUrl {
+                audiourl {
+                  mediaItemUrl
+                }
+              }
+              }
+            }
+      }
+      posts(
+        where: {categoryName: "Catholic Teachings", orderby: {field: DATE, order: DESC},}
+        first: 100
+      ) {
+        edges {
+          node {
+            databaseId
+            title
+            content
+            date
+            videoSource {
+              acfvideosource
+            }
+            featuredImage {
+              node {
+                sourceUrl
+              }
+            }
+          }
+        }
+    }
+    audios: podcasts( where: {orderby: {field: DATE, order: DESC}, categoryName: "Music"},) {
+      edges {
+        node {
+          databaseId
+          title
+          content
+          featuredImage {
+            node {
+              sourceUrl
+            }
+          }
+          audioUrl {
+            audiourl {
+              mediaItemUrl
+            }
+          }
+        }
+      }
+    }
+    featuredStories(first: 3, where: {orderby: {field: DATE, order: DESC}}) {
+      edges {
+        node {
+          databaseId
+          title
+          content
+        }
+      }
+    }
+}`,
+
+    { variables: { first: 3, after } }
+  );
+
+  return data; // Added return statement.
 }
 
 export async function getPostAndMorePosts(slug, preview, previewData) {

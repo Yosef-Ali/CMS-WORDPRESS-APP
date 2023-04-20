@@ -370,3 +370,16 @@ html {
 }
 
 /* Algolia Search end */
+
+.rhap_container {
+  @apply bg-slate-50;
+}
+
+.rhap_main .rhap_horizontal-reverse {
+  @apply bg-slate-400;
+}
+
+/* .rhap_controls-section {
+  @apply bg-slate-500;
+} */
+@import "react-loading-skeleton/dist/skeleton.css";

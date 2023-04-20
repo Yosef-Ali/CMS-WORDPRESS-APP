@@ -4,18 +4,15 @@ import { ChevronRight } from "./icons";
 import { GetYoutubeEmbed } from "./misc/get-youtube-embed";
 
 export function TVCardPortrait({ video }) {
-  const { title, databaseId, content, catholictvnews } = video[0].node;
-  const YouTubeUrl = GetYoutubeEmbed(catholictvnews.youtubLink);
+  const { title, databaseId, content, videoSource } = video[0].node;
+  const YouTubeUrl = GetYoutubeEmbed(videoSource.acfvideosource);
 
   return (
     <div className=" md:w-1/2 md:px-2 lg:p-4">
       <h2 className="text-md title-font mb-1 uppercase tracking-widest text-gray-700">
         Catholic tv news
       </h2>
-      <Link
-        href={`/tvnews/${databaseId}`}
-        className="flex h-full flex-1 flex-col overflow-hidden rounded border-2 border-gray-200 border-opacity-60 transition delay-300 hover:shadow-lg"
-      >
+      <div className="flex h-full flex-1 flex-col overflow-hidden rounded border-2 border-gray-200 border-opacity-60 transition delay-300 hover:shadow-lg">
         {
           <iframe
             className="aspect-[16/9] w-full"
@@ -36,11 +33,14 @@ export function TVCardPortrait({ video }) {
           </div>
         </div>
 
-        <button className="inline-flex items-center px-6 pt-3 pb-3 text-indigo-500 ">
-          Watch More
+        <Link
+          href="/news"
+          className="inline-flex items-center px-6 pt-3 pb-3 text-indigo-500 "
+        >
+          More News
           <ChevronRight className="ml-2 h-4 w-4" />
-        </button>
-      </Link>{" "}
+        </Link>
+      </div>
     </div>
   );
 }
@@ -55,7 +55,7 @@ export function ArticleCardPortrait({ posts }) {
         our spotlight
       </h2>
       <Link
-        href={`/tvnews/${databaseId}`}
+        href={`/ourSpotlight/${databaseId}`}
         className="flex h-full flex-1 flex-col overflow-hidden rounded border-2 border-gray-200 border-opacity-60 transition delay-300 hover:shadow-lg"
       >
         {
@@ -78,7 +78,7 @@ export function ArticleCardPortrait({ posts }) {
         </div>
 
         <button className="inline-flex items-center px-6 pt-3 pb-3 text-indigo-500 ">
-          Watch More
+          Read More
           <ChevronRight className="ml-2 h-4 w-4" />
         </button>
       </Link>

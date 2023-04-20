@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { ListeningIcon } from "./icons";
+import { ChevronRight, ListeningIcon } from "./icons";
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
 import styles from "./audio-wrapper.module.css";
+import Link from "next/link";
 
 function Card({ children }) {
   return (
@@ -12,7 +13,16 @@ function Card({ children }) {
           <ListeningIcon className="h-8 w-8" aria-hidden="true" />
         </div>
       </div>
-      <div className="flex-1 px-4 ">{children}</div>
+      <div className="flex-1 px-4">{children}</div>
+      <div className="flex md:h-12 md:w-2/12 md:border-l-2">
+        <Link
+          href={`/podcasts`}
+          className="inline-flex items-center pl-5 text-indigo-500 "
+        >
+          More
+          <ChevronRight className="ml-2 h-4 w-4" />
+        </Link>
+      </div>
     </div>
   );
 }
@@ -57,7 +67,7 @@ export default function AudioWrapper({ audio }) {
         autoPlayAfterSrcChange={true}
         className={styles.rhap_container}
       />
-      <h2 className="font-noto -mt-3 pl-4 text-center text-xs text-gray-900 line-clamp-1">
+      <h2 className="font-noto -mt-2 pl-4 text-center text-xs text-gray-900 line-clamp-1">
         {title}
       </h2>
     </Card>

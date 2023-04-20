@@ -5,8 +5,12 @@ import Image from "next/image";
 import Layout from "../../components/layout";
 import Banner from "../../components/banner";
 import CTA from "../../components/cta";
-import FeatureStories from "../../components/featured-story";
-import { getAllEventWithIds, getSingleEventPost } from "../../lib/api";
+
+import {
+  getAllFeaturedStoriesWithIds,
+  getSingleFeaturedStory,
+} from "../../lib/api";
+import EventCalendar from "../../components/event-calendars";
 
 function FeaturedImage(props) {
   const imageUrl = props.featuredImage?.node.sourceUrl;
@@ -72,23 +76,21 @@ function Section({ title, children }) {
 
 const Hero = () => <div className="h-96 w-full bg-blue-200"></div>;
 
-export default function Event({ event, featuredStories, preview }) {
+export default function FeaturedStory({ featuredStory, events, preview }) {
   const router = useRouter();
-  const title = event.title;
-  const featuredStoriesPosts = featuredStories?.edges;
+  const title = featuredStory.title;
+  const eventsPosts = events?.edges;
 
-  if (!router.isFallback && !event?.databaseId) {
+  if (!router.isFallback && !featuredStory?.databaseId) {
     return <ErrorPage statusCode={404} />;
   }
 
   return (
     <Layout>
-      <Banner title="Event Calendars" />
-      <Section title={title}>{<Main {...event} />}</Section>
+      <Banner title="Featured Stories" />
+      <Section title={title}>{<Main {...featuredStory} />}</Section>
       <CTA />
-      {featuredStoriesPosts.length > 0 && (
-        <FeatureStories posts={featuredStoriesPosts} />
-      )}
+      {eventsPosts.length > 0 && <EventCalendar posts={eventsPosts} />}
     </Layout>
   );
 }
@@ -98,22 +100,24 @@ export const getStaticProps: GetStaticProps = async ({
   preview = false,
   previewData,
 }) => {
-  const data = await getSingleEventPost(params?.id);
+  const data = await getSingleFeaturedStory(params?.id);
 
   return {
     props: {
       preview,
-      event: data.event,
-      featuredStories: data.featuredStories,
+      featuredStory: data.featuredStory,
+      events: data.events,
     },
     revalidate: 10,
   };
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const events = await getAllEventWithIds();
+  const events = await getAllFeaturedStoriesWithIds();
   return {
-    paths: events.edges.map(({ node }) => `/events/${node.databaseId}`) || [],
+    paths:
+      events.edges.map(({ node }) => `/featuredStories/${node.databaseId}`) ||
+      [],
     fallback: true,
   };
 };

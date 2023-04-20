@@ -4,8 +4,8 @@ import dynamic from "next/dynamic";
 import Banner from "../../components/banner";
 import CTA from "../../components/cta";
 import Layout from "../../components/layout";
-import { getAllEventCalendars } from "../../lib/api";
-import FeatureStories from "../../components/featured-story";
+import { getAllNews } from "../../lib/api";
+import EventCalendar from "../../components/event-calendars";
 import ArticlesPostListSkeleton from "../../components/skeleton/articles-post-skeleton";
 
 const ArticlesPostList = dynamic(
@@ -16,12 +16,11 @@ const ArticlesPostList = dynamic(
 );
 
 const after = null;
-export default function Index({ events, news, featuredStories, audios }) {
-  const [posts, setPosts] = useState(events);
+export default function Index({ news, featuredStories, events, audios }) {
+  const [posts, setPosts] = useState(news);
   const [loading, setLoading] = useState(true);
-  //const eventsPosts = events?.edges;
-  const newsPost = news?.edges;
   const featuredStoriesPosts = featuredStories?.edges;
+  const eventsPosts = events?.edges;
   const audioTracks = audios?.edges;
 
   // Use an effect hook to set the loading status to false after the posts are fetched
@@ -34,7 +33,7 @@ export default function Index({ events, news, featuredStories, audios }) {
   //console.log("catholicTVsPost", catholicTVsPost);
   return (
     <Layout>
-      <Banner title="Event Calendars" />
+      <Banner title="News" />
       <section className="mx-auto  max-w-screen-xl">
         {loading ? (
           <ArticlesPostListSkeleton />
@@ -42,34 +41,31 @@ export default function Index({ events, news, featuredStories, audios }) {
           <ArticlesPostList
             posts={posts}
             setPosts={setPosts}
-            postType="eventCalendars"
-            path="/events"
-            header="Event Calendars"
-            widgetPost={newsPost}
-            widgetTitle="Recent News"
-            readMoreLink="/news"
-            moreUrl="/news"
+            postType="news"
+            path="/news"
+            header="News"
+            widgetPost={featuredStoriesPosts}
+            widgetTitle="Featured Stories"
+            readMoreLink="/featuredStories"
+            moreUrl="/featuredStories"
             audioTracks={audioTracks}
           />
         )}
       </section>
       <CTA />
-      {featuredStoriesPosts.length > 0 && (
-        <FeatureStories posts={featuredStoriesPosts} />
-      )}
+      {eventsPosts.length > 0 && <EventCalendar posts={eventsPosts} />}
     </Layout>
   );
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const data = await getAllEventCalendars({ after });
+  const data = await getAllNews({ after });
 
-  console.log("data-evens", data);
   return {
     props: {
-      events: data.events,
       news: data.posts,
       featuredStories: data.featuredStories,
+      events: data.events,
       audios: data.podcasts,
     },
     revalidate: 10,

@@ -42,5 +42,13 @@
   },
   "editor.guides.bracketPairs": "active",
   "zenMode.hideLineNumbers": false,
-  "cSpell.words": ["algoliasearch", "headlessui", "instantsearch"]
+  "cSpell.words": [
+    "algoliasearch",
+    "audiourl",
+    "catholictvnews",
+    "headlessui",
+    "instantsearch",
+    "videosource",
+    "youtub"
+  ]
 }
