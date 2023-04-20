@@ -1362,12 +1362,7 @@ export async function getSingleOurSpotlightPost(id) {
         edges {
           node {
             title
-<<<<<<< HEAD
             content
-=======
-            excerpt
-            slug
->>>>>>> aa39fc7f3381656a14f872abda7274d19778faf0
             databaseId
             date
             featuredImage {
@@ -1734,7 +1729,6 @@ export async function getSingleFeaturedStory(id) {
         idType: "DATABASE_ID",
       },
     }
-<<<<<<< HEAD
   );
   return data;
 }
@@ -1838,10 +1832,6 @@ export async function getAllPodcasts({ after = null }) {
   );
 
   return data; // Added return statement.
-=======
-  )
-  return data
->>>>>>> aa39fc7f3381656a14f872abda7274d19778faf0
 }
 
 export async function getPostAndMorePosts(slug, preview, previewData) {
