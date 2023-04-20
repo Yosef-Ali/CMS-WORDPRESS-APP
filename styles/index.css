@@ -342,9 +342,7 @@ html {
   display: grid;
   gap: 1rem;
 }
-<<<<<<< HEAD
-
-.hit h1 {
+<<<<<<< HEAD .hit h1 {
   font-size: 1rem;
 }
 
@@ -384,5 +382,3 @@ html {
   @apply bg-slate-500;
 } */
 @import "react-loading-skeleton/dist/skeleton.css";
-=======
->>>>>>> aa39fc7f3381656a14f872abda7274d19778faf0
