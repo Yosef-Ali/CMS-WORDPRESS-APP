@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 import { AppProps } from "next/app";
+=======
+import { AppProps } from 'next/app';
+import '../styles/index.css';
+import '../styles/audio.css';
+>>>>>>> aa39fc7f3381656a14f872abda7274d19778faf0
 
 import "../styles/index.css";
 import "../styles/audio.css";

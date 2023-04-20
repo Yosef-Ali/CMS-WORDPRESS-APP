@@ -1,8 +1,15 @@
+<<<<<<< HEAD
 import moment from "moment";
 import { useRouter } from "next/navigation";
 import Moment from "react-moment";
 import MoreButton from "./more-button";
 import SectionTitle from "./section-title";
+=======
+import moment from 'moment';
+import Moment from 'react-moment';
+import MoreButton from './more-button';
+import SectionTitle from './section-title';
+>>>>>>> aa39fc7f3381656a14f872abda7274d19778faf0
 
 // Extracting Event only day as DD or DD-DD
 function EventDay(props) {
@@ -48,6 +55,7 @@ function EventDates(props) {
 }
 
 export default function EventCalendar({ posts }) {
+<<<<<<< HEAD
   return (
     <section className="body-font mx-auto max-w-7xl text-gray-800">
       <div className="container mx-auto mb-24 px-5">
@@ -96,4 +104,54 @@ export default function EventCalendar({ posts }) {
       </div>
     </section>
   );
+=======
+	return (
+		<section className='mx-auto text-gray-800 body-font max-w-7xl'>
+			<div className='container px-5 mx-auto mb-24'>
+				<div className='max-w-6xl px-8 py-8 mx-auto bg-blue-100/80 md:px-24 border-black/10 border-b-16'>
+					<SectionTitle>Event Calendars</SectionTitle>
+					<div className='text-center divide-y-2 divide-black/10 md:text-left'>
+						{posts.map(({ node }) => {
+							const { title, databaseId } = node;
+							const { startingDate, endingDate } = node.events;
+							return (
+								<div
+									key={databaseId}
+									className='flex flex-wrap py-6 transition delay-300 md:py-8 lg:px-2 md:flex-nowrap hover:shadow-lg'
+								>
+									<div className='flex flex-col items-center justify-center flex-shrink-0 w-full mb-6 md:w-40 md:mb-0 md:border-r-2 border-black/10'>
+										{
+											<>
+												<span className='text-2xl font-bold text-center text-gray-700'>
+													{!endingDate ? (
+														<Moment date={startingDate} format='DD' />
+													) : (
+														<EventDay {...node} />
+													)}
+												</span>
+												<span className='mt-1 text-center text-gray-500'>
+													{!endingDate ? (
+														<Moment date={startingDate} format='MMM-YYYY' />
+													) : (
+														<EventDates {...node} />
+													)}
+												</span>
+											</>
+										}
+									</div>
+									<div className='flex justify-center w-full md:justify-start '>
+										<h2 className='p-4 text-2xl font-medium text-gray-900 title-font font-nono'>
+											{title}
+										</h2>
+									</div>
+								</div>
+							);
+						})}
+					</div>
+					<MoreButton title='Load More' moreURL={'../../events/'} />
+				</div>
+			</div>
+		</section>
+	);
+>>>>>>> aa39fc7f3381656a14f872abda7274d19778faf0
 }

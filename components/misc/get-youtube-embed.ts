@@ -1,7 +1,7 @@
-import getYouTubeID from "get-youtube-id";
+import getYouTubeID from "get-youtube-id"
 
-export const GetYoutubeEmbed = (props) => {
-  const YouTubId = getYouTubeID(props);
+export const GetYoutubeEmbed = props => {
+  const YouTubId = getYouTubeID(props)
 
-  return "https://www.youtube.com/embed/" + YouTubId;
-};
+  return "https://www.youtube.com/embed/" + YouTubId
+}
