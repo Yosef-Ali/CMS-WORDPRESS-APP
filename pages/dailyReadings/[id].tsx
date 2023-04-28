@@ -9,6 +9,7 @@ import {
 } from "../../lib/api";
 
 import ArticlesPostDetail from "../../components/article-post-detail";
+import Head from "next/head";
 
 const Hero = () => <div className="h-96 w-full bg-blue-200"></div>;
 
@@ -19,12 +20,20 @@ export default function DailyReading({
   podcasts,
   preview,
 }) {
+  const { title, content, featuredImage } = dailyReading;
   const featuredStoriesPosts = featuredStories?.edges;
   const widgetsPosts = dailyReadings?.edges;
   const audio = podcasts?.edges;
 
   return (
     <Layout>
+      <Head>
+        <title>{title}</title>
+        <meta name="description" content={content.slice(0, 50)} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={content.slice(0, 180)} />
+        <meta property="og:image" content={featuredImage?.node.sourceUrl} />
+      </Head>
       <Banner title="Daily Readings" />
       <section className="mx-auto  max-w-screen-xl">
         <ArticlesPostDetail
@@ -70,7 +79,6 @@ export const getStaticProps: GetStaticProps = async ({
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const dailyReadings = await getAllDailyReadingsWithIds();
-  //console.log("dailyReadings", dailyReadings);
   return {
     paths:
       dailyReadings.edges.map(

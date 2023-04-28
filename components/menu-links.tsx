@@ -60,8 +60,8 @@ export const menuLinks: MenuLink[] = [
   },
   {
     id: 4,
-    name: `Catholic TV`,
-    link: `/news`,
+    name: `PAX Catholic TV`,
+    link: `/catholic-tv`,
     submenu: [],
   },
   {

@@ -64,16 +64,12 @@ const footerMenuLinks = [
         link: "/pastoralDepartment ",
       },
       {
-        name: "ACS News",
-        link: "/news",
-      },
-      {
-        name: "Catholic Addis TV",
-        link: "/news",
+        name: "PAX Catholic TV",
+        link: "/catholic-tv",
       },
       {
         name: "Ethiocist.org",
-        link: "!#",
+        link: "http://www.ethiocist.org/",
       },
     ],
   },

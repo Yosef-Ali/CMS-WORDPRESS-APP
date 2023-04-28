@@ -135,7 +135,7 @@ export default function Arcbishops({ archbishops, events }) {
 
 export const getStaticProps: GetStaticProps = async () => {
   const data = await getAllPostsForArchbishops();
-  console.log("first", data);
+  //console.log("first", data);
   return {
     props: {
       archbishops: data.pages,

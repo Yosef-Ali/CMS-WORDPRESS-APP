@@ -10,44 +10,10 @@ import {
   getAllOurSpotlightWithIds,
   getSingleOurSpotlightPost,
 } from "../../lib/api";
-
-function FeaturedImage(props) {
-  const imageUrl = props.featuredImage?.node.sourceUrl;
-  return (
-    <div>
-      <Image
-        width={2000}
-        height={1000}
-        alt={""}
-        src={imageUrl}
-        className="aspect-video w-full object-cover "
-      />
-    </div>
-  );
-}
-
-function Content(props) {
-  const router = useRouter();
-  const { content, title } = props;
-  return (
-    <div className="max-w-screen-sm pt-6">
-      <h2 className="text-md font-noto py-6 font-bold text-gray-900 antialiased">
-        {title}
-      </h2>
-      <div className="font-noto prose text-gray-900 antialiased">
-        <div dangerouslySetInnerHTML={{ __html: content }} />
-      </div>
-      <div className="mt-16 text-center">
-        <button
-          onClick={() => router.back()}
-          className="inline-flex items-center rounded bg-secondary px-6 py-3 text-white transition hover:bg-secondary/90 hover:shadow-lg"
-        >
-          Go Back
-        </button>
-      </div>
-    </div>
-  );
-}
+import FeaturedImage from "../../components/featured-image";
+import Content from "../../components/content-single-page";
+import Section from "../../components/section-single-page";
+import Head from "next/head";
 
 function Main(props) {
   return (
@@ -55,21 +21,6 @@ function Main(props) {
       <FeaturedImage {...props} />
       <Content {...props} />
     </div>
-  );
-}
-
-function Section({ title, children }) {
-  return (
-    <section className="body-font text-gray-800">
-      <div className="container mx-auto mb-24 max-w-2xl">
-        <div className="border-b-16 border-black/10 px-4 py-8">
-          <h2 className="text-md title-font font-noto border-b-2 border-black/10 pb-4 font-bold text-gray-900 sm:text-xl ">
-            {title}
-          </h2>
-          {children}
-        </div>
-      </div>
-    </section>
   );
 }
 
@@ -81,7 +32,7 @@ export default function OurSpotlight({
   preview,
 }) {
   const router = useRouter();
-  const title = ourSpotlight.title;
+  const { title, content, featuredImage } = ourSpotlight;
   const featuredStoriesPosts = featuredStories?.edges;
 
   if (!router.isFallback && !ourSpotlight?.databaseId) {
@@ -90,6 +41,13 @@ export default function OurSpotlight({
 
   return (
     <Layout>
+      <Head>
+        <title>{title}</title>
+        <meta name="description" content={content.slice(0, 50)} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={content.slice(0, 180)} />
+        <meta property="og:image" content={featuredImage?.node.sourceUrl} />
+      </Head>
       <Banner title="Our Spotlight" />
       <Section title={title}>{<Main {...ourSpotlight} />}</Section>
       <CTA />
@@ -121,7 +79,6 @@ export const getStaticProps: GetStaticProps = async ({
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const ourSpotlight = await getAllOurSpotlightWithIds();
-  console.log("OurSpotlight:", ourSpotlight);
   return {
     paths:
       ourSpotlight.edges.map(

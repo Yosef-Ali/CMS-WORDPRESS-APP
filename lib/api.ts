@@ -400,6 +400,155 @@ export async function getAllPostsForParishes() {
   return data;
 }
 
+export async function getAllPostsCatholicTV() {
+  const data = await fetchAPI(
+    `
+    query AllPosts {
+      posts(
+        where: {categoryName: "Catholic Tv News", orderby: {field: DATE, order: DESC}, hasVideoSource: true}
+        first: 100
+      ) {
+        edges {
+          node {
+            databaseId
+            title
+            content
+            date
+            videoSource {
+              acfvideosource
+            }
+            featuredImage {
+              node {
+                sourceUrl
+              }
+            }
+          }
+        }
+      }
+      newsArticles: posts(
+        where: {categoryName: "Catholic Tv News", orderby: {field: AUTHOR, order: ASC}, hasVideoSource: false, hasNoVideoSourceAndFeaturedImage: true}
+        first: 100
+      ) {
+        edges {
+          node {
+            databaseId
+            title
+            content
+            date
+            featuredImage {
+              node {
+                sourceUrl
+              }
+            }
+          }
+        }
+      }
+      catholicTeachingsVideo:posts(
+        where: {categoryName: "Catholic Teachings", orderby: {field: DATE, order: DESC}, hasVideoSource: true}
+        first: 100
+      ) {
+        edges {
+          node {
+            databaseId
+            title
+            content
+            date
+            videoSource {
+              acfvideosource
+            }
+            featuredImage {
+              node {
+                sourceUrl
+              }
+            }
+          }
+        }
+      }
+      catholicTeachingsArticles: posts(
+        where: {categoryName: "Catholic Teachings", orderby: {field: AUTHOR, order: ASC}, hasVideoSource: false, hasNoVideoSourceAndFeaturedImage: true}
+        first: 100
+      ) {
+        edges {
+          node {
+            databaseId
+            title
+            content
+            date
+            featuredImage {
+              node {
+                sourceUrl
+              }
+            }
+          }
+        }
+      }
+      itIsTheLORD:posts(
+        where: {categoryName: "It is the LORD", orderby: {field: DATE, order: DESC}}
+      ) {
+        edges {
+          node {
+            databaseId
+            date
+            title
+            content
+            featuredImage {
+              node {
+                sourceUrl(size: MEDIUM)
+              }
+            }
+            videoSource {
+              acfvideosource
+            }
+          }
+        }
+      }
+      events(first: 3, where: {orderby: {field: DATE, order: DESC}}) {
+        edges {
+          node {
+            databaseId
+            title
+            content
+            events {
+              startingDate
+              endingDate
+            }
+          }
+        }
+      }
+      featuredStories(first: 3, where: {orderby: {field: DATE, order: DESC}}) {
+        edges {
+          node {
+            databaseId
+            title
+            content
+          }
+        }
+      }
+
+      podcasts( where: {orderby: {field: DATE, order: DESC}, categoryName: "Podcast"},) {
+        edges {
+          node {
+            databaseId
+            title
+            content
+            featuredImage {
+              node {
+                sourceUrl
+              }
+            }
+            audioUrl {
+              audiourl {
+                mediaItemUrl
+              }
+            }
+          }
+        }
+      }
+    }
+  `
+  );
+  return data;
+}
 export async function getAllPostsForHome() {
   const data = await fetchAPI(
     `
@@ -1090,6 +1239,7 @@ export async function getAllNews({ after = null }) {
 
   return data; // Added return statement.
 }
+
 export async function getAllVideoTeachings({ after = null }) {
   const data = await fetchAPI(
     `query getVideoTeachings($first: Int!, $after: String) {
@@ -1770,12 +1920,12 @@ export async function getAllPodcasts({ after = null }) {
                   }
                 }
                 audioUrl {
-                audiourl {
-                  mediaItemUrl
+                  audiourl {
+                    mediaItemUrl
                 }
-              }
-              }
             }
+          }
+        }
       }
       posts(
         where: {categoryName: "Catholic Teachings", orderby: {field: DATE, order: DESC},}

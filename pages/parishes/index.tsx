@@ -11,12 +11,12 @@ import Banner from "../../components/banner";
 
 import { FacebookIcon, TelegramIcon, PhoneIcon } from "../../components/icons";
 import PriestIcon from "../../public/priest.png";
+import Head from "next/head";
 
 function ParishList({ post }) {
   const router = useRouter();
   const { title, slug, featuredImage, parishs } = post.node;
   const ImageUrl = featuredImage.node.sourceUrl;
-  //console.log("propsPl", title);
 
   return (
     <div onClick={() => router.push(`/parishes/${slug}`)}>

@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { useRouter } from "next/router";
 import { getAllParishesWithSlug, getSingleParishPost } from "../../lib/api";
@@ -14,15 +15,20 @@ import {
 } from "../../components/parish-page-components";
 import Image from "next/image";
 import EventCalendar from "../../components/event-calendars";
+import Head from "next/head";
 
 function ProfileImage(props) {
+  const imageUrl = useMemo(
+    () => props.featuredImage?.node.sourceUrl,
+    [props.featuredImage]
+  );
   const ImageUrl = props.featuredImage?.node.sourceUrl;
   return (
     <div className="parish-profile-image">
       <Image
         width={2000}
         height={1000}
-        src={ImageUrl}
+        src={imageUrl}
         alt="parish image"
         className="h-full w-full object-cover object-center"
       />
@@ -68,6 +74,7 @@ function Section({ title, children }) {
 export default function Parish({ parish, events }) {
   const router = useRouter();
 
+  const { title, content, featuredImage } = parish;
   const eventsPosts = events?.edges;
 
   if (!router.isFallback && !parish?.slug) {
@@ -76,6 +83,14 @@ export default function Parish({ parish, events }) {
 
   return (
     <Layout>
+      <Head>
+        <title>{title}</title>
+        <meta name="description" content={content.slice(0, 50)} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={content.slice(0, 180)} />
+        <meta property="og:image" content={featuredImage?.node.sourceUrl} />
+      </Head>
+
       <Header />
       {router.isFallback ? (
         <PostTitle>Loading…</PostTitle>
@@ -95,7 +110,6 @@ export default function Parish({ parish, events }) {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const data = await getSingleParishPost(params?.slug);
-  // console.log("params?.slug", params?.slug);
 
   return {
     props: {

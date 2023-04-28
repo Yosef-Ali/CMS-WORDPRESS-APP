@@ -1,5 +1,6 @@
 import { GetStaticProps } from "next";
 import Image from "next/image";
+import parse from "html-react-parser";
 import { getAllPostsForArchdiocese } from "../lib/api";
 import Layout from "../components/layout";
 import Cta from "../components/cta";
@@ -25,7 +26,7 @@ function ProfileImage({ featuredImage }) {
 function ProfileContent({ content }) {
   return (
     <div className="flex flex-1 flex-col lg:ml-8">
-      <div className="flex-grow">
+      <div className="prose -mt-10 max-w-none flex-grow pr-10">
         <div dangerouslySetInnerHTML={{ __html: content }} />
       </div>
     </div>
@@ -54,9 +55,8 @@ const Hero = () => (
   </div>
 );
 
-export default function Archdiocese({ archdiocese, featuredStories, events }) {
+export default function Archdiocese({ archdiocese, events }) {
   const eventsPosts = events?.edges;
-  const featuredStoriesPosts = featuredStories?.edges;
   const archdiocesePost = archdiocese.edges[0].node;
   const { title } = archdiocesePost;
   return (
@@ -70,10 +70,6 @@ export default function Archdiocese({ archdiocese, featuredStories, events }) {
           <ArchdioceseProfile {...archdiocesePost} />
         </div>
       </section>
-
-      {featuredStoriesPosts.length > 0 && (
-        <FeatureStories posts={eventsPosts} />
-      )}
       <Cta />
       {eventsPosts.length > 0 && <EventCalendar posts={eventsPosts} />}
     </Layout>
@@ -86,7 +82,6 @@ export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {
       archdiocese: data.pages,
-      featuredStories: data.featuredStories,
       events: data.events,
     },
     revalidate: 10,

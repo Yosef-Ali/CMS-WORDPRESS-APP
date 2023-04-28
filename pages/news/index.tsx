@@ -7,6 +7,7 @@ import Layout from "../../components/layout";
 import { getAllNews } from "../../lib/api";
 import EventCalendar from "../../components/event-calendars";
 import ArticlesPostListSkeleton from "../../components/skeleton/articles-post-skeleton";
+import Head from "next/head";
 
 const ArticlesPostList = dynamic(
   () => import("../../components/articles-post"),
@@ -30,7 +31,6 @@ export default function Index({ news, featuredStories, events, audios }) {
     }
   }, [posts]);
 
-  //console.log("catholicTVsPost", catholicTVsPost);
   return (
     <Layout>
       <Banner title="News" />

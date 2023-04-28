@@ -1,120 +1,21 @@
-import { useState } from "react";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { useRouter } from "next/router";
 import ErrorPage from "next/error";
-import Image from "next/image";
+import Head from "next/head";
 import Layout from "../../components/layout";
 import Banner from "../../components/banner";
 import CTA from "../../components/cta";
 import FeatureStories from "../../components/featured-story";
 import { getAllPostsWithIds, getSinglePost } from "../../lib/api";
-import { GetYoutubeEmbed } from "../../components/misc/get-youtube-embed";
-
-function FeaturedImage(props) {
-  const imageUrl = props.featuredImage?.node.sourceUrl;
-  return (
-    <div>
-      <Image
-        width={2000}
-        height={1000}
-        alt={""}
-        src={imageUrl}
-        className="aspect-video w-full object-cover "
-      />
-    </div>
-  );
-}
-
-function YouTubePlayer(props) {
-  const VideoUrl = props.videoSource.acfvideosource;
-  const isVideo = VideoUrl?.slice(0, 17) === "https://youtu.be/";
-  const YouTubeUrl = isVideo && GetYoutubeEmbed(VideoUrl);
-  const [isLoading, setIsLoading] = useState(true);
-
-  const handleOnLoad = () => {
-    setIsLoading(false);
-    console.log("handleOnLoad:", "...loaded");
-  };
-
-  return (
-    <>
-      <>
-        {isLoading && (
-          <div className="aspect-[16/9] w-full animate-pulse bg-gray-200"></div>
-        )}
-        <iframe
-          className="aspect-[16/9] w-full"
-          src={YouTubeUrl}
-          title="YouTube video player"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture full"
-          allowFullScreen
-          onLoad={handleOnLoad}
-          style={{ display: isLoading ? "none" : "block" }}
-          sandbox="allow-same-origin allow-scripts"
-        ></iframe>
-      </>
-    </>
-  );
-}
-
-function Content(props) {
-  const router = useRouter();
-  const { content, title } = props;
-  return (
-    <div className="max-w-screen-sm pt-6">
-      <h2 className="text-md font-noto py-6 font-bold text-gray-900 antialiased">
-        {title}
-      </h2>
-      <div className="font-noto prose text-gray-900 antialiased">
-        <div dangerouslySetInnerHTML={{ __html: content }} />
-      </div>
-      <div className="mt-16 text-center">
-        <button
-          onClick={() => router.back()}
-          className="inline-flex items-center rounded bg-secondary px-6 py-3 text-white transition hover:bg-secondary/90 hover:shadow-lg"
-        >
-          Go Back
-        </button>
-      </div>
-    </div>
-  );
-}
-
-function Main(props) {
-  const YouTubeUrl = props.videoSource?.acfvideosource;
-  return (
-    <div>
-      {!YouTubeUrl ? (
-        <FeaturedImage {...props} />
-      ) : (
-        <YouTubePlayer {...props} />
-      )}
-      <Content {...props} />
-    </div>
-  );
-}
-
-function Section({ title, children }) {
-  return (
-    <section className="body-font text-gray-800">
-      <div className="container mx-auto mb-24 max-w-2xl">
-        <div className="border-b-16 border-black/10 px-4 py-8">
-          <h2 className="text-md title-font font-noto border-b-2 border-black/10 pb-4 font-bold text-gray-900 sm:text-xl ">
-            {title}
-          </h2>
-          {children}
-        </div>
-      </div>
-    </section>
-  );
-}
+import Section from "../../components/section-single-page";
+import Main from "../../components/main-single-page";
 
 const Hero = () => <div className="h-96 w-full bg-blue-200"></div>;
 
-export default function News({ post, featuredStories, preview }) {
+export default function ItIsTheLORD({ post, featuredStories, preview }) {
   //const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
-  const title = post?.title;
+  const { title, content, featuredImage } = post;
 
   const featuredStoriesPosts = featuredStories?.edges;
 
@@ -124,6 +25,13 @@ export default function News({ post, featuredStories, preview }) {
 
   return (
     <Layout>
+      <Head>
+        <title>{title}</title>
+        <meta name="description" content={content.slice(0, 50)} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={content.slice(0, 180)} />
+        <meta property="og:image" content={featuredImage?.node.sourceUrl} />
+      </Head>
       <Banner title="Catholic's Teachings" />
       <Section title={title}>{<Main {...post} />}</Section>
       <CTA />

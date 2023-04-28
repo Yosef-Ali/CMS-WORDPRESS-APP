@@ -7,7 +7,7 @@ import Layout from "../../components/layout";
 import { getAllTeachings } from "../../lib/api";
 import EventCalendar from "../../components/event-calendars";
 import ArticlesPostListSkeleton from "../../components/skeleton/articles-post-skeleton";
-
+import { youtubeThumbnail } from "youtube-thumbnail";
 const ArticlesPostList = dynamic(
   () => import("../../components/articles-post"),
   {
@@ -34,6 +34,7 @@ export default function Index({ teachings, itIsTheLORD, events, audios }) {
   return (
     <Layout>
       <Banner title="Catholic Teachings" />
+
       <section className="mx-auto  max-w-screen-xl">
         {loading ? (
           <ArticlesPostListSkeleton />

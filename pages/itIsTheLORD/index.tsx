@@ -7,6 +7,7 @@ import Layout from "../../components/layout";
 import { getAllItIsTheLORD, getAllVideoTeachings } from "../../lib/api";
 import EventCalendar from "../../components/event-calendars";
 import ArticlesPostListSkeleton from "../../components/skeleton/articles-post-skeleton";
+import Head from "next/head";
 
 const ArticlesPostList = dynamic(
   () => import("../../components/articles-post"),
@@ -36,7 +37,6 @@ export default function WatchingOurVideos({
     }
   }, [posts]);
 
-  //console.log("filteredPosts", filteredVideos);
   return (
     <Layout>
       <Banner title="Catholic's Teachings" />
