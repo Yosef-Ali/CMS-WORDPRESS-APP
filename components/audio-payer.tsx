@@ -84,8 +84,9 @@ function AudioPlayer({ tracks }: { tracks: Track[] }) {
               width={500}
               alt="image"
               height={500}
-              className="border-bg-player-light-background dark:border-cover-dark-border mr-6 h-24 w-24 rounded-md border"
               src={ImageUrl || "/default.png"}
+              priority
+              className="border-bg-player-light-background dark:border-cover-dark-border mr-6 h-24 w-24 rounded-md border"
             />
             <div className="flex flex-col">
               <span

@@ -20,9 +20,9 @@ export default function ArticlesPostList({
 }) {
   // Destructure the posts prop to get an array of posts
   const Posts = posts?.edges;
-  // Use a state variable to track the loading status
-  console.log("posts:", posts);
 
+  // console.log("postType:", postType);
+  // console.log("posts:", posts);
   // Return the JSX code to render the component
   return (
     <div className="container mx-auto px-4 py-8 md:px-6 lg:py-16">

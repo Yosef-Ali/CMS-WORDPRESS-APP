@@ -19,7 +19,7 @@ export default function Meta() {
         rel="icon"
         type="image/png"
         sizes="16x16"
-        href="/favicon/favicon-16x16.png"
+        href="/favicon/acs-logo.png"
       />
       <link rel="manifest" href="/favicon/site.webmanifest" />
       <link
@@ -34,7 +34,7 @@ export default function Meta() {
       <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
       <meta
         name="description"
-        content={`A statically generated blog example using Next.js and ${CMS_NAME}.`}
+        content={`The Ethiopian Catholic Archdiocese of Addis Ababa, officially the Metropolitan Sui iuris Archdiocese of Addis Ababa, is the metropolitan see of the Ethiopian Catholic Church, a sui iuris metropolitan Eastern Catholic Church.`}
       />
       <meta property="og:image" content={HOME_OG_IMAGE_URL} />
     </Head>

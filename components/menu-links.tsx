@@ -15,7 +15,7 @@ export const menuLinks: MenuLink[] = [
   {
     id: 2,
     name: `About us `,
-    link: `/about`,
+    link: "",
     submenu: [
       {
         name: "Archdiocese",
@@ -42,7 +42,7 @@ export const menuLinks: MenuLink[] = [
   {
     id: 3,
     name: `Secretariat`,
-    link: `/secretariat`,
+    link: " ",
     submenu: [
       {
         name: "Pastoral department ",
@@ -50,7 +50,7 @@ export const menuLinks: MenuLink[] = [
       },
       {
         name: "Social department",
-        link: "/social-department",
+        link: "/socialDepartment",
       },
       {
         name: "Institutions",

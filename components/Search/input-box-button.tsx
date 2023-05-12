@@ -24,17 +24,17 @@ export default function SearchInputBox({ isSearchOpen, setIsSearchOpen }) {
       <button
         onClick={() => setIsSearchOpen(!isSearchOpen)}
         aria-label="Open search"
-        className=" group flex w-full items-center justify-between rounded-lg border px-3 py-2 outline-1 transition-all duration-200 ease-in-out hover:bg-white hover:shadow-md focus:shadow-md focus:outline-none"
+        className=" group flex w-full items-center justify-between rounded-lg border px-4 py-2 outline-1 transition-all duration-200 ease-in-out hover:bg-white hover:shadow-md focus:shadow-md focus:outline-none"
         data-segment-message="Clicked on Search"
         data-segment="search"
         title="Open search"
         type="button"
       >
-        <div className="">
+        <div>
           <SearchIcon className="h-6 w-6" />
         </div>
 
-        <div className="ml-4  hidden items-center xl:flex">
+        <div className="ml-6  hidden items-center xl:flex">
           <div className="">
             <div className="from-grey-200 to-grey-300-opacity-60 border-grey-300 shadow-darker text-grey-600  rounded border-b-2 bg-gradient-to-tl">
               <span

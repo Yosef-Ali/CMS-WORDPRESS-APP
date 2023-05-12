@@ -1,7 +1,7 @@
 // Import some components and libraries from other files
 import Image from "next/image";
 import Link from "next/link";
-import parse from "html-react-parser";
+import parse from "react-html-parser";
 import { GetYoutubeEmbed } from "./misc/get-youtube-embed";
 import { CalenderIcon, CommentIcon } from "./icons";
 import Moment from "react-moment";
@@ -20,8 +20,6 @@ export default function ArticlesCard({ post, path }) {
   // Get the image source URL from the post
   const ImageUrl = featuredImage?.node.sourceUrl;
 
-  console.log("VideoUrl::", VideoUrl, isVideo);
-
   // Define a subcomponent for rendering an image thumbnail
   function ImageThumbnail() {
     return (
@@ -31,6 +29,7 @@ export default function ArticlesCard({ post, path }) {
           height={1000}
           alt={title}
           src={ImageUrl || "/rosary.jpg"}
+          priority
           className="aspect-video w-full md:col-span-1"
         />
       </div>

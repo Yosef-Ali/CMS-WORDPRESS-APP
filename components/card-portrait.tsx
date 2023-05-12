@@ -18,7 +18,6 @@ export function TVCardPortrait({ video }) {
             className="aspect-[16/9] w-full"
             src={YouTubeUrl}
             title="YouTube video player"
-            frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
           ></iframe>
@@ -63,6 +62,7 @@ export function ArticleCardPortrait({ posts }) {
             width={2000}
             height={1000}
             src={ImageUrl}
+            priority
             alt="our spotlight"
             className="aspect-video w-full object-cover"
           />

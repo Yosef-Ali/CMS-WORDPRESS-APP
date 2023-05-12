@@ -29,9 +29,6 @@ export default function ArticlesPostDetail({
   moreUrl,
   audioTracks,
 }) {
-  //const Posts = posts?.edges;
-  console.log("readMoreLink", readMoreLink);
-
   return (
     <div className="container mx-auto px-4 py-8 md:px-6 lg:py-16">
       <div className="xl-Space-x-4 flex flex-col gap-4 md:gap-0 lg:flex-row  ">

@@ -26,7 +26,11 @@ export default function NewsArticles({
             .map(
               (news) =>
                 news && (
-                  <CardLarge news={news} path={path} key={news.databaseId} />
+                  <CardLarge
+                    news={news}
+                    path={path}
+                    key={news.node.databaseId}
+                  />
                 )
             )}
           {/* Mapping through the remaining news articles */}
@@ -36,7 +40,11 @@ export default function NewsArticles({
               .map(
                 (news) =>
                   news && (
-                    <CardSmall news={news} path={path} key={news.databaseId} />
+                    <CardSmall
+                      news={news}
+                      path={path}
+                      key={news.node.databaseId}
+                    />
                   )
               )}
           </div>

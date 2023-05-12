@@ -95,12 +95,16 @@ export function PriestProfile(props) {
       <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-full bg-indigo-100">
         {ImageUrl ? (
           <Image
+            width={2000}
+            height={1000}
             src={ImageUrl}
             alt={""}
             className="h-12 w-12 rounded-full object-cover object-center"
           />
         ) : (
           <Image
+            width={2000}
+            height={1000}
             src={PriestIcon}
             alt="Priest icon"
             className="h-12 w-12 rounded-full "

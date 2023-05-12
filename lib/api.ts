@@ -107,15 +107,6 @@ export async function getAllPostsForArchdiocese() {
           }
         }
       }
-      featuredStories(first: 3, where: {orderby: {field: DATE, order: DESC}}) {
-        edges {
-          node {
-            databaseId
-            title
-            content
-          }
-        }
-      }
       events(first: 3, where: {orderby: {field: DATE, order: DESC}}) {
         edges {
           node {
@@ -515,7 +506,7 @@ export async function getAllPostsCatholicTV() {
           }
         }
       }
-      featuredStories(first: 3, where: {orderby: {field: DATE, order: DESC}}) {
+      featuredStories:posts(first: 3, where: {orderby: {field: DATE, order: DESC}, categoryName: "Featured Stories"}) {
         edges {
           node {
             databaseId
@@ -546,6 +537,170 @@ export async function getAllPostsCatholicTV() {
       }
     }
   `
+  );
+  return data;
+}
+
+export async function getAllPostsSocialDepartment({ after = null }) {
+  const data = await fetchAPI(
+    ` query AllPostsSocial($first: Int!, $after: String) {
+    posts(first: $first, after: $after, where: {categoryName: "Social Department", orderby: {field: DATE, order: DESC}}) {
+      pageInfo {
+          hasNextPage
+          endCursor
+        }
+      edges {
+            node {
+              databaseId
+              title
+              content
+              date
+              featuredImage {
+                node {
+                  sourceUrl
+                }
+              }
+            }
+          }
+        }
+      events(first: 3, where: {orderby: {field: DATE, order: DESC}}) {
+        edges {
+          node {
+            databaseId
+            title
+            content
+            events {
+                startingDate
+                endingDate
+            }
+          }
+        }
+      }
+      news:posts(
+        where: {categoryName: "Catholic Tv News", orderby: {field: DATE, order: DESC},}
+        first: 10
+      ) {
+        edges {
+          node {
+            databaseId
+            title
+            content
+            date
+            videoSource{
+              acfvideosource
+            }
+            featuredImage {
+              node {
+                sourceUrl
+              }
+            }
+          }
+        }
+      }
+      podcasts( where: {orderby: {field: DATE, order: DESC}, categoryName: "Podcast"}) {
+        edges {
+          node {
+            databaseId
+            title
+            content
+            featuredImage {
+              node {
+                sourceUrl
+              }
+            }
+            audioUrl {
+              audiourl {
+                mediaItemUrl
+              }
+            }
+          }
+        }
+      }
+    }
+    `,
+    { variables: { first: 6, after } }
+  );
+  return data;
+}
+
+export async function getAllPostsPastoralDepartment({ after = null }) {
+  const data = await fetchAPI(
+    ` query AllPostsPastoral($first: Int!, $after: String) {
+    posts(first: $first, after: $after, where: {categoryName: "Pastoral Department", orderby: {field: DATE, order: DESC}}) {
+      pageInfo {
+          hasNextPage
+          endCursor
+        }
+      edges {
+            node {
+              databaseId
+              title
+              content
+              date
+              featuredImage {
+                node {
+                  sourceUrl
+                }
+              }
+            }
+          }
+        }
+      events(first: 3, where: {orderby: {field: DATE, order: DESC}}) {
+        edges {
+          node {
+            databaseId
+            title
+            content
+            events {
+                startingDate
+                endingDate
+            }
+          }
+        }
+      }
+      news:posts(
+        where: {categoryName: "Catholic Tv News", orderby: {field: DATE, order: DESC}}
+        first: 10
+      ) {
+        edges {
+          node {
+            databaseId
+            title
+            content
+            date
+            videoSource{
+              acfvideosource
+            }
+            featuredImage {
+              node {
+                sourceUrl
+              }
+            }
+          }
+        }
+      }
+      podcasts( where: {orderby: {field: DATE, order: DESC}, categoryName: "Podcast"},) {
+        edges {
+          node {
+            databaseId
+            title
+            content
+            featuredImage {
+              node {
+                sourceUrl
+              }
+            }
+            audioUrl {
+              audiourl {
+                mediaItemUrl
+              }
+            }
+          }
+        }
+      }
+    }
+    `,
+    { variables: { first: 6, after } }
   );
   return data;
 }
@@ -592,7 +747,7 @@ export async function getAllPostsForHome() {
           }
         }
       }
-      featuredStories(first: 3, where: {orderby: {field: DATE, order: DESC}}) {
+      featuredStories:posts(first: 3, where: {categoryName: "Featured Stories", orderby: {field: DATE, order: DESC}}) {
         edges {
           node {
             databaseId
@@ -846,7 +1001,7 @@ export async function getAllEventCalendars({ after = null }) {
         }
       }
     }
-    featuredStories(first: 3, where: {orderby: {field: DATE, order: DESC}}) {
+    featuredStories:posts(first: 3, where: {categoryName: "Featured Stories", orderby: {field: DATE, order: DESC}}) {
       edges {
         node {
           databaseId
@@ -857,7 +1012,7 @@ export async function getAllEventCalendars({ after = null }) {
     }
 }`,
 
-    { variables: { first: 3, after } }
+    { variables: { first: 6, after } }
   );
 
   return data; // Added return statement.
@@ -885,7 +1040,7 @@ export async function getAllDailyReadings({ after = null }) {
           }
         }
       }
-     news:posts(
+    news:posts(
         where: {categoryName: "Catholic Tv News", orderby: {field: DATE, order: DESC},}
         first: 100
       ) {
@@ -925,7 +1080,7 @@ export async function getAllDailyReadings({ after = null }) {
         }
       }
     }
-    featuredStories(first: 3, where: {orderby: {field: DATE, order: DESC}}) {
+    featuredStories:posts(first: 3, where: {categoryName: "Featured Stories", orderby: {field: DATE, order: DESC}}) {
       edges {
         node {
           databaseId
@@ -936,7 +1091,7 @@ export async function getAllDailyReadings({ after = null }) {
     }
 }`,
 
-    { variables: { first: 3, after } }
+    { variables: { first: 6, after } }
   );
 
   return data; // Added return statement.
@@ -945,7 +1100,7 @@ export async function getAllDailyReadings({ after = null }) {
 export async function getAllFeaturedStories({ after = null }) {
   const data = await fetchAPI(
     `query getFeaturedStories($first: Int!, $after: String)  {
-      featuredStories(first: $first, after: $after, where: {orderby: {field: DATE, order: DESC}}) {
+      featuredStories:posts(first: $first, after: $after, where: {categoryName: "Featured Stories", orderby: {field: DATE, order: DESC}}) {
     pageInfo {
         hasNextPage
         endCursor
@@ -1019,7 +1174,7 @@ export async function getAllFeaturedStories({ after = null }) {
     }
 }`,
 
-    { variables: { first: 3, after } }
+    { variables: { first: 6, after } }
   );
 
   return data; // Added return statement.
@@ -1040,7 +1195,7 @@ export async function getSingleEventPost(id) {
           }
         }
       }
-      featuredStories(first: 30, where: {orderby: {field: DATE, order: DESC}}) {
+      featuredStories:posts(first: 3, where: {categoryName: "Featured Stories", orderby: {field: DATE, order: DESC}}) {
         edges {
           node {
             title
@@ -1184,7 +1339,7 @@ export async function getAllNews({ after = null }) {
           }
         }
       }
-      featuredStories(first: 30, where: {orderby: {field: DATE, order: DESC}}) {
+      featuredStories:posts(first: 3, where: {categoryName: "Featured Stories", orderby: {field: DATE, order: DESC}}) {
         edges {
           node {
             title
@@ -1450,7 +1605,7 @@ export async function getSinglePost(id) {
           }
         }
       }
-      featuredStories(first: 30, where: {orderby: {field: DATE, order: DESC}}) {
+      featuredStories:posts(first: 3, where: {categoryName: "Featured Stories", orderby: {field: DATE, order: DESC}}) {
         edges {
           node {
             title
@@ -1508,7 +1663,7 @@ export async function getSingleOurSpotlightPost(id) {
           }
         }
       }
-      featuredStories(first: 30, where: {orderby: {field: DATE, order: DESC}}) {
+      featuredStories:posts(first: 3, where: {categoryName: "Featured Stories", orderby: {field: DATE, order: DESC}}) {
         edges {
           node {
             title
@@ -1582,7 +1737,7 @@ export async function getSingleDailyReadingPost(id) {
           }
         }
       }
-      featuredStories(first: 30, where: {orderby: {field: DATE, order: DESC}}) {
+      featuredStories:posts(first: 3, where: {categoryName: "Featured Stories", orderby: {field: DATE, order: DESC}}) {
         edges {
           node {
             title
@@ -1676,6 +1831,7 @@ export async function getAllCatholicTeachingsWithIds() {
   );
   return data?.posts;
 }
+
 export async function getSingleCatholicTeachingsPost(id) {
   const data = await fetchAPI(
     ` query getPostById($id: ID!, $idType: PostIdType = DATABASE_ID) {
@@ -1693,7 +1849,7 @@ export async function getSingleCatholicTeachingsPost(id) {
           }
         }
       }
-      featuredStories(first: 3, where: {orderby: {field: DATE, order: DESC}}) {
+      featuredStories:posts(first: 3, where: {categoryName: "Featured Stories", orderby: {field: DATE, order: DESC}}) {
         edges {
           node {
             databaseId
@@ -1713,11 +1869,11 @@ export async function getSingleCatholicTeachingsPost(id) {
   );
   return data;
 }
-export async function getSingleFeaturedStory(id) {
+
+export async function getSingleSocialDepartmentPost(id) {
   const data = await fetchAPI(
-    `
-    query getFeaturedStoryById($id: ID!, $idType:  FeaturedStoryIdType = DATABASE_ID) {
-      featuredStory(id: $id, idType: $idType) {
+    ` query getPostById($id: ID!, $idType: PostIdType = DATABASE_ID) {
+      post(id: $id, idType: $idType) {
         databaseId
         title
         date
@@ -1741,6 +1897,32 @@ export async function getSingleFeaturedStory(id) {
           }
         }
       }
+    }
+  `,
+    {
+      variables: {
+        id: id,
+        idType: "DATABASE_ID",
+      },
+    }
+  );
+  return data;
+}
+
+export async function getSinglePastoralDepartmentPost(id) {
+  const data = await fetchAPI(
+    ` query getPostById($id: ID!, $idType: PostIdType = DATABASE_ID) {
+      post(id: $id, idType: $idType) {
+        databaseId
+        title
+        date
+        content
+        featuredImage {
+          node {
+            sourceUrl
+          }
+        }
+      }
       events(first: 3, where: {orderby: {field: DATE, order: DESC}}) {
         edges {
           node {
@@ -1750,123 +1932,6 @@ export async function getSingleFeaturedStory(id) {
             events {
                 startingDate
                 endingDate
-            }
-          }
-        }
-      }
-      featuredStories(first: 3, where: {orderby: {field: DATE, order: DESC}}) {
-        edges {
-          node {
-            databaseId
-            title
-            content
-          }
-        }
-      }
-      allWhoWeAre(first: 4, where: {orderby: {field: DATE, order: ASC}}) {
-        edges {
-          node {
-            title
-            databaseId
-            featuredImage {
-              node {
-                sourceUrl
-              }
-            }
-            content
-          }
-        }
-      }
-      podcasts( where: {orderby: {field: DATE, order: DESC}, categoryName: "Podcast"},) {
-        edges {
-          node {
-            databaseId
-            title
-            content
-            featuredImage {
-              node {
-                sourceUrl
-              }
-            }
-            audioUrl {
-              audiourl {
-                mediaItemUrl
-              }
-            }
-          }
-        }
-      }
-      daleyReading: posts(
-        where: {categoryName: "Daley Reading", orderby: {field: DATE, order: DESC}, onlySticky: true}
-          first: 1
-        ) {
-          edges {
-            node {
-              databaseId
-              title
-            }
-          }
-      }
-      catholicTVs(
-          where: {categoryName: "Catholic Tv News", orderby: {field: DATE, order: DESC},}
-          first: 100
-        ) {
-          edges {
-            node {
-              databaseId
-              title
-              content
-              date
-              catholictvnews {
-                youtubLink
-              }
-              featuredImage {
-                node {
-                  sourceUrl
-                }
-              }
-            }
-          }
-      }
-      ourSpotlight:posts(where: {onlySticky: true, orderby: {field: DATE, order: DESC}, categoryName: "ourSpotlight"}) {
-        edges {
-          node {
-            title
-            databaseId
-            content
-            featuredImage {
-              node {
-                sourceUrl
-              }
-            }
-          }
-        }
-      }
-      blurbPosts:posts(
-        where: {onlySticky: true, orderby: {field: DATE, order: DESC}, categoryName: "blurb"}
-        first: 3
-      ) {
-        edges {
-          node {
-            title
-            content
-            databaseId
-          }
-        }
-      }
-      popeMessage(first: 1, where: {orderby: {field: DATE, order: DESC}}) {
-        edges {
-          node {
-            databaseId
-            title
-            content
-            featuredImage {
-              node {
-                sourceUrl
-              }
-            }
-            popeMessages {
-              link
             }
           }
         }
@@ -1883,11 +1948,51 @@ export async function getSingleFeaturedStory(id) {
   return data;
 }
 
-export async function getAllFeaturedStoriesWithIds() {
+export async function getSingleFeaturedStory(id) {
   const data = await fetchAPI(
     `
-    query getAllFeaturedStoriesIds {
-      featuredStories(first: 10000) {
+    query getFeaturedStoryById($id: ID!, $idType:  PostIdType = DATABASE_ID) {
+      post(id: $id, idType: $idType) {
+        databaseId
+        title
+        date
+        content
+        featuredImage {
+          node {
+            sourceUrl
+          }
+        }
+      }
+      events(first: 3, where: {orderby: {field: DATE, order: DESC}}) {
+        edges {
+          node {
+            databaseId
+            title
+            content
+            events {
+                startingDate
+                endingDate
+            }
+          }
+        }
+      }
+    }
+  `,
+    {
+      variables: {
+        id: id,
+        idType: "DATABASE_ID",
+      },
+    }
+  );
+  return data;
+}
+
+export async function getAllPastoralDepartmentWithIds() {
+  const data = await fetchAPI(
+    `query getAllPastoralDepartmentIds {
+      posts(
+        where: {categoryName: "Pastoral Department", orderby: {field: DATE, order: DESC}}first: 1000) {
         edges {
           node {
             databaseId
@@ -1897,7 +2002,41 @@ export async function getAllFeaturedStoriesWithIds() {
     }
   `
   );
-  return data?.featuredStories;
+  return data?.posts;
+}
+export async function getAllSocialDepartmentWithIds() {
+  const data = await fetchAPI(
+    `query getAllPastoralDepartmentIds {
+      posts(
+        where: {categoryName: "Catholic Teachings", orderby: {field: DATE, order: DESC}}first: 1000) {
+        edges {
+          node {
+            databaseId
+          }
+        }
+      }
+    }
+  `
+  );
+  return data?.posts;
+}
+
+export async function getAllFeaturedStoriesWithIds() {
+  const data = await fetchAPI(
+    `
+    query getAllFeaturedStoriesIds {
+      posts(
+        where: {categoryName: "Featured Stories", orderby: {field: DATE, order: DESC}}first: 1000) {
+        edges {
+          node {
+            databaseId
+          }
+        }
+      }
+    }
+  `
+  );
+  return data?.posts;
 }
 
 export async function getAllPodcasts({ after = null }) {
@@ -1967,7 +2106,7 @@ export async function getAllPodcasts({ after = null }) {
         }
       }
     }
-    featuredStories(first: 3, where: {orderby: {field: DATE, order: DESC}}) {
+    featuredStories:posts(first: 3, where: {categoryName: "Featured Stories", orderby: {field: DATE, order: DESC}}) {
       edges {
         node {
           databaseId
@@ -1978,7 +2117,7 @@ export async function getAllPodcasts({ after = null }) {
     }
 }`,
 
-    { variables: { first: 3, after } }
+    { variables: { first: 6, after } }
   );
 
   return data; // Added return statement.

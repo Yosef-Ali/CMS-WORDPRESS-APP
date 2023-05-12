@@ -5,7 +5,13 @@ import LogoImg from "../public/acs-logo.png";
 const logo = ({ color }) => {
   return (
     <div className="flex items-end space-x-3 ">
-      <Image src={LogoImg} alt="logo" className="h-auto w-10" color="white" />
+      <Image
+        src={LogoImg}
+        alt="logo"
+        className="h-auto w-10"
+        color="white"
+        priority
+      />
       <div>
         <p
           className={

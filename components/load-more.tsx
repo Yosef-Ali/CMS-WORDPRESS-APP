@@ -9,13 +9,14 @@ import {
   getAllPodcasts,
   getAllTeachings,
   getAllVideoTeachings,
+  getAllPostsPastoralDepartment,
+  getAllPostsSocialDepartment,
 } from "../lib/api";
 
 import { ChevronRight } from "./icons";
 
 // define a component to load more posts
 export default function LoadMore({ posts, setPosts, postType, buttonLabel }) {
-  //console.log("postType", postType);
   const [cursor, setCursor] = useState(posts.pageInfo.endCursor);
   const [hasNextPage, setHasNextPage] = useState(posts.pageInfo.hasNextPage);
 
@@ -29,8 +30,10 @@ export default function LoadMore({ posts, setPosts, postType, buttonLabel }) {
       itIsTheLORD: "posts",
       news: "posts",
       catholicTeachings: "posts",
-      featuredStory: "featuredStory",
+      featuredStories: "featuredStories",
       podcasts: "podcasts",
+      social: "posts",
+      pastoral: "posts",
     };
 
     // Get the data property name from the object using the case as a key
@@ -91,12 +94,17 @@ export default function LoadMore({ posts, setPosts, postType, buttonLabel }) {
       case "catholicTeachings":
         data = await getAllTeachings({ after: after });
         break;
-
-      case "featuredStory":
+      case "featuredStories":
         data = await getAllFeaturedStories({ after: after });
         break;
       case "podcasts":
         data = await getAllPodcasts({ after: after });
+        break;
+      case "pastoral":
+        data = await getAllPostsPastoralDepartment({ after: after });
+        break;
+      case "social":
+        data = await getAllPostsSocialDepartment({ after: after });
         break;
       default:
         break;

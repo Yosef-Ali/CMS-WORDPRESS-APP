@@ -9,8 +9,8 @@ import Section from "../../components/section-single-page";
 import CTA from "../../components/cta";
 
 import {
-  getAllFeaturedStoriesWithIds,
-  getSingleFeaturedStory,
+  getAllPastoralDepartmentWithIds,
+  getSinglePastoralDepartmentPost,
 } from "../../lib/api";
 import EventCalendar from "../../components/event-calendars";
 import FeaturedImage from "../../components/featured-image";
@@ -26,12 +26,17 @@ function Main(props) {
 
 const Hero = () => <div className="h-96 w-full bg-blue-200"></div>;
 
-export default function FeaturedStory({ featuredStory, events, preview }) {
+export default function PastoralDepartment({
+  pastoralDepartment,
+  events,
+  preview,
+}) {
   const router = useRouter();
-  const { title, content, featuredImage } = featuredStory;
+  const { title, content, featuredImage } = pastoralDepartment;
   const eventsPosts = events?.edges;
+  console.log("pastoralDepartment", pastoralDepartment);
 
-  if (!router.isFallback && !featuredStory?.databaseId) {
+  if (!router.isFallback && !pastoralDepartment?.databaseId) {
     return <ErrorPage statusCode={404} />;
   }
 
@@ -44,10 +49,10 @@ export default function FeaturedStory({ featuredStory, events, preview }) {
         <meta property="og:description" content={content.slice(0, 180)} />
         <meta property="og:image" content={featuredImage?.node.sourceUrl} />
       </Head>
-      <Banner title="Featured Stories" />
-      <Section title={title}>{<Main {...featuredStory} />}</Section>
+      <Banner title="Pastoral Department" />
+      <Section title={title}>{<Main {...pastoralDepartment} />}</Section>
       <CTA />
-      {eventsPosts.length > 0 && <EventCalendar posts={eventsPosts} />}
+      <EventCalendar posts={eventsPosts} />
     </Layout>
   );
 }
@@ -57,12 +62,12 @@ export const getStaticProps: GetStaticProps = async ({
   preview = false,
   previewData,
 }) => {
-  const data = await getSingleFeaturedStory(params?.id);
+  const data = await getSinglePastoralDepartmentPost(params?.id);
 
   return {
     props: {
       preview,
-      featuredStory: data.post,
+      pastoralDepartment: data.post,
       events: data.events,
     },
     revalidate: 10,
@@ -70,10 +75,12 @@ export const getStaticProps: GetStaticProps = async ({
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const data = await getAllFeaturedStoriesWithIds();
+  const pastoralData = await getAllPastoralDepartmentWithIds();
   return {
     paths:
-      data.edges.map(({ node }) => `/featuredStories/${node.databaseId}`) || [],
+      pastoralData.edges.map(
+        ({ node }) => `/pastoralDepartment/${node.databaseId}`
+      ) || [],
     fallback: true,
   };
 };

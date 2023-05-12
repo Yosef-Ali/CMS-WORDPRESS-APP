@@ -1,14 +1,18 @@
+// Importing components and libraries
 import Image from "next/image";
 import styles from "./articles-post.module.css";
 import parse from "html-react-parser";
 import { CalenderIcon, CommentIcon } from "./icons";
 import Moment from "react-moment";
 
+// PodcastCard component
 export default function PodcastCard({ post }) {
+  // Destructuring post object
   const { title, content, date, featuredImage } = post;
   const AudioSRC = post.audioUrl.audiourl?.mediaItemUrl;
   const ImageUrl = featuredImage?.node?.sourceUrl;
 
+  // Function to render audio player
   function PodcastPlayer() {
     return (
       <audio controls style={{ width: "100%" }} className={styles.audio}>
@@ -16,6 +20,8 @@ export default function PodcastCard({ post }) {
       </audio>
     );
   }
+
+  // Rendering the component
   return (
     <div className="pointer-events-auto flex  flex-col rounded border-2 border-black/10 hover:shadow-md md:flex-row lg:bg-blue-100/80">
       <div className="md:w-2/5 ">
@@ -24,6 +30,7 @@ export default function PodcastCard({ post }) {
           height={1000}
           alt={post.title}
           src={ImageUrl || "/default.png"}
+          priority
           className="aspect-video w-full md:col-span-1"
         />
       </div>

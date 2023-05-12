@@ -5,7 +5,6 @@ import { getAllPostsForArchdiocese } from "../lib/api";
 import Layout from "../components/layout";
 import Cta from "../components/cta";
 import EventCalendar from "../components/event-calendars";
-import FeatureStories from "../components/featured-story";
 
 function ProfileImage({ featuredImage }) {
   const ImageUrl = featuredImage.node.sourceUrl;
@@ -27,7 +26,7 @@ function ProfileContent({ content }) {
   return (
     <div className="flex flex-1 flex-col lg:ml-8">
       <div className="prose -mt-10 max-w-none flex-grow pr-10">
-        <div dangerouslySetInnerHTML={{ __html: content }} />
+        {parse(content)}
       </div>
     </div>
   );
@@ -71,14 +70,14 @@ export default function Archdiocese({ archdiocese, events }) {
         </div>
       </section>
       <Cta />
-      {eventsPosts.length > 0 && <EventCalendar posts={eventsPosts} />}
+      {eventsPosts?.length > 0 && <EventCalendar posts={eventsPosts} />}
     </Layout>
   );
 }
 
 export const getStaticProps: GetStaticProps = async () => {
   const data = await getAllPostsForArchdiocese();
-  console.log("first", data);
+
   return {
     props: {
       archdiocese: data.pages,

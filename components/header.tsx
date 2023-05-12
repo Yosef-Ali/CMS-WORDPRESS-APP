@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import NavBar from "./nav-bar";
 import MobileMenu from "./mobile-menu";
 import { menuLinks } from "./menu-links";
-//import SearchInputBoxOverlay from "./Search/search-input-box-overlay";
 
 import { AlgoliaSearch } from "./Search/algolia-search";
 

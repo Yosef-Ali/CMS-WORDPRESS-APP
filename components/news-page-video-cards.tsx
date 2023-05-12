@@ -36,7 +36,7 @@ export default function NewsPageVideoCards({ data, header, viewMoreLink }) {
           <YouTubSmall
             news={card}
             handleClick={() => handleCardClick(index)} // handles click event on small cards
-            key={card.databaseId}
+            key={index}
             indexof={index}
           />
         ) : null

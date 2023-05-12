@@ -73,7 +73,6 @@ function Section({ title, children }) {
 
 export default function Parish({ parish, events }) {
   const router = useRouter();
-
   const { title, content, featuredImage } = parish;
   const eventsPosts = events?.edges;
 

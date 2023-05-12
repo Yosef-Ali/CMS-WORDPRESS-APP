@@ -1,8 +1,6 @@
 import { GetStaticProps } from "next";
-
 import { getAllPostsForHome } from "../lib/api";
 import Layout from "../components/layout";
-
 import EventCalendar from "../components/event-calendars";
 import CTA from "../components/cta";
 import FeaturedStories from "../components/featured-story";
@@ -57,7 +55,6 @@ export default function Index({
 
 export const getStaticProps: GetStaticProps = async () => {
   const data = await getAllPostsForHome();
-  console.log("first", data);
   return {
     props: {
       posts: data.posts,

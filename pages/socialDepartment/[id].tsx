@@ -9,8 +9,8 @@ import Section from "../../components/section-single-page";
 import CTA from "../../components/cta";
 
 import {
-  getAllFeaturedStoriesWithIds,
-  getSingleFeaturedStory,
+  getAllSocialDepartmentWithIds,
+  getSingleSocialDepartmentPost,
 } from "../../lib/api";
 import EventCalendar from "../../components/event-calendars";
 import FeaturedImage from "../../components/featured-image";
@@ -26,12 +26,17 @@ function Main(props) {
 
 const Hero = () => <div className="h-96 w-full bg-blue-200"></div>;
 
-export default function FeaturedStory({ featuredStory, events, preview }) {
+export default function SocialDepartment({
+  socialDepartment,
+  events,
+  preview,
+}) {
   const router = useRouter();
-  const { title, content, featuredImage } = featuredStory;
+  console.log("socialDepartment", socialDepartment);
+  const { title, content, featuredImage } = socialDepartment;
   const eventsPosts = events?.edges;
 
-  if (!router.isFallback && !featuredStory?.databaseId) {
+  if (!router.isFallback && !socialDepartment?.databaseId) {
     return <ErrorPage statusCode={404} />;
   }
 
@@ -44,10 +49,10 @@ export default function FeaturedStory({ featuredStory, events, preview }) {
         <meta property="og:description" content={content.slice(0, 180)} />
         <meta property="og:image" content={featuredImage?.node.sourceUrl} />
       </Head>
-      <Banner title="Featured Stories" />
-      <Section title={title}>{<Main {...featuredStory} />}</Section>
+      <Banner title="Social Department" />
+      <Section title={title}>{<Main {...socialDepartment} />}</Section>
       <CTA />
-      {eventsPosts.length > 0 && <EventCalendar posts={eventsPosts} />}
+      <EventCalendar posts={eventsPosts} />
     </Layout>
   );
 }
@@ -57,12 +62,12 @@ export const getStaticProps: GetStaticProps = async ({
   preview = false,
   previewData,
 }) => {
-  const data = await getSingleFeaturedStory(params?.id);
+  const data = await getSingleSocialDepartmentPost(params?.id);
 
   return {
     props: {
       preview,
-      featuredStory: data.post,
+      socialDepartment: data.post,
       events: data.events,
     },
     revalidate: 10,
@@ -70,10 +75,12 @@ export const getStaticProps: GetStaticProps = async ({
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const data = await getAllFeaturedStoriesWithIds();
+  const socialData = await getAllSocialDepartmentWithIds();
   return {
     paths:
-      data.edges.map(({ node }) => `/featuredStories/${node.databaseId}`) || [],
+      socialData.edges.map(
+        ({ node }) => `/socialDepartment/${node.databaseId}`
+      ) || [],
     fallback: true,
   };
 };

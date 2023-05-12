@@ -18,17 +18,20 @@ export default function NavBar({
     <nav id="navbar" className="mx-auto max-w-screen-xl px-4">
       <div className="whitespace-no-wrap flex items-center justify-between">
         {/*website logo*/}
-        <Link href="/" className="z-40 py-2 lg:hidden">
-          <Image src={ACSLOGO} width={40} height={60} alt="logo" />
+        <Link href="/" className="z-40 py-2 md:hidden">
+          <Image src={ACSLOGO} width={40} height={60} alt="logo" priority />
         </Link>
-        <Link href="/" className="hidden cursor-pointer py-2 lg:block">
+        <Link
+          href="/"
+          className="hidden cursor-pointer py-2 md:mr-auto md:block"
+        >
           <Logo color={""} />
         </Link>
-        <div className="hidden space-x-7 md:flex ">
+        <div className="hidden space-x-7 lg:flex ">
           {/* {Primary Navigation} */}
           <TopMenu menuLinks={menuLinks} />
           <div className="hidden items-center space-x-3 md:flex">
-            <Link href="#!" className="">
+            <Link href="#!">
               <SearchInputBoxButton
                 isSearchOpen={isSearchOpen}
                 setIsSearchOpen={setIsSearchOpen}
@@ -38,9 +41,9 @@ export default function NavBar({
         </div>
 
         {/* {Secondary Navigation} */}
-        <div className="hidden items-center space-x-3 md:flex">
+        <div className="hidden items-center space-x-4  xl:ml-auto xl:flex">
           <Link
-            href="signIn"
+            href="https://ethiocatholicaddis.org/wp-login.php"
             className="rounded bg-primary px-6 py-2 uppercase"
           >
             Sign in
@@ -48,10 +51,10 @@ export default function NavBar({
         </div>
 
         {/* Hamburger Menu */}
-        <div className="md:hidden">
+        <div className="">
           <button className="group p-3" onClick={() => setMenuOpen(!menuOpen)}>
             <HamburgIcon
-              className="h-6 w-6 group-hover:text-gray-900/60 md:hidden"
+              className="h-6 w-6 group-hover:text-gray-900/60 lg:hidden"
               aria-hidden="true"
             />
           </button>

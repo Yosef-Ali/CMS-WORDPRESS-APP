@@ -3,6 +3,7 @@ import { useRouter } from "next/navigation";
 import Moment from "react-moment";
 import MoreButton from "./more-button";
 import SectionTitle from "./section-title";
+import parse from "react-html-parser";
 
 // Extracting Event only day as DD or DD-DD
 function EventDay(props) {
@@ -55,7 +56,7 @@ export default function EventCalendar({ posts }) {
           <SectionTitle>Event Calendars</SectionTitle>
           <div className="divide-y-2 divide-black/10 text-center md:text-left">
             {posts.map(({ node }) => {
-              const { title, databaseId } = node;
+              const { title, content, databaseId } = node;
               const { startingDate, endingDate } = node.events;
               return (
                 <div

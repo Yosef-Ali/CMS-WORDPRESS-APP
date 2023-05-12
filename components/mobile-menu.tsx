@@ -20,7 +20,7 @@ export default function MobileMenu({
       leave="transition ease-in-out duration-300 transform"
       leaveFrom="translate-x-0"
       leaveTo="-translate-x-full"
-      className="absolute top-0 z-20 h-screen w-full bg-blue-200 transition duration-700 ease-in-out md:hidden"
+      className="absolute top-0 z-20 h-screen w-full bg-blue-200 transition duration-700 ease-in-out md:max-w-lg lg:hidden"
     >
       <div className="text-black-500 flex flex-col">
         <button
@@ -34,15 +34,21 @@ export default function MobileMenu({
         </button>
 
         <div>
-          <ul className="relative flex w-full flex-col text-center transition-all md:flex-row">
+          <ul className="relative flex w-full flex-col text-center transition-all lg:flex-row">
             {menuLinks.map((item) => {
               return (
                 <li
                   key={item.id}
                   className="cursor-pointer px-6 py-4 hover:bg-blue-100 md:p-4 "
                 >
-                  <button
-                    onClick={() => handleSubmenu(item.id)}
+                  <Link
+                    href={item.link}
+                    onClick={() => {
+                      handleSubmenu(item.id);
+                      if (item.submenu.length === 0) {
+                        setMenuOpen(!menuOpen);
+                      }
+                    }}
                     className="group flex w-full items-center"
                   >
                     <span className="mr-1">{item.name}</span>
@@ -53,7 +59,7 @@ export default function MobileMenu({
                         linkId={item.id}
                       />
                     )}
-                  </button>
+                  </Link>
                   {subMenuOpen && item.submenu && toggle === item.id ? (
                     <ul>
                       {item.submenu.map((sub) => {
@@ -62,6 +68,9 @@ export default function MobileMenu({
                           <li key={sub.name} className="px-3 py-2 text-left">
                             <Link
                               href={sub.link}
+                              onClick={() => {
+                                setMenuOpen(!menuOpen);
+                              }}
                               className="block w-full rounded-md px-2 py-2 hover:bg-blue-300 md:hover:bg-gray-100"
                             >
                               {sub.name}

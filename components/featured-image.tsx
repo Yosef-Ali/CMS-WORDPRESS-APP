@@ -12,9 +12,9 @@ export default function FeaturedImage(props) {
         width={2000}
         height={1000}
         alt={""}
+        priority
         src={imageUrl}
         className="aspect-video w-full object-cover "
-        priority
       />
     </div>
   );
