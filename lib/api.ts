@@ -1819,7 +1819,7 @@ export async function getAllCatholicTeachingsWithIds() {
   const data = await fetchAPI(
     `query getAllCatholicTeachingsIds {
       posts(
-        where: {categoryName: "Catholic Teachings", orderby: {field: DATE, order: DESC}}first: 1000) {
+        where: {categoryName: "Catholic Teachings"} first: 1000) {
         edges {
           node {
             databaseId

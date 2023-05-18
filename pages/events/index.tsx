@@ -73,7 +73,7 @@ export default function Index({ events, news, featuredStories, audios }) {
       </section>
       <CTA />
       {featuredStoriesPosts.length > 0 && (
-        <FeatureStories posts={featuredStoriesPosts} />
+        <FeatureStories stories={featuredStoriesPosts} />
       )}
     </Layout>
   );

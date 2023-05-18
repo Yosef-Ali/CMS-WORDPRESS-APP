@@ -16,8 +16,6 @@ export async function fetchAPI(
       "Authorization"
     ] = `Bearer ${process.env.WORDPRESS_AUTH_REFRESH_TOKEN}`;
   }
-  //console.log("queryfetch:", query);
-  //console.log("variablesfetch", variables);
 
   // WPGraphQL Plugin must be enabled
   const res = await fetch(API_URL, {
@@ -30,7 +28,7 @@ export async function fetchAPI(
   });
 
   const json = await res.json();
-  //console.log("json", json);
+
   if (json.errors) {
     console.error(json.errors);
     throw new Error("Failed to fetch API");

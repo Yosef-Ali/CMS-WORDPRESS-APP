@@ -10,14 +10,38 @@ import { getAllPostsWithIds, getSinglePost } from "../../lib/api";
 import Section from "../../components/section-single-page";
 import Main from "../../components/main-single-page";
 
-const Hero = () => <div className="h-96 w-full bg-blue-200"></div>;
+// Define the type for the post data
+type Post = {
+  title: string;
+  content: string;
+  databaseId: number;
+  featuredImage: {
+    node: {
+      sourceUrl: string;
+    };
+  };
+};
 
-export default function ItIsTheLORD({ post, featuredStories, preview }) {
-  //const [isLoading, setIsLoading] = useState(true);
+// Define the type for the featured story data
+type FeaturedStory = {
+  node: Post;
+};
+
+// Define the type for the props
+type ItIsTheLORDProps = {
+  preview: boolean;
+  post: Post | null;
+  featuredStories: FeaturedStory[] | null;
+};
+
+export default function ItIsTheLORD({
+  post,
+  featuredStories,
+  preview,
+}: ItIsTheLORDProps) {
   const router = useRouter();
-  const { title, content, featuredImage } = post;
-
-  const featuredStoriesPosts = featuredStories?.edges;
+  const { title, content, featuredImage } = post ?? {};
+  const featuredImageSrc = featuredImage?.node.sourceUrl;
 
   if (!router.isFallback && !post?.databaseId) {
     return <ErrorPage statusCode={404} />;
@@ -30,40 +54,46 @@ export default function ItIsTheLORD({ post, featuredStories, preview }) {
         <meta name="description" content={content.slice(0, 50)} />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={content.slice(0, 180)} />
-        <meta property="og:image" content={featuredImage?.node.sourceUrl} />
+        <meta property="og:image" content={featuredImageSrc} />
       </Head>
       <Banner title="Catholic's Teachings" />
-      <Section title={title}>{<Main {...post} />}</Section>
+      <Section title={title}>
+        {<Main content={content} featuredImageSrc={featuredImageSrc} />}
+      </Section>
       <CTA />
-      {featuredStoriesPosts?.length > 0 && (
-        <FeatureStories posts={featuredStoriesPosts} />
+      {featuredStories?.length > 0 && (
+        <FeatureStories stories={featuredStories} />
       )}
     </Layout>
   );
 }
 
-export const getStaticProps: GetStaticProps = async ({
+export const getStaticProps: GetStaticProps<ItIsTheLORDProps> = async ({
   params,
   preview = false,
-  previewData,
 }) => {
-  const data = await getSinglePost(params?.id);
+  const data = await getSinglePost(params?.id as string);
 
   return {
     props: {
       preview,
-      post: data.post,
-      featuredStories: data.featuredStories,
+      post: data.post ?? null,
+      featuredStories: data.featuredStories?.edges ?? null,
     },
     revalidate: 10,
   };
 };
 
-export const getStaticPaths: GetStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths<{ id: string }> = async () => {
   const posts = await getAllPostsWithIds();
+  const paths = posts.edges.map(({ node }) => ({
+    params: {
+      id: node.databaseId.toString(),
+    },
+  }));
+
   return {
-    paths:
-      posts.edges.map(({ node }) => `/itIsTheLORD/${node.databaseId}`) || [],
-    fallback: true,
+    paths,
+    fallback: "blocking",
   };
 };

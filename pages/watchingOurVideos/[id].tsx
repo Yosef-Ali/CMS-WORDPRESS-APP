@@ -8,17 +8,51 @@ import CTA from "../../components/cta";
 import FeatureStories from "../../components/featured-story";
 import { getAllPostsWithIds, getSinglePost } from "../../lib/api";
 import Section from "../../components/section-single-page";
-import Main from "../../components/main-single-page";
+import YouTubePlayer from "../../components/youtube-player";
+import Content from "../../components/content-single-page";
 
-const Hero = () => <div className="h-96 w-full bg-blue-200"></div>;
+interface Post {
+  title: string;
+  content: string;
+  featuredImage: {
+    node: {
+      sourceUrl: string;
+    };
+  };
+  videoSource: {
+    acfvideosource: string;
+  };
+}
+interface FeaturedStoryNode {
+  content: string;
+  title: string;
+  databaseId: number; // change this from string to number
+  featuredImage: {
+    node: {
+      sourceUrl: string;
+    };
+  };
+}
 
-export default function WatchingOurVideos({ news, featuredStories, preview }) {
+interface FeaturedStory {
+  node: FeaturedStoryNode;
+}
+
+interface WatchingOurVideosProps {
+  news: Post;
+  featuredStories?: FeaturedStory[];
+  preview: boolean;
+}
+
+const WatchingOurVideos = ({
+  news,
+  featuredStories = [],
+  preview,
+}: WatchingOurVideosProps) => {
   const router = useRouter();
-  const { title, content, featuredImage } = news;
+  const { title, content, videoSource } = news;
 
-  const featuredStoriesPosts = featuredStories?.edges;
-
-  if (!router.isFallback && !news?.databaseId) {
+  if (!title || !content) {
     return <ErrorPage statusCode={404} />;
   }
 
@@ -29,31 +63,35 @@ export default function WatchingOurVideos({ news, featuredStories, preview }) {
         <meta name="description" content={content.slice(0, 50)} />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={content.slice(0, 180)} />
-        <meta property="og:image" content={featuredImage?.node.sourceUrl} />
       </Head>
 
       <Banner title="Catholic's Teachings" />
-      <Section title={title}>{<Main {...news} />}</Section>
+      <Section title={title}>
+        {/* in this case featuredImageSrc is a video file */}
+        <YouTubePlayer videoSrc={videoSource?.acfvideosource} />
+        <Content content={content} />
+      </Section>
       <CTA />
-      {featuredStoriesPosts?.length > 0 && (
-        <FeatureStories posts={featuredStoriesPosts} />
+      {featuredStories?.length > 0 && (
+        <FeatureStories stories={featuredStories} />
       )}
     </Layout>
   );
-}
+};
 
-export const getStaticProps: GetStaticProps = async ({
+export default WatchingOurVideos;
+
+export const getStaticProps: GetStaticProps<WatchingOurVideosProps> = async ({
   params,
   preview = false,
   previewData,
 }) => {
-  const data = await getSinglePost(params?.id);
-
+  const data = await getSinglePost(params?.id as string);
   return {
     props: {
       preview,
       news: data.post,
-      featuredStories: data.featuredStories,
+      featuredStories: data.featuredStories?.edges ?? null,
     },
     revalidate: 10,
   };
@@ -61,10 +99,11 @@ export const getStaticProps: GetStaticProps = async ({
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const posts = await getAllPostsWithIds();
+  const paths = posts.edges.map(({ node }) => ({
+    params: { id: String(node.databaseId) },
+  }));
   return {
-    paths:
-      posts.edges.map(({ node }) => `/watchingOurVideos/${node.databaseId}`) ||
-      [],
-    fallback: true,
+    paths,
+    fallback: "blocking",
   };
 };

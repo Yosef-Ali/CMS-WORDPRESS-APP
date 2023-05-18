@@ -1,25 +1,60 @@
 import Link from "next/link";
 import MoreButton from "./more-button";
 import SectionTitle from "./section-title";
-import parse from "html-react-parser";
 import { useState, useEffect } from "react";
+import reactHtmlParser from "react-html-parser";
 
-export default function FeatureStories({ posts }) {
-  // use a state variable to store the parsed content
-  const [parsedContent, setParsedContent] = useState(null);
+interface StoryNode {
+  databaseId: number;
+  title: string;
+  content: string;
+}
 
-  // use useEffect to parse the content only on the client side
+interface Story {
+  node: StoryNode;
+}
+
+interface FeatureStoriesProp {
+  stories?: Story[]; // make stories prop optional so it can be undefined
+}
+
+export default function FeatureStories({ stories }: FeatureStoriesProp) {
+  const [parsedContent, setParsedContent] = useState<(JSX.Element | null)[]>(
+    []
+  );
+
   useEffect(() => {
-    setParsedContent(posts.map(({ node }) => parse(node.content)));
-  }, [posts]);
+    if (stories && stories.length > 0) {
+      Promise.all(
+        stories.map((story) => {
+          if (story.node) {
+            return reactHtmlParser(story.node.content);
+          } else {
+            return null;
+          }
+        })
+      ).then((parsedContents) => {
+        setParsedContent(parsedContents);
+      });
+    } else {
+      setParsedContent([]);
+    }
+  }, [stories]);
+
+  // Check whether stories is undefined before calling map()
+  if (!stories) {
+    return <div>Loading...</div>;
+  }
 
   return (
-    <section className="body-font mx-auto max-w-7xl text-gray-600">
+    <section className="mx-auto max-w-7xl text-gray-600">
       <div className="container mx-auto px-5 py-20 ">
         <div className="border-b-16 border-black/10 bg-blue-100/80 p-8 ">
           <SectionTitle>Featured Stories</SectionTitle>
           <div className="-m-4 flex flex-wrap ">
-            {posts.map(({ node }, index) => {
+            {stories.map((story, index) => {
+              const { node } = story;
+              if (!node) return null; // Check whether node is defined
               const { databaseId, title } = node;
               return (
                 <div className="lg:w-1/3" key={databaseId}>
@@ -30,8 +65,9 @@ export default function FeatureStories({ posts }) {
                       </h2>
                     </Link>
                     <div className="font-noto prose mb-3 line-clamp-5 ">
-                      {/* use the state variable to render the parsed content */}
-                      {parsedContent && parsedContent[index]}
+                      {parsedContent[index] || (
+                        <p className="text-red-500">Loading...</p>
+                      )}
                     </div>
                   </div>
                 </div>

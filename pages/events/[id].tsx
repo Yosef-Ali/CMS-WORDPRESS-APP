@@ -11,7 +11,39 @@ import FeaturedImage from "../../components/featured-image";
 import Content from "../../components/content-single-page";
 import Section from "../../components/section-single-page";
 
-function Main(props) {
+// Define the type for the event data
+type Event = {
+  title: string;
+  content: string;
+  databaseId: number;
+  featuredImage: {
+    node: {
+      sourceUrl: string;
+    };
+  };
+};
+
+// Define the type for the featured story data
+type FeaturedStory = {
+  node: Event;
+};
+
+// Define the type for the props
+type EventProps = {
+  preview: boolean;
+  event: Event | null;
+  featuredStories: FeaturedStory[] | null;
+};
+
+interface MainProps {
+  videoSource?: {
+    acfvideosource: string;
+  };
+  featuredImageSrc?: string;
+  content: string;
+}
+
+function Main(props: MainProps) {
   return (
     <div>
       <FeaturedImage {...props} />
@@ -20,12 +52,15 @@ function Main(props) {
   );
 }
 
-const Hero = () => <div className="h-96 w-full bg-blue-200"></div>;
-
-export default function Event({ event, featuredStories, preview }) {
+export default function EventPage({
+  event,
+  featuredStories,
+  preview,
+}: EventProps) {
   const router = useRouter();
-  const { title, content, featuredImage } = event;
-  const featuredStoriesPosts = featuredStories?.edges;
+  const { title, content, featuredImage } = event ?? {};
+  const featuredImageSrc = featuredImage?.node.sourceUrl;
+  const featuredStoriesPosts = featuredStories ?? [];
 
   if (!router.isFallback && !event?.databaseId) {
     return <ErrorPage statusCode={404} />;
@@ -38,30 +73,31 @@ export default function Event({ event, featuredStories, preview }) {
         <meta name="description" content={content.slice(0, 50)} />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={content.slice(0, 180)} />
-        <meta property="og:image" content={featuredImage?.node.sourceUrl} />
+        <meta property="og:image" content={featuredImageSrc} />
       </Head>
       <Banner title="Event Calendars" />
-      <Section title={title}>{<Main {...event} />}</Section>
+      <Section title={title}>
+        {<Main content={content} featuredImageSrc={featuredImageSrc} />}
+      </Section>
       <CTA />
       {featuredStoriesPosts.length > 0 && (
-        <FeatureStories posts={featuredStoriesPosts} />
+        <FeatureStories stories={featuredStoriesPosts} />
       )}
     </Layout>
   );
 }
 
-export const getStaticProps: GetStaticProps = async ({
+export const getStaticProps: GetStaticProps<EventProps> = async ({
   params,
   preview = false,
-  previewData,
 }) => {
   const data = await getSingleEventPost(params?.id);
 
   return {
     props: {
       preview,
-      event: data.event,
-      featuredStories: data.featuredStories,
+      event: data.event ?? null,
+      featuredStories: data.featuredStories?.edges ?? null,
     },
     revalidate: 10,
   };
@@ -69,8 +105,12 @@ export const getStaticProps: GetStaticProps = async ({
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const events = await getAllEventWithIds();
+  const paths = events.edges.map(({ node }) => ({
+    params: { id: String(node.databaseId) },
+  }));
+
   return {
-    paths: events.edges.map(({ node }) => `/events/${node.databaseId}`) || [],
-    fallback: true,
+    paths,
+    fallback: "blocking",
   };
 };

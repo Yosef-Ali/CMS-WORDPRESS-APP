@@ -111,7 +111,6 @@ export default function useAudioPlayer({
     if (audioElementRef.current) {
       audioElementRef.current.currentTime = value;
     }
-    console.log("onSeekValue", value);
   };
 
   const onSeekEnd = () => {

@@ -58,8 +58,6 @@ export default function Index({ pastoral, events, news, audios }) {
 
 export const getStaticProps: GetStaticProps = async () => {
   const data = await getAllPostsPastoralDepartment({ after });
-
-  console.log("data-pastoral", data);
   return {
     props: {
       pastoral: data.posts,

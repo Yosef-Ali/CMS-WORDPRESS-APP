@@ -13,15 +13,38 @@ import {
   getSinglePastoralDepartmentPost,
 } from "../../lib/api";
 import EventCalendar from "../../components/event-calendars";
-import FeaturedImage from "../../components/featured-image";
 
-function Main(props) {
-  return (
-    <div>
-      <FeaturedImage {...props} />
-      <Content {...props} />
-    </div>
-  );
+import Main from "../../components/main-single-page";
+
+interface Post {
+  title: string;
+  content: string;
+  featuredImage: {
+    node: {
+      sourceUrl: string;
+    };
+  };
+}
+
+interface eventsNode {
+  content: string;
+  title: string;
+  databaseId: number; // change this from string to number
+  featuredImage: {
+    node: {
+      sourceUrl: string;
+    };
+  };
+}
+
+interface events {
+  node: eventsNode;
+}
+
+interface PastoralDepartmentProps {
+  pastoralDepartment?: Post;
+  events?: events[];
+  preview?: boolean;
 }
 
 const Hero = () => <div className="h-96 w-full bg-blue-200"></div>;
@@ -30,13 +53,12 @@ export default function PastoralDepartment({
   pastoralDepartment,
   events,
   preview,
-}) {
-  const router = useRouter();
-  const { title, content, featuredImage } = pastoralDepartment;
-  const eventsPosts = events?.edges;
-  console.log("pastoralDepartment", pastoralDepartment);
+}: PastoralDepartmentProps) {
+  const { title, content, featuredImage } = pastoralDepartment ?? {};
+  const featuredImageSrc = featuredImage?.node.sourceUrl;
+  const eventsPosts = events ?? [];
 
-  if (!router.isFallback && !pastoralDepartment?.databaseId) {
+  if (!pastoralDepartment?.title || !content) {
     return <ErrorPage statusCode={404} />;
   }
 
@@ -50,14 +72,16 @@ export default function PastoralDepartment({
         <meta property="og:image" content={featuredImage?.node.sourceUrl} />
       </Head>
       <Banner title="Pastoral Department" />
-      <Section title={title}>{<Main {...pastoralDepartment} />}</Section>
+      <Section title={title}>
+        <Main content={content} featuredImageSrc={featuredImageSrc} />
+      </Section>
       <CTA />
       <EventCalendar posts={eventsPosts} />
     </Layout>
   );
 }
 
-export const getStaticProps: GetStaticProps = async ({
+export const getStaticProps: GetStaticProps<PastoralDepartmentProps> = async ({
   params,
   preview = false,
   previewData,
@@ -68,7 +92,7 @@ export const getStaticProps: GetStaticProps = async ({
     props: {
       preview,
       pastoralDepartment: data.post,
-      events: data.events,
+      events: data.events?.edges ?? null,
     },
     revalidate: 10,
   };
@@ -76,11 +100,13 @@ export const getStaticProps: GetStaticProps = async ({
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const pastoralData = await getAllPastoralDepartmentWithIds();
+
+  const paths = pastoralData.edges.map(({ node }) => ({
+    params: { id: String(node.databaseId) },
+  }));
+
   return {
-    paths:
-      pastoralData.edges.map(
-        ({ node }) => `/pastoralDepartment/${node.databaseId}`
-      ) || [],
-    fallback: true,
+    paths,
+    fallback: "blocking",
   };
 };

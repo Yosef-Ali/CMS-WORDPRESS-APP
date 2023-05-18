@@ -7,7 +7,6 @@ import Layout from "../../components/layout";
 import { getAllNews } from "../../lib/api";
 import EventCalendar from "../../components/event-calendars";
 import ArticlesPostListSkeleton from "../../components/skeleton/articles-post-skeleton";
-import Head from "next/head";
 
 const ArticlesPostList = dynamic(
   () => import("../../components/articles-post"),

@@ -2,18 +2,36 @@ import Image from "next/image";
 import SideWidget from "./side-widget";
 import SocialMediaLinks from "./social-media-links";
 import AudioCard from "./audio-payer";
-import FeaturedImage from "./featured-image";
+//import FeaturedImage from "./featured-image";
 import Content from "./content-single-page";
 
+function FeaturedImage({ featuredImageSrc }) {
+  // { featuredImageSrc }
+  return (
+    <div className="relative h-64 w-full sm:h-96 lg:h-full">
+      <Image
+        width={2000}
+        height={1000}
+        alt="image"
+        priority
+        src={featuredImageSrc}
+        className="aspect-video w-full object-cover "
+      />
+    </div>
+  );
+}
+
 function Card({ post }) {
+  const { title, featuredImage } = post;
+  const featuredImageSrc = featuredImage?.node.sourceUrl;
   return (
     <section className="body-font text-gray-800">
       <div className="container mx-auto mb-24 max-w-2xl">
         <div className="border-b-16 border-black/10 px-4 py-8">
           <h2 className="text-md title-font font-noto border-b-2 border-black/10 pb-4 font-bold text-gray-900 sm:text-xl ">
-            {post.title}
+            {title}
           </h2>
-          <FeaturedImage {...post} />
+          <FeaturedImage featuredImageSrc={featuredImageSrc} />
           <Content {...post} />
         </div>
       </div>

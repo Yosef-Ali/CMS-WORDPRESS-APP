@@ -22,7 +22,6 @@ export default function WatchingOurVideos({
   events,
   audios,
 }) {
-  console.log("videos", videos);
   const [posts, setPosts] = useState(videos);
   const [loading, setLoading] = useState(true);
   const itIsTheLORDPosts = itIsTheLORD?.edges;
@@ -36,7 +35,6 @@ export default function WatchingOurVideos({
     }
   }, [posts]);
 
-  //console.log("filteredPosts", filteredVideos);
   return (
     <Layout>
       <Banner title="Catholics Teachings" />

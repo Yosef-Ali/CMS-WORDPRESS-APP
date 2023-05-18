@@ -46,7 +46,7 @@ export default function Index({
       </section>
       <CTA />
       {featuredStoriesPosts.length > 0 && (
-        <FeatureStories posts={featuredStoriesPosts} />
+        <FeatureStories stories={featuredStoriesPosts} />
       )}
     </Layout>
   );
@@ -55,7 +55,6 @@ export default function Index({
 export const getStaticProps: GetStaticProps = async () => {
   const data = await getAllPodcasts({ after });
 
-  //console.log("data-evens", data);
   return {
     props: {
       podcasts: data.podcasts,
@@ -66,5 +65,3 @@ export const getStaticProps: GetStaticProps = async () => {
     revalidate: 10,
   };
 };
-
-//create a function

@@ -18,19 +18,23 @@ export default function NavBar({
     <nav id="navbar" className="mx-auto max-w-screen-xl px-4">
       <div className="whitespace-no-wrap flex items-center justify-between">
         {/*website logo*/}
-        <Link href="/" className="z-40 py-2 md:hidden">
+        <Link href="/" className="z-40 py-2 md:hidden lg:block xl:hidden">
           <Image src={ACSLOGO} width={40} height={60} alt="logo" priority />
         </Link>
         <Link
           href="/"
-          className="hidden cursor-pointer py-2 md:mr-auto md:block"
+          className="hidden cursor-pointer py-2 md:mr-auto md:block lg:hidden xl:block"
         >
           <Logo color={""} />
         </Link>
         <div className="hidden space-x-7 lg:flex ">
           {/* {Primary Navigation} */}
           <TopMenu menuLinks={menuLinks} />
-          <div className="hidden items-center space-x-3 md:flex">
+        </div>
+
+        {/* {Secondary Navigation} */}
+        <div className="flex space-x-4 xl:ml-auto">
+          <div className="flex items-center space-x-3">
             <Link href="#!">
               <SearchInputBoxButton
                 isSearchOpen={isSearchOpen}
@@ -38,10 +42,6 @@ export default function NavBar({
               />
             </Link>
           </div>
-        </div>
-
-        {/* {Secondary Navigation} */}
-        <div className="hidden items-center space-x-4  xl:ml-auto xl:flex">
           <Link
             href="https://ethiocatholicaddis.org/wp-login.php"
             className="rounded bg-primary px-6 py-2 uppercase"
@@ -51,7 +51,7 @@ export default function NavBar({
         </div>
 
         {/* Hamburger Menu */}
-        <div className="">
+        <div>
           <button className="group p-3" onClick={() => setMenuOpen(!menuOpen)}>
             <HamburgIcon
               className="h-6 w-6 group-hover:text-gray-900/60 lg:hidden"

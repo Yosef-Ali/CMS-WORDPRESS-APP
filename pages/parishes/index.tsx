@@ -74,8 +74,6 @@ export default function Parishes({ parishes, events }) {
     (a, b) => a.node.parishs.order - b.node.parishs.order
   );
 
-  //console.log("sorted", sortedParishesPost);
-
   const eventsPosts = events?.edges;
   return (
     <Layout>

@@ -14,14 +14,37 @@ import {
 } from "../../lib/api";
 import EventCalendar from "../../components/event-calendars";
 import FeaturedImage from "../../components/featured-image";
+import Main from "../../components/main-single-page";
 
-function Main(props) {
-  return (
-    <div>
-      <FeaturedImage {...props} />
-      <Content {...props} />
-    </div>
-  );
+interface Post {
+  title: string;
+  content: string;
+  featuredImage: {
+    node: {
+      sourceUrl: string;
+    };
+  };
+}
+
+interface eventsNode {
+  content: string;
+  title: string;
+  databaseId: number; // change this from string to number
+  featuredImage: {
+    node: {
+      sourceUrl: string;
+    };
+  };
+}
+
+interface events {
+  node: eventsNode;
+}
+
+interface SocialDepartmentProps {
+  socialDepartment?: Post;
+  events?: events[];
+  preview?: boolean;
 }
 
 const Hero = () => <div className="h-96 w-full bg-blue-200"></div>;
@@ -30,13 +53,12 @@ export default function SocialDepartment({
   socialDepartment,
   events,
   preview,
-}) {
-  const router = useRouter();
-  console.log("socialDepartment", socialDepartment);
-  const { title, content, featuredImage } = socialDepartment;
-  const eventsPosts = events?.edges;
+}: SocialDepartmentProps) {
+  const { title, content, featuredImage } = socialDepartment ?? {};
+  const featuredImageSrc = featuredImage?.node.sourceUrl;
+  const eventsPosts = events ?? [];
 
-  if (!router.isFallback && !socialDepartment?.databaseId) {
+  if (!socialDepartment?.title || !content) {
     return <ErrorPage statusCode={404} />;
   }
 
@@ -50,14 +72,16 @@ export default function SocialDepartment({
         <meta property="og:image" content={featuredImage?.node.sourceUrl} />
       </Head>
       <Banner title="Social Department" />
-      <Section title={title}>{<Main {...socialDepartment} />}</Section>
+      <Section title={title}>
+        <Main content={content} featuredImageSrc={featuredImageSrc} />
+      </Section>
       <CTA />
       <EventCalendar posts={eventsPosts} />
     </Layout>
   );
 }
 
-export const getStaticProps: GetStaticProps = async ({
+export const getStaticProps: GetStaticProps<SocialDepartmentProps> = async ({
   params,
   preview = false,
   previewData,
@@ -68,7 +92,7 @@ export const getStaticProps: GetStaticProps = async ({
     props: {
       preview,
       socialDepartment: data.post,
-      events: data.events,
+      events: data.events?.edges ?? null,
     },
     revalidate: 10,
   };
@@ -76,11 +100,13 @@ export const getStaticProps: GetStaticProps = async ({
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const socialData = await getAllSocialDepartmentWithIds();
+
+  const paths = socialData.edges.map(({ node }) => ({
+    params: { id: String(node.databaseId) },
+  }));
+
   return {
-    paths:
-      socialData.edges.map(
-        ({ node }) => `/socialDepartment/${node.databaseId}`
-      ) || [],
-    fallback: true,
+    paths,
+    fallback: "blocking",
   };
 };

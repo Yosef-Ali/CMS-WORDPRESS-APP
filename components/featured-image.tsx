@@ -1,17 +1,26 @@
 import Image from "next/image";
 import { useMemo } from "react";
 
-export default function FeaturedImage(props) {
+interface FeaturedImageProps {
+  videoSource?: {
+    acfvideosource: string;
+  };
+  featuredImageSrc?: string;
+  content: string;
+}
+
+export default function FeaturedImage(props: FeaturedImageProps) {
   const imageUrl = useMemo(
-    () => props.featuredImage?.node.sourceUrl,
-    [props.featuredImage]
+    () => props.featuredImageSrc,
+    [props.featuredImageSrc]
   );
+
   return (
     <div>
       <Image
         width={2000}
         height={1000}
-        alt={""}
+        alt="image"
         priority
         src={imageUrl}
         className="aspect-video w-full object-cover "

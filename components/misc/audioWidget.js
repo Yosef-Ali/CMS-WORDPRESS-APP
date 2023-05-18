@@ -14,21 +14,18 @@ export default function AudioPlayerWidget(props) {
   const title = playlist[currentTrack].title;
 
   const handleClickNext = () => {
-    console.log("click next", playlist?.length, currentTrack);
     setTrackIndex((currentTrack) =>
       currentTrack < playlist?.length - 1 ? currentTrack + 1 : 0
     );
   };
 
   const handleClickPrevious = () => {
-    console.log("click Previous", playlist?.length, currentTrack);
     setTrackIndex((currentTrack) =>
       currentTrack < 1 ? playlist?.length - 1 : currentTrack - 1
     );
   };
 
   const handleEnd = () => {
-    console.log("end");
     setTrackIndex((currentTrack) =>
       currentTrack < playlist?.length - 1 ? currentTrack + 1 : 0
     );

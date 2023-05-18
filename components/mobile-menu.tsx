@@ -63,7 +63,6 @@ export default function MobileMenu({
                   {subMenuOpen && item.submenu && toggle === item.id ? (
                     <ul>
                       {item.submenu.map((sub) => {
-                        //console.log(sub.link);
                         return (
                           <li key={sub.name} className="px-3 py-2 text-left">
                             <Link

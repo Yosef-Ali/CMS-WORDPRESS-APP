@@ -112,7 +112,7 @@ export default function Arcbishops({ archbishops, events }) {
   const eventsPosts = events?.edges;
   const archbishopPost = archbishops.edges[0].node;
   const { title } = archbishopPost;
-  console.log("archbishopPost", archbishopPost);
+
   return (
     <Layout>
       <div className="hidden lg:block">

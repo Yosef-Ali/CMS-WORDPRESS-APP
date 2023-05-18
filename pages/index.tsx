@@ -45,7 +45,7 @@ export default function Index({
       />
       {allWhoWeArePosts.length > 0 && <WhoWeAre posts={allWhoWeArePosts} />}
       {featuredStoriesPosts.length > 0 && (
-        <FeaturedStories posts={featuredStoriesPosts} />
+        <FeaturedStories stories={featuredStoriesPosts} />
       )}
       <CTA />
       {eventsPosts.length > 0 && <EventCalendar posts={eventsPosts} />}

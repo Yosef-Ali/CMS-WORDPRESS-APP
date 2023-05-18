@@ -6,6 +6,8 @@ import NewsPageVideoCards from "../components/news-page-video-cards";
 import NewsPageArticleCards from "../components/news-page-articles";
 import EventCalendar from "../components/event-calendars";
 import CTA from "../components/cta";
+import Banner from "../components/banner";
+import BannerPax from "../components/banner-pax";
 
 // Main function for CatholicTV page
 export default function CatholicTV({
@@ -26,6 +28,7 @@ export default function CatholicTV({
   return (
     <Layout>
       <section className="mx-auto mt-16 max-w-screen-xl">
+        <BannerPax />
         <NewsPageVideoCards
           data={videoNewsPosts}
           header="CATHOLIC TV NEWS"

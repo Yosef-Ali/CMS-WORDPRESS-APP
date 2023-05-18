@@ -45,7 +45,6 @@ export default function AudioWrapper({ audio }) {
   };
 
   const handleEnd = () => {
-    console.log("end");
     setTrackIndex((currentTrack) =>
       currentTrack < 1 ? audio?.length - 1 : currentTrack - 1
     );

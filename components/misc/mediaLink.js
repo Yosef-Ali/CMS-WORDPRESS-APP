@@ -24,7 +24,6 @@ export default function MediaLink(props) {
   };
 
   const handleEnd = () => {
-    console.log("end");
     setTrackIndex((currentTrack) =>
       currentTrack < playlist?.length - 1 ? currentTrack + 1 : 0
     );

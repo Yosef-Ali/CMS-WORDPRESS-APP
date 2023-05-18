@@ -59,12 +59,7 @@ function CustomHits(props) {
   const { exhaustiveNbHits } = results;
   const router = useRouter();
 
-  console.log("results", results.exhaustiveNbHits);
-  console.log("results", results);
-
   const handleClick = (hit) => {
-    console.log("hit-clicked", hit);
-
     const regex = /(?<=\/)[^\/]+(?=\/)/g;
 
     const permalink = hit.permalink.match(regex);
@@ -73,7 +68,7 @@ function CustomHits(props) {
     switch (hit.post_type) {
       case "parishes":
         // logging permalink
-        console.log("permalink", permalink);
+
         // pushing a new route into router instance based on the hit post type and permalink
         return router.push(`/${hit.post_type}/${permalink[2]}`);
         break;
@@ -105,7 +100,6 @@ function CustomHits(props) {
       {exhaustiveNbHits &&
         results.hits.length > 0 &&
         hits.map((hit: any, i: number) => {
-          //console.log("hitMap", hit);
           const Category = hit.taxonomies.category || hit.post_type_label;
           return (
             <Combobox.Option

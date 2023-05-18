@@ -21,8 +21,6 @@ export default function ArticlesPostList({
   // Destructure the posts prop to get an array of posts
   const Posts = posts?.edges;
 
-  // console.log("postType:", postType);
-  // console.log("posts:", posts);
   // Return the JSX code to render the component
   return (
     <div className="container mx-auto px-4 py-8 md:px-6 lg:py-16">

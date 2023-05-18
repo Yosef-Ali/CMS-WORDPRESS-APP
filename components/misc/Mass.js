@@ -2,7 +2,6 @@ import React from "react";
 
 export default function Mass(props) {
   const { parishs: parish } = props;
-  console.log("propsM", props);
   return (
     <div className="mb-10 flex flex-col lg:items-start">
       <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-full bg-black/10 text-black/70">

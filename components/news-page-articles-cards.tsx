@@ -37,7 +37,7 @@ export function CardSmall({ news, path }) {
           {title}
         </div>
         {/*  Render the content of the news */}
-        <div className="font-noto prose px-4 font-light line-clamp-4">
+        <div className="font-noto prose px-4 text-sm font-light leading-5 line-clamp-4">
           <div dangerouslySetInnerHTML={{ __html: content }} />
         </div>
       </div>
@@ -101,7 +101,7 @@ export function CardLarge({ news, path }) {
             {title}
           </div>
           {/*  Render the content of the news */}
-          <div className="font-noto mt-3 justify-self-stretch font-light text-gray-900 line-clamp-5">
+          <div className="font-noto mt-3 justify-self-stretch text-sm font-light leading-5  text-gray-700 line-clamp-5">
             <div dangerouslySetInnerHTML={{ __html: content }} />
           </div>
         </div>

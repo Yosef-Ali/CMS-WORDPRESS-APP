@@ -78,7 +78,7 @@ export default function Index({
       </section>
       <CTA />
       {featuredStoriesPosts.length > 0 && (
-        <FeatureStories posts={featuredStoriesPosts} />
+        <FeatureStories stories={featuredStoriesPosts} />
       )}
     </Layout>
   );

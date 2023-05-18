@@ -17,7 +17,39 @@ import Image from "next/image";
 import EventCalendar from "../../components/event-calendars";
 import Head from "next/head";
 
-function ProfileImage(props) {
+// Define the type for the parish data
+type Parish = {
+  title: string;
+  content: string;
+  slug: string;
+  featuredImage: {
+    node: {
+      sourceUrl: string;
+    };
+  };
+};
+
+// Define the type for the event data
+type Event = {
+  node: {
+    title: string;
+    content: string;
+    databaseId: number;
+    featuredImage: {
+      node: {
+        sourceUrl: string;
+      };
+    };
+  };
+};
+
+// Define the type for the props
+type ParishProps = {
+  parish: Parish | null;
+  events: Event[] | null;
+};
+
+function ProfileImage(props: Parish) {
   const imageUrl = useMemo(
     () => props.featuredImage?.node.sourceUrl,
     [props.featuredImage]
@@ -36,7 +68,7 @@ function ProfileImage(props) {
   );
 }
 
-function ProfileContent(props) {
+function ProfileContent(props: Parish) {
   const { content } = props;
 
   return (
@@ -49,7 +81,7 @@ function ProfileContent(props) {
   );
 }
 
-function ParishProfile(props) {
+function ParishProfile(props: Parish) {
   return (
     <div className="mx-auto flex flex-wrap px-5 py-24">
       <ProfileImage {...props} />
@@ -58,7 +90,13 @@ function ParishProfile(props) {
   );
 }
 
-function Section({ title, children }) {
+function Section({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) {
   return (
     <section className="body-font mx-auto my-20 max-w-7xl text-gray-600">
       <div className="border-b-16 border-black/10 bg-blue-100/80 p-4 md:p-8 ">
@@ -71,10 +109,11 @@ function Section({ title, children }) {
   );
 }
 
-export default function Parish({ parish, events }) {
+export default function ParishPage({ parish, events }: ParishProps) {
   const router = useRouter();
-  const { title, content, featuredImage } = parish;
-  const eventsPosts = events?.edges;
+  const { title, content, featuredImage } = parish ?? {};
+  const featuredImageSrc = featuredImage?.node.sourceUrl;
+  const eventsPosts = events ?? [];
 
   if (!router.isFallback && !parish?.slug) {
     return <ErrorPage statusCode={404} />;
@@ -87,7 +126,7 @@ export default function Parish({ parish, events }) {
         <meta name="description" content={content.slice(0, 50)} />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={content.slice(0, 180)} />
-        <meta property="og:image" content={featuredImage?.node.sourceUrl} />
+        <meta property="og:image" content={featuredImageSrc} />
       </Head>
 
       <Header />
@@ -107,13 +146,15 @@ export default function Parish({ parish, events }) {
   );
 }
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const data = await getSingleParishPost(params?.slug);
+export const getStaticProps: GetStaticProps<ParishProps> = async ({
+  params,
+}) => {
+  const data = await getSingleParishPost(params?.slug as string);
 
   return {
     props: {
-      parish: data.parish,
-      events: data.events,
+      parish: data.parish ?? null,
+      events: data.events?.edges ?? null,
     },
     revalidate: 10,
   };
@@ -121,9 +162,12 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const parishes = await getAllParishesWithSlug();
-  //console.log("getAllParishesWithSlug", parishes);
+  const paths = parishes.edges.map(({ node }) => ({
+    params: { slug: node.slug },
+  }));
+
   return {
-    paths: parishes.edges.map(({ node }) => `/parishes/${node.slug}`) || [],
-    fallback: true,
+    paths,
+    fallback: "blocking",
   };
 };

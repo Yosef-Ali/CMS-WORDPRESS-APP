@@ -2,20 +2,22 @@ import Script from "next/script";
 import { useState, useMemo, useCallback } from "react";
 import { GetYoutubeEmbed } from "../components/misc/get-youtube-embed";
 
-export default function YouTubePlayer(props) {
-  const VideoUrl = props.videoSource.acfvideosource;
+interface YouTubePlayerProps {
+  videoSrc: string;
+}
+
+export default function YouTubePlayer({ videoSrc }: YouTubePlayerProps) {
   const isVideo = useMemo(
-    () => VideoUrl?.slice(0, 17) === "https://youtu.be/",
-    [VideoUrl]
+    () => videoSrc?.slice(0, 17) === "https://youtu.be/",
+    [videoSrc]
   );
   const YouTubeUrl = useMemo(
-    () => isVideo && GetYoutubeEmbed(VideoUrl),
-    [isVideo, VideoUrl]
+    () => isVideo && GetYoutubeEmbed(videoSrc),
+    [isVideo, videoSrc]
   );
   const [isLoading, setIsLoading] = useState(true);
   const handleOnLoad = useCallback(() => {
     setIsLoading(false);
-    console.log("handleOnLoad:", "...loaded");
   }, []);
   return (
     <>
