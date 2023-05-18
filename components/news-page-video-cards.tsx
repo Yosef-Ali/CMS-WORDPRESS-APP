@@ -1,11 +1,11 @@
-// This component renders a list of video cards with a large card and small cards
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 import { ChevronRight } from "./misc/Icons";
-import YouTubLargeSkeleton from "./misc/YouTubLargeSkeleton";
+import YouTubLarge from "./misc/youtubLarge";
 import YouTubSmall from "./misc/YouTubSmall";
+import YouTubLargeSkeleton from "./misc/youtubLargeSkeleton";
 
 const YouTubLargeCard = dynamic(() => import("./misc/youtubLarge"), {
   ssr: false, // server side rendering is disabled
@@ -24,7 +24,9 @@ export default function NewsPageVideoCards({ data, header, viewMoreLink }) {
     const selectedCard = data[selectedCardIndex];
 
     return (
-      <YouTubLargeCard key={selectedCard.databaseId} news={selectedCard} />
+      <Suspense fallback={<YouTubLargeSkeleton />}>
+        <YouTubLargeCard key={selectedCard.databaseId} news={selectedCard} />
+      </Suspense>
     );
   };
 
