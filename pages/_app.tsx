@@ -29,7 +29,7 @@ const inter = Inter({
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <div
-      className={`${inter.variable} font-sans, ${noto_Sans_Ethiopic.variable} font-noto`}
+      className={`${inter.variable} font-sans ${noto_Sans_Ethiopic.variable} font-noto`}
     >
       <Component {...pageProps} />
     </div>
