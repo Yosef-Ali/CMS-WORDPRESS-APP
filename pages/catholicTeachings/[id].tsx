@@ -57,7 +57,6 @@ export default function CatholicTeachings({
 
   const { title, content, featuredImage, videoSource } = catholicTeaching ?? {};
   const featuredImageSrc = featuredImage?.node.sourceUrl;
-  const videoSrc = videoSource?.acfvideosource;
 
   if (!catholicTeaching?.title || !content) {
     return <ErrorPage statusCode={404} />;
@@ -77,7 +76,7 @@ export default function CatholicTeachings({
         <Main
           content={content}
           featuredImageSrc={featuredImageSrc}
-          videoSource={videoSource?.acfvideosource}
+          videoSource={videoSource}
         />
       </Section>
       <CTA />

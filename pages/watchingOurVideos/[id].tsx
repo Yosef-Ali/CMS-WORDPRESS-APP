@@ -51,6 +51,7 @@ const WatchingOurVideos = ({
 }: WatchingOurVideosProps) => {
   const router = useRouter();
   const { title, content, videoSource } = news;
+  const { acfvideosource } = videoSource || {};
 
   if (!title || !content) {
     return <ErrorPage statusCode={404} />;
@@ -68,7 +69,7 @@ const WatchingOurVideos = ({
       <Banner title="Catholic's Teachings" />
       <Section title={title}>
         {/* in this case featuredImageSrc is a video file */}
-        <YouTubePlayer videoSrc={videoSource?.acfvideosource} />
+        <YouTubePlayer videoSrc={acfvideosource} />
         <Content content={content} />
       </Section>
       <CTA />
