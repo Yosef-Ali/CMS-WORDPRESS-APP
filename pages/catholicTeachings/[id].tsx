@@ -21,6 +21,9 @@ interface Post {
       sourceUrl: string;
     };
   };
+  videoSource?: {
+    acfvideosource: string;
+  };
 }
 
 interface FeaturedStoryNode {
@@ -52,8 +55,9 @@ export default function CatholicTeachings({
 }: CatholicTeachingsProps) {
   const router = useRouter();
 
-  const { title, content, featuredImage } = catholicTeaching ?? {};
+  const { title, content, featuredImage, videoSource } = catholicTeaching ?? {};
   const featuredImageSrc = featuredImage?.node.sourceUrl;
+  const videoSrc = videoSource?.acfvideosource;
 
   if (!catholicTeaching?.title || !content) {
     return <ErrorPage statusCode={404} />;
@@ -70,7 +74,11 @@ export default function CatholicTeachings({
       </Head>
       <Banner title="Catholic Teachings" />
       <Section title={title}>
-        <Main content={content} featuredImageSrc={featuredImageSrc} />
+        <Main
+          content={content}
+          featuredImageSrc={featuredImageSrc}
+          videoSource={videoSource?.acfvideosource}
+        />
       </Section>
       <CTA />
       {featuredStories?.length > 0 && (

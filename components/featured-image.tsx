@@ -1,19 +1,12 @@
 import Image from "next/image";
-import { useMemo } from "react";
 
 interface FeaturedImageProps {
-  videoSource?: {
-    acfvideosource: string;
-  };
   featuredImageSrc?: string;
-  content: string;
 }
 
 export default function FeaturedImage(props: FeaturedImageProps) {
-  const imageUrl = useMemo(
-    () => props.featuredImageSrc,
-    [props.featuredImageSrc]
-  );
+  // Remove the useMemo hook and just use props.featuredImageSrc directly
+  const imageUrl = props.featuredImageSrc;
 
   return (
     <div>

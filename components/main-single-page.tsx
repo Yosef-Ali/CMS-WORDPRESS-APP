@@ -3,23 +3,29 @@ import YouTubePlayer from "./youtube-player";
 import Content from "./content-single-page";
 
 interface MainProps {
+  content: string;
+  featuredImageSrc: string;
   videoSource?: {
     acfvideosource: string;
   };
-  featuredImageSrc?: string;
-  content: string;
 }
 
 export default function Main(props: MainProps) {
-  const YouTubeUrl = props.videoSource?.acfvideosource;
+  // Destructure the props object to get the individual properties
+  const { content, featuredImageSrc, videoSource } = props;
+
+  // Destructure the videoSource object to get the acfvideosource property
+  const { acfvideosource: YouTubeUrl } = videoSource || {};
+
   return (
     <div>
       {!YouTubeUrl ? (
-        <FeaturedImage {...props} />
+        // Use the destructured properties directly instead of props
+        <FeaturedImage featuredImageSrc={featuredImageSrc} />
       ) : (
-        <YouTubePlayer videoSrc={props.videoSource?.acfvideosource} />
+        <YouTubePlayer videoSrc={YouTubeUrl} />
       )}
-      <Content {...props} />
+      <Content content={content} />
     </div>
   );
 }

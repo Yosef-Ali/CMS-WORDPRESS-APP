@@ -7,6 +7,7 @@ interface YouTubePlayerProps {
 }
 
 export default function YouTubePlayer({ videoSrc }: YouTubePlayerProps) {
+  console.log("videoSrc", videoSrc);
   const isVideo = useMemo(
     () => videoSrc?.slice(0, 17) === "https://youtu.be/",
     [videoSrc]

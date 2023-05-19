@@ -19,6 +19,9 @@ interface Post {
       sourceUrl: string;
     };
   };
+  videoSource?: {
+    acfvideosource: string;
+  };
 }
 
 interface FeaturedStoryNode {
@@ -43,7 +46,7 @@ interface NewsProps {
 }
 
 export default function News({ post, featuredStories, preview }: NewsProps) {
-  const { title, content, featuredImage } = post ?? {};
+  const { title, content, featuredImage, videoSource } = post ?? {};
   const featuredImageSrc = featuredImage?.node.sourceUrl;
 
   if (!post?.title || !content) {
@@ -61,7 +64,11 @@ export default function News({ post, featuredStories, preview }: NewsProps) {
       </Head>
       <Banner title="Catholic TV News" />
       <Section title={title}>
-        <Main content={content} featuredImageSrc={featuredImageSrc} />
+        <Main
+          content={content}
+          featuredImageSrc={featuredImageSrc}
+          videoSource={videoSource}
+        />
       </Section>
       <CTA />
       {featuredStories?.length > 0 && (
