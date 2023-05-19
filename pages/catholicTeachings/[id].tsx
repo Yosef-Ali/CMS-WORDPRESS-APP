@@ -51,7 +51,7 @@ const Hero = () => <div className="h-96 w-full bg-blue-200"></div>;
 export default function CatholicTeachings({
   catholicTeaching,
   featuredStories,
-  preview = false,
+  preview,
 }: CatholicTeachingsProps) {
   const router = useRouter();
 
@@ -90,7 +90,6 @@ export default function CatholicTeachings({
 export const getStaticProps: GetStaticProps<CatholicTeachingsProps> = async ({
   params,
   preview = false,
-  previewData,
 }) => {
   const data = await getSingleCatholicTeachingsPost(params?.id);
 

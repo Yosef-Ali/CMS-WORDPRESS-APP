@@ -20,4 +20,5 @@ module.exports = {
     // Will be available on both server and client
     API_KEY: process.env.WORDPRESS_API_URL,
   },
+  distDir: "build",
 };
