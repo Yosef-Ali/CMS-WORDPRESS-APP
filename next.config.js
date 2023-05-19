@@ -21,4 +21,8 @@ module.exports = {
     API_KEY: process.env.WORDPRESS_API_URL,
   },
   distDir: "build",
+
+  env: {
+    WORDPRESS_API_URL: "https://ethiocatholicaddis.org/wordpress/graphql",
+  },
 };
