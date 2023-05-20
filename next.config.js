@@ -9,7 +9,7 @@ module.exports = {
     ],
   },
   env: {
-    WORDPRESS_API_URL: "https://ethiocatholicaddis.org/wordpress/graphql",
+    WORDPRESS_API_URL: "https://ethiocatholicaddis.org/acs-cms/graphql",
   },
   distDir: "build",
 };
