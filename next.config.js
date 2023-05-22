@@ -40,7 +40,7 @@ const nextConfig = {
   },
   publicRuntimeConfig: {
     // Will be available on both server and client
-    API_KEY: "https://ethiocatholicaddis.org/acs-cms/graphql",
+    WORDPRESS_API_URL: "https://ethiocatholicaddis.org/acs-cms/graphql",
   },
 };
 
