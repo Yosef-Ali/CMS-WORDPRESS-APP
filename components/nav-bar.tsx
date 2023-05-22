@@ -44,7 +44,7 @@ export default function NavBar({
           </div>
           <Link
             href="https://ethiocatholicaddis.org/acs-cms/wp-admin/"
-            className="rounded bg-primary px-6 py-2 uppercase"
+            className="flex items-center justify-center rounded bg-primary px-6  uppercase "
           >
             Sign in
           </Link>
