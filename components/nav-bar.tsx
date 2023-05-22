@@ -43,7 +43,7 @@ export default function NavBar({
             </Link>
           </div>
           <Link
-            href="https://ethiocatholicaddis.org/wp-login.php"
+            href="https://ethiocatholicaddis.org/acs-cms/wp-admin/"
             className="rounded bg-primary px-6 py-2 uppercase"
           >
             Sign in
