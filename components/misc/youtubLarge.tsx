@@ -4,7 +4,8 @@ import YouTubePlayer from "../youtube-player";
 import Moment from "react-moment";
 
 export default function YouTubLargeCard({ news }) {
-  const { title, content, date, videoSource } = news.node;
+  console.log('news:', news)
+  const { title, content, date, videoSource } = news?.node;
 
   return (
     <Link

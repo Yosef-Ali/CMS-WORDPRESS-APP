@@ -25,7 +25,9 @@ export default function NewsPageVideoCards({ data, header, viewMoreLink }) {
 
     return (
       <Suspense fallback={<YouTubLargeSkeleton />}>
-        <YouTubLargeCard key={selectedCard.databaseId} news={selectedCard} />
+        {selectedCard &&
+          <YouTubLargeCard key={selectedCardIndex} news={selectedCard} />
+        }
       </Suspense>
     );
   };

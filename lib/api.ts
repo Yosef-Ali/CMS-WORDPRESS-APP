@@ -396,7 +396,7 @@ export async function getAllPostsCatholicTV() {
     `
     query AllPosts {
       posts(
-        where: {categoryName: "Catholic Tv News", orderby: {field: DATE, order: DESC}, hasVideoSource: true}
+        where: {categoryName: "Catholic Tv News", orderby: {field: DATE, order: DESC}}
         first: 100
       ) {
         edges {
@@ -417,7 +417,7 @@ export async function getAllPostsCatholicTV() {
         }
       }
       newsArticles: posts(
-        where: {categoryName: "Catholic Tv News", orderby: {field: AUTHOR, order: ASC}, hasVideoSource: false, hasNoVideoSourceAndFeaturedImage: true}
+        where: {categoryName: "Catholic Tv News", tag: "Article", orderby: {field: DATE, order: DESC}}
         first: 100
       ) {
         edges {
@@ -434,8 +434,24 @@ export async function getAllPostsCatholicTV() {
           }
         }
       }
+      catholicTvVideoNews:posts(
+        where: {tag: "video", categoryName: "Catholic Tv News", orderby: {field: DATE, order: DESC}, hasVideoSource: true}
+        first: 100
+      ) {
+        edges {
+          node {
+            databaseId
+            title
+            content
+            date
+            videoSource {
+              acfvideosource
+            }
+          }
+        }
+      }
       catholicTeachingsVideo:posts(
-        where: {categoryName: "Catholic Teachings", orderby: {field: DATE, order: DESC}, hasVideoSource: true}
+        where: {categoryName: "Catholic Teachings", tag: "video", orderby: {field: DATE, order: DESC}, hasVideoSource: true}
         first: 100
       ) {
         edges {
@@ -456,7 +472,7 @@ export async function getAllPostsCatholicTV() {
         }
       }
       catholicTeachingsArticles: posts(
-        where: {categoryName: "Catholic Teachings", orderby: {field: AUTHOR, order: ASC}, hasVideoSource: false, hasNoVideoSourceAndFeaturedImage: true}
+        where: {tag: "Article",categoryName: "Catholic Teachings", orderby: {field: AUTHOR, order: ASC}}
         first: 100
       ) {
         edges {

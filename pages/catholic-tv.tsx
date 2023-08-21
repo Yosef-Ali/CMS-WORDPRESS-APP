@@ -69,9 +69,10 @@ export default function CatholicTV({
 // Function to get static props from API
 export const getStaticProps: GetStaticProps = async () => {
   const data = await getAllPostsCatholicTV();
+
   return {
     props: {
-      videoNews: data.posts,
+      videoNews: data.catholicTvVideoNews,
       newsArticles: data.newsArticles,
       catholicTeachingsVideo: data.catholicTeachingsVideo,
       catholicTeachingsArticles: data.catholicTeachingsArticles,
