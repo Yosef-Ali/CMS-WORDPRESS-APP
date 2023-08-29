@@ -27,7 +27,7 @@ export default function CatholicTV({
   // Rendering the page with all the components
   return (
     <Layout>
-      {/* <section className="mx-auto mt-16 max-w-screen-xl">
+      <section className="mx-auto mt-16 max-w-screen-xl">
         <BannerPax />
         <NewsPageVideoCards
           data={videoNewsPosts}
@@ -43,14 +43,15 @@ export default function CatholicTV({
           readMoreLink="/news"
           moreUrl="/news"
         />
-      </section> */}
+      </section>
       <CTA />
       <section className="mx-auto max-w-screen-xl">
-        {/* <NewsPageVideoCards
-          data={catholicTeachingVideoPosts}
+        <NewsPageVideoCards
+          // data={catholicTeachingVideoPosts}
+          data={newsArticlesPosts}
           header="CATHOLIC Teachings"
           viewMoreLink="/catholicTeachings"
-        /> */}
+        />
 
         <NewsPageArticleCards
           data={catholicTeachingsArticlePosts}
