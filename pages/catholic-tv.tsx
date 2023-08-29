@@ -45,14 +45,14 @@ export default function CatholicTV({
         />
       </section> */}
       <CTA />
-      <section className="mx-auto max-w-screen-xl ">
+      <section className="mx-auto max-w-screen-xl">
         <NewsPageVideoCards
           data={catholicTeachingVideoPosts}
           header="CATHOLIC Teachings"
           viewMoreLink="/catholicTeachings"
         />
 
-        <NewsPageArticleCards
+        {/* <NewsPageArticleCards
           data={catholicTeachingsArticlePosts}
           header="Catholic Teachings"
           path="/catholicTeachings"
@@ -60,7 +60,7 @@ export default function CatholicTV({
           title="It is the LORD"
           readMoreLink="/itIsTheLORD"
           moreUrl="/itIsTheLORD"
-        />
+        /> */}
       </section>
     </Layout>
   );
