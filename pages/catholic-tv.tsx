@@ -47,8 +47,8 @@ export default function CatholicTV({
       <CTA />
       <section className="mx-auto max-w-screen-xl">
         <NewsPageVideoCards
-          // data={catholicTeachingVideoPosts}
-          data={newsArticlesPosts}
+          data={catholicTeachingVideoPosts}
+          //data={newsArticlesPosts}
           header="CATHOLIC Teachings"
           viewMoreLink="/catholicTeachings"
         />
