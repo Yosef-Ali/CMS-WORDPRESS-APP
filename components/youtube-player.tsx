@@ -25,10 +25,10 @@ export default function YouTubePlayer({ videoSrc }: YouTubePlayerProps) {
       <Script src="https://www.youtube.com/iframe_api" />
       <>
         {isLoading && (
-          <div className="aspect-[16/9] w-full animate-pulse bg-gray-200"></div>
+          <div className="aspect-[16/9] w-full max-h-360 sm:max-h-480 md:max-h-640 animate-pulse bg-gray-200"></div>
         )}
         <iframe
-          className="aspect-[16/9] w-full"
+          className="aspect-[16/9] w-full max-h-360 sm:max-h-480 md:max-h-640"
           src={YouTubeUrl}
           title="YouTube video player"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture full"
