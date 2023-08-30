@@ -406,7 +406,7 @@ export async function getAllPostsCatholicTV() {
             content
             date
             videoSource {
-              acfvideosource(aspectRatio: "9x16")
+              acfvideosource
             }
             featuredImage {
               node {
@@ -445,7 +445,7 @@ export async function getAllPostsCatholicTV() {
             content
             date
             videoSource {
-              acfvideosource(aspectRatio: "9x16")
+              acfvideosource
             }
           }
         }
@@ -461,7 +461,7 @@ export async function getAllPostsCatholicTV() {
             content
             date
             videoSource {
-              acfvideosource(aspectRatio: "9x16")
+              acfvideosource
             }
             featuredImage {
               node {
@@ -504,7 +504,7 @@ export async function getAllPostsCatholicTV() {
               }
             }
             videoSource {
-              acfvideosource(aspectRatio: "9x16")
+              acfvideosource
             }
           }
         }
